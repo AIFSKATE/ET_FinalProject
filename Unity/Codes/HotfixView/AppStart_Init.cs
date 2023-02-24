@@ -14,6 +14,7 @@ namespace ET
 
             // 加载配置
             Game.Scene.AddComponent<ResourcesComponent>();
+            Game.Scene.AddComponent<AddressablesMgrComponent>();
             await ResourcesComponent.Instance.LoadBundleAsync("config.unity3d");
             Game.Scene.AddComponent<ConfigComponent>();
             ConfigComponent.Instance.Load();

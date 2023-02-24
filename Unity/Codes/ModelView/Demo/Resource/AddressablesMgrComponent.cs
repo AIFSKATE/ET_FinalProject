@@ -131,7 +131,8 @@ namespace ET
         {
             string keyName = name + "_" + typeof(T).Name;
             AsyncOperationHandle<T> handle;
-
+            Log.Debug("55555555555555555555");
+            Log.Debug("777777777777777777777");
             if (self.resDic.ContainsKey(keyName))
             {
                 handle = self.resDic[keyName].Convert<T>();
@@ -141,7 +142,7 @@ namespace ET
                 }
                 return handle.Result;
             }
-
+            Log.Debug("66666666666666666666666");
             handle = Addressables.LoadAssetAsync<T>(name);
             await handle.Task;
             self.resDic.Add(keyName, handle);
