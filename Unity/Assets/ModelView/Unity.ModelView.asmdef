@@ -6,7 +6,9 @@
         "Unity.Mono",
         "Unity.ThirdParty",
         "Unity.ResourceManager",
-        "Unity.Addressables"
+        "Unity.Addressables",
+        "Cinemachine",
+        "Unity.Timeline"
     ],
     "includePlatforms": [
         "Editor"

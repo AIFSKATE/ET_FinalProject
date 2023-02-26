@@ -30,8 +30,10 @@ namespace ET
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
+                Log.Warning("你差点点了");
                 if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
                 {
+                    Log.Warning("你确实点了");
                     self.ClickPoint = hit.point;
                     self.frameClickMap.X = self.ClickPoint.x;
                     self.frameClickMap.Y = self.ClickPoint.y;
@@ -50,11 +52,11 @@ namespace ET
             }
             
             // KeyCode.T
-            if (InputHelper.GetKeyDown(116))
-            {
-                C2M_TransferMap c2MTransferMap = new C2M_TransferMap();
-                self.ZoneScene().GetComponent<SessionComponent>().Session.Call(c2MTransferMap).Coroutine();
-            }
+            //if (InputHelper.GetKeyDown(116))
+            //{
+            //    C2M_TransferMap c2MTransferMap = new C2M_TransferMap();
+            //    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(c2MTransferMap).Coroutine();
+            //}
         }
     }
 }

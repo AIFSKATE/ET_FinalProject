@@ -4,7 +4,7 @@
     {
         protected override void Run(EventType.SceneChangeFinish args)
         {
-            UIHelper.Create(args.CurrentScene, UIType.UIHelp, UILayer.Mid).Coroutine();
+            //UIHelper.Create(args.CurrentScene, UIType.UIHelp, UILayer.Mid).Coroutine();
         }
     }
 }
