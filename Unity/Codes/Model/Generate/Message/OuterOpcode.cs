@@ -32,5 +32,13 @@ namespace ET
 		 public const ushort M2C_TestRobotCase = 10029;
 		 public const ushort C2M_TransferMap = 10030;
 		 public const ushort M2C_TransferMap = 10031;
+		 public const ushort C2M_Standingby = 10032;
+		 public const ushort M2C_Standingby = 10033;
+		 public const ushort C2M_Startlevel = 10034;
+		 public const ushort M2C_Startlevel = 10035;
+		 public const ushort C2M_SnowSlash = 10036;
+		 public const ushort M2C_SnowSlash = 10037;
+		 public const ushort C2M_DamageMonsters = 10038;
+		 public const ushort M2C_DamageMonsters = 10039;
 	}
 }

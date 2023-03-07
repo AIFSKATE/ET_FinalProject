@@ -107,5 +107,16 @@ namespace ET
         {
             public Unit Unit;
         }
+
+        public struct SnowSlash
+        {
+            public Unit Unit;
+            public Session session;
+        }
+
+        public struct TestEvent
+        {
+            //public Scene zonescene;
+        }
     }
 }

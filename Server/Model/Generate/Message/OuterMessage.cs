@@ -493,4 +493,99 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(M2C_Standingby))]
+	[Message(OuterOpcode.C2M_Standingby)]
+	[ProtoContract]
+	public partial class C2M_Standingby: Object, IActorLocationRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_Standingby)]
+	[ProtoContract]
+	public partial class M2C_Standingby: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[ResponseType(nameof(M2C_Startlevel))]
+	[Message(OuterOpcode.C2M_Startlevel)]
+	[ProtoContract]
+	public partial class C2M_Startlevel: Object, IActorLocationRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_Startlevel)]
+	[ProtoContract]
+	public partial class M2C_Startlevel: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_SnowSlash)]
+	[ProtoContract]
+	public partial class C2M_SnowSlash: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_SnowSlash)]
+	[ProtoContract]
+	public partial class M2C_SnowSlash: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_DamageMonsters)]
+	[ProtoContract]
+	public partial class C2M_DamageMonsters: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public List<long> ids = new List<long>();
+
+	}
+
+	[Message(OuterOpcode.M2C_DamageMonsters)]
+	[ProtoContract]
+	public partial class M2C_DamageMonsters: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public List<long> ids = new List<long>();
+
+	}
+
 }

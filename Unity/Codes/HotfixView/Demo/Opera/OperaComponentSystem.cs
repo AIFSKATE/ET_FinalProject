@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ET
 {
@@ -20,20 +21,32 @@ namespace ET
             self.Update();
         }
     }
-    
+
     [FriendClass(typeof(OperaComponent))]
     public static class OperaComponentSystem
     {
         public static void Update(this OperaComponent self)
         {
+
+            if (InputHelper.GetMouseButtonDown(0))
+            {
+                //GameObject SnowSlash = RecyclePoolComponent.Instance.Get("SnowSlash");
+                //Scene currentScene = self.DomainScene();
+                //Scene ZoneScene = currentScene.DomainScene().Parent.ZoneScene();
+                //var id = ZoneScene.GetComponent<PlayerComponent>().MyId;
+                //UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
+                //var myunit = unitComponent.Get(id);
+                //var mygameobject = myunit.GetComponent<GameObjectComponent>().GameObject;
+                //GameObject.Instantiate(SnowSlash, mygameobject.transform);
+                self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_SnowSlash()).Coroutine();
+            }
+
             if (InputHelper.GetMouseButtonDown(1))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                Log.Warning("你差点点了");
                 if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
                 {
-                    Log.Warning("你确实点了");
                     self.ClickPoint = hit.point;
                     self.frameClickMap.X = self.ClickPoint.x;
                     self.frameClickMap.Y = self.ClickPoint.y;
@@ -50,7 +63,7 @@ namespace ET
                 Game.EventSystem.Load();
                 Log.Debug("hot reload success!");
             }
-            
+
             // KeyCode.T
             //if (InputHelper.GetKeyDown(116))
             //{

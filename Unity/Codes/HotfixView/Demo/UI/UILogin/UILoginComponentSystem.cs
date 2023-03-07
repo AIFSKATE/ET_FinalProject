@@ -31,5 +31,12 @@ namespace ET
                 self.account.GetComponent<InputField>().text,
                 self.password.GetComponent<InputField>().text).Coroutine();
         }
+
+        public static async void OnTest(this UILoginComponent self)
+        {
+            var cube = await AddressablesMgrComponent.Instance.LoadAssetAsync<UnityEngine.GameObject>("Cube");
+            Log.Debug(cube.name);
+            UnityEngine.GameObject.Instantiate(cube);
+        }
     }
 }

@@ -238,4 +238,52 @@ message M2C_TransferMap // IActorLocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
- 
+
+//ResponseType M2C_Standingby
+message C2M_Standingby // IActorLocationRequest
+{
+	int32 RpcId = 1;
+}
+
+message M2C_Standingby // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2C_Startlevel
+message C2M_Startlevel // IActorLocationRequest
+{
+	int32 RpcId = 1;
+}
+
+message M2C_Startlevel // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2M_SnowSlash // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_SnowSlash // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_DamageMonsters // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	repeated int64 ids = 1;
+}
+
+message M2C_DamageMonsters // IActorMessage
+{
+	int32 RpcId = 90;
+	repeated int64 ids = 1;
+}

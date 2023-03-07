@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,17 +67,6 @@ namespace ET
                 CameraComponent.Instance = null;
             }
         }
-
-        public static void SetTarget(this CameraComponent self, Transform transform)
-        {
-            var transposer = self.cinemachine.AddCinemachineComponent<CinemachineTransposer>(); //添加Transposer组件，用于目标跟随
-            var composer = self.cinemachine.AddCinemachineComponent<CinemachineHardLookAt>(); //添加Composer组件，用于看向目标
-            transposer.m_FollowOffset = new Vector3(0, 4.5f, 2); //设置跟随偏移
-            transposer.m_BindingMode = BindingMode.WorldSpace;
-            self.cinemachine.Follow = transform;
-            self.cinemachine.LookAt = transform;
-        }
-
     }
 }
 

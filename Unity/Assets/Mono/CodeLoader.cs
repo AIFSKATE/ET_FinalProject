@@ -65,8 +65,8 @@ namespace ET
 					(AssetBundle assetsBundle, Dictionary<string, UnityEngine.Object> dictionary) = AssetsBundleHelper.LoadBundle("code.unity3d");
 					byte[] assBytes = ((TextAsset)dictionary["Code.dll"]).bytes;
 					byte[] pdbBytes = ((TextAsset)dictionary["Code.pdb"]).bytes;
-					
-					if (assetsBundle != null)
+
+						if (assetsBundle != null)
 					{
 						assetsBundle.Unload(true);	
 					}

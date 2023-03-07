@@ -14,7 +14,7 @@ namespace ET
 
             // 加载配置
             Game.Scene.AddComponent<ResourcesComponent>();
-            Game.Scene.AddComponent<AddressablesMgrComponent>();
+            //Game.Scene.AddComponent<AddressablesMgrComponent>();
             await ResourcesComponent.Instance.LoadBundleAsync("config.unity3d");
             Game.Scene.AddComponent<ConfigComponent>();
             ConfigComponent.Instance.Load();
@@ -30,11 +30,12 @@ namespace ET
             Game.Scene.AddComponent<GlobalComponent>();
             Game.Scene.AddComponent<NumericWatcherComponent>();
             Game.Scene.AddComponent<AIDispatcherComponent>();
-            Game.Scene.AddComponent<CameraComponent>();
+            Game.Scene.AddComponent<RecyclePoolComponent>();
+            //Game.Scene.AddComponent<CameraComponent>();
             await ResourcesComponent.Instance.LoadBundleAsync("unit.unity3d");
-            var cube = await AddressablesMgrComponent.Instance.LoadAssetAsync<UnityEngine.GameObject>("Cube");
-            Log.Debug(cube.name);
-            UnityEngine.GameObject.Instantiate(cube);
+            //var cube = await AddressablesMgrComponent.Instance.LoadAssetAsync<UnityEngine.GameObject>("Cube");
+            //Log.Debug(cube.name);
+            //UnityEngine.GameObject.Instantiate(cube);
             Scene zoneScene = SceneFactory.CreateZoneScene(1, "Game", Game.Scene);
             
             Game.EventSystem.Publish(new EventType.AppStartInitFinish() { ZoneScene = zoneScene });

@@ -186,9 +186,9 @@ namespace ET
             File.Copy(Path.Combine(Define.BuildOutputDir, "Code.pdb"), Path.Combine(CodeDir, "Code.pdb.bytes"), true);
             AssetDatabase.Refresh();
             Debug.Log("copy Code.dll to Bundles/Code success!");
-            
-            // 设置ab包
-            AssetImporter assetImporter1 = AssetImporter.GetAtPath("Assets/Bundles/Code/Code.dll.bytes");
+
+            //设置ab包
+           AssetImporter assetImporter1 = AssetImporter.GetAtPath("Assets/Bundles/Code/Code.dll.bytes");
             assetImporter1.assetBundleName = "Code.unity3d";
             AssetImporter assetImporter2 = AssetImporter.GetAtPath("Assets/Bundles/Code/Code.pdb.bytes");
             assetImporter2.assetBundleName = "Code.unity3d";

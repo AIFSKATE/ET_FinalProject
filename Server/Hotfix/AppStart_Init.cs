@@ -31,7 +31,7 @@ namespace ET
             Game.Scene.AddComponent<ActorMessageDispatcherComponent>();
             // 数值订阅组件
             Game.Scene.AddComponent<NumericWatcherComponent>();
-            
+            Game.Scene.AddComponent<PositionComponent>();
             Game.Scene.AddComponent<NetThreadComponent>();
             
             Game.Scene.AddComponent<NavmeshComponent, Func<string, byte[]>>(RecastFileReader.Read);

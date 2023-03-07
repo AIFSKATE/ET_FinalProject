@@ -40,6 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6dc25b974caf41f40bb1da8b00d1d401, type: 2}
   - {fileID: 11400000, guid: 511820e8aaad09543a76bd0eb96376cf, type: 2}
   - {fileID: 11400000, guid: 6ba8deb7a94687846acaf9c3b1d86044, type: 2}
+  - {fileID: 11400000, guid: 4acdafc4edcdeec418917cabc57ee85b, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -61,6 +62,10 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: 3d085ed22cf3ebb43b6ffb3e63c8c674
         m_Value: http://localhost/[BuildTarget]
+      - m_Id: 7a19f74c7b06c944398be826e31dbb86
+        m_Value: D:/Unity/project/ETTry/Build
+      - m_Id: 4f63719db064b714099c449947c87ea0
+        m_Value: D:/Unity/project/ETTry/Load
     m_ProfileEntryNames:
     - m_Id: 79089ad91608d514783bd6134e013c65
       m_Name: BuildTarget
@@ -76,6 +81,12 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: 3d085ed22cf3ebb43b6ffb3e63c8c674
       m_Name: RemoteLoadPath
+      m_InlineUsage: 0
+    - m_Id: 7a19f74c7b06c944398be826e31dbb86
+      m_Name: New Entry.BuildPath
+      m_InlineUsage: 0
+    - m_Id: 4f63719db064b714099c449947c87ea0
+      m_Name: New Entry.LoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:

@@ -47,3 +47,9 @@ MonoBehaviour:
   - key: Skeleton
     gameObject: {fileID: 1074915309716298, guid: 2f6d8434873a4c243beba619ecc54c42,
       type: 3}
+  - key: Enemy1
+    gameObject: {fileID: 8230766273605467533, guid: 58b0b04abfa5e23408f163b74dfd6edb,
+      type: 3}
+  - key: SnowSlash
+    gameObject: {fileID: 2060900179291159282, guid: ca6705a3f9070d14d819d179493bcfa0,
+      type: 3}
