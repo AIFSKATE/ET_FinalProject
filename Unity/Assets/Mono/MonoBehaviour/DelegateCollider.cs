@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ET
@@ -5,15 +6,13 @@ namespace ET
     public class DelegateCollider : MonoBehaviour
     {
         public long BelongToUnitId;
-
-        public delegate void On_Trigger(Collider other);
-        public delegate void On_Collision(Collision other);
-        public On_Trigger on_TriggerEnter;
-        public On_Trigger on_TriggerStay;
-        public On_Trigger on_TriggerExit;
-        public On_Collision on_CollisionEnter;
-        public On_Collision on_CollisionStay;
-        public On_Collision on_CollisionExit;
+        
+        public Action<Collider> on_TriggerEnter;
+        public Action<Collider> on_TriggerStay;
+        public Action<Collider> on_TriggerExit;
+        public Action<Collision> on_CollisionEnter;
+        public Action<Collision> on_CollisionStay;
+        public Action<Collision> on_CollisionExit;
         private void OnTriggerEnter(Collider other)
         {
             on_TriggerEnter?.Invoke(other);

@@ -4,7 +4,8 @@
     "references": [
         "Unity.ThirdParty",
         "Unity.ResourceManager",
-        "Unity.Addressables"
+        "Unity.Addressables",
+        "Cinemachine"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

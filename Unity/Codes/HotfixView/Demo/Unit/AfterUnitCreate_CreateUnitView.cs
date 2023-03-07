@@ -21,7 +21,7 @@ namespace ET
                         go.transform.position = args.Unit.Position;
                         args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
                         args.Unit.AddComponent<AnimatorComponent>();
-                        //args.Unit.AddComponent<SkeletonMonoComponent>();
+                        args.Unit.AddComponent<SkeletonMonoComponent>();
                         return;
                     }
                 case 1002:
@@ -32,7 +32,7 @@ namespace ET
                         go.transform.position = args.Unit.Position;
                         args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
                         args.Unit.AddComponent<AnimatorComponent>();
-                        //args.Unit.AddComponent<TriggerComponent>();
+                        args.Unit.AddComponent<TriggerComponent>();
                         return;
                     }
             }

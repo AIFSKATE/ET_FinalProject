@@ -40,10 +40,12 @@ namespace ET
             list.Add(typeof(ListComponent<ILTypeInstance>));
             list.Add(typeof(ListComponent<ETTask>));
             list.Add(typeof(ListComponent<Vector3>));
-            
+
             // 注册重定向函数
 
             // 注册委托
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collision>();
             appdomain.DelegateManager.RegisterMethodDelegate<List<object>>();
             appdomain.DelegateManager.RegisterMethodDelegate<object>();
             appdomain.DelegateManager.RegisterMethodDelegate<bool>();

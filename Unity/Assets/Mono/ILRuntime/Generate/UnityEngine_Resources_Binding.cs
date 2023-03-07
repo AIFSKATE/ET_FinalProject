@@ -26,6 +26,9 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.String)};
             method = methods.Where(t => t.Name.Equals("Load") && t.CheckMethodParams(args)).Single();
             app.RegisterCLRMethodRedirection(method, Load_0);
+            args = new Type[]{};
+            method = type.GetMethod("UnloadUnusedAssets", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, UnloadUnusedAssets_1);
 
 
         }
@@ -43,6 +46,17 @@ namespace ILRuntime.Runtime.Generated
 
 
             var result_of_this_method = UnityEngine.Resources.Load(@path);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* UnloadUnusedAssets_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Resources.UnloadUnusedAssets();
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
