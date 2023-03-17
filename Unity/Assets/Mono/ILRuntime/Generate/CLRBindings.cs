@@ -117,7 +117,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_AnimatorControllerParameter_Binding.Register(app);
             System_Collections_Generic_HashSet_1_String_Binding.Register(app);
             UnityEngine_AnimationClip_Binding.Register(app);
-            ET_DelegateCollider_Binding.Register(app);
+            ET_DelegateMonoBehaviour_Binding.Register(app);
             UnityEngine_Component_Binding.Register(app);
             UnityEngine_Debug_Binding.Register(app);
             UnityEngine_Collider_Binding.Register(app);

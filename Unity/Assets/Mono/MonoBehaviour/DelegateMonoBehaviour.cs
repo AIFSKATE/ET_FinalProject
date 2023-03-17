@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace ET
 {
-    public class DelegateCollider : MonoBehaviour
+    public class DelegateMonoBehaviour : MonoBehaviour
     {
         public long BelongToUnitId;
         
-        public Action<Collider> on_TriggerEnter;
-        public Action<Collider> on_TriggerStay;
-        public Action<Collider> on_TriggerExit;
-        public Action<Collision> on_CollisionEnter;
-        public Action<Collision> on_CollisionStay;
-        public Action<Collision> on_CollisionExit;
+        public event Action<Collider> on_TriggerEnter;
+        public event Action<Collider> on_TriggerStay;
+        public event Action<Collider> on_TriggerExit;
+        public event Action<Collision> on_CollisionEnter;
+        public event Action<Collision> on_CollisionStay;
+        public event Action<Collision> on_CollisionExit;
         private void OnTriggerEnter(Collider other)
         {
             on_TriggerEnter?.Invoke(other);

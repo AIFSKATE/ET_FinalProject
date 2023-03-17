@@ -5,7 +5,7 @@ namespace ET
     [ComponentOf(typeof(Unit))]
     public class SkeletonMonoComponent : Entity, IAwake, IDestroy
     {
-        public DelegateCollider delegateCollider { get; set; }
+        public DelegateMonoBehaviour delegateCollider { get; set; }
     }
 
     public static class SkeletonMonoComponentSystem

@@ -36,12 +36,12 @@ namespace ILRuntime.Runtime.Generated
                     lst.Add(m);
                 }
             }
-            args = new Type[]{typeof(ET.DelegateCollider)};
+            args = new Type[]{typeof(ET.DelegateMonoBehaviour)};
             if (genericMethods.TryGetValue("GetComponent", out lst))
             {
                 foreach(var m in lst)
                 {
-                    if(m.MatchGenericParameters(args, typeof(ET.DelegateCollider)))
+                    if(m.MatchGenericParameters(args, typeof(ET.DelegateMonoBehaviour)))
                     {
                         method = m.MakeGenericMethod(args);
                         app.RegisterCLRMethodRedirection(method, GetComponent_0);
@@ -85,7 +85,7 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine.Component instance_of_this_method = (UnityEngine.Component)typeof(UnityEngine.Component).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.GetComponent<ET.DelegateCollider>();
+            var result_of_this_method = instance_of_this_method.GetComponent<ET.DelegateMonoBehaviour>();
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

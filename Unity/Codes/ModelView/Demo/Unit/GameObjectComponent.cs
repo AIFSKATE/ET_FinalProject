@@ -6,6 +6,6 @@ namespace ET
     public class GameObjectComponent : Entity, IAwake<GameObject>, IDestroy
     {
         public GameObject GameObject { get; set; }
-        public DelegateCollider delegateCollider { get; set; }
+        public DelegateMonoBehaviour delegateCollider { get; set; }
     }
 }

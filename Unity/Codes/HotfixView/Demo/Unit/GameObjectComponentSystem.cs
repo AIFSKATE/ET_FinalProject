@@ -13,10 +13,10 @@ namespace ET
             {
                 if (gameObject == null) return;
                 self.GameObject = gameObject;
-                DelegateCollider _delegateCollider = gameObject.GetComponent<DelegateCollider>();
+                DelegateMonoBehaviour _delegateCollider = gameObject.GetComponent<DelegateMonoBehaviour>();
                 if (_delegateCollider == null)
                 {
-                    _delegateCollider = gameObject.AddComponent<DelegateCollider>();
+                    _delegateCollider = gameObject.AddComponent<DelegateMonoBehaviour>();
                 }
                 _delegateCollider.BelongToUnitId = self.Id;
                 self.delegateCollider = _delegateCollider;

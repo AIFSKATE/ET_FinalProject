@@ -40,7 +40,7 @@ namespace ET
             List<long> list = new List<long>();
             foreach (var item in colliders)
             {
-                list.Add(item.GetComponent<DelegateCollider>().BelongToUnitId);
+                list.Add(item.GetComponent<DelegateMonoBehaviour>().BelongToUnitId);
             }
             //如果没有打中就不要发送这个消息，为了测试能否发送的话可以把if先注释掉
             if (list.Count > 0)
