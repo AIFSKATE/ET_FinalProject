@@ -8,12 +8,12 @@ namespace ET
     {
         public void Recycle()
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         public void Reuse()
         {
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
         }
     }
 }
