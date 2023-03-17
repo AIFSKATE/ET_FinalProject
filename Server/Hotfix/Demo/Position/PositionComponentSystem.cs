@@ -16,7 +16,7 @@ namespace ET
                 PositionComponent.Instance = self;
                 self.nowindex = 0;
                 self.position = new Vector3(0, 15, 0);
-                Log.Debug("没了\n\n\n\n\n\n\n");
+                Log.Debug("成功进入PositionComponent");
             }
         }
 

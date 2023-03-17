@@ -5,7 +5,7 @@ using System.Linq;
 namespace ET
 {
     [ObjectSystem]
-    public class AIDispatcherComponentAwakeSystem: AwakeSystem<AIDispatcherComponent>
+    public class AIDispatcherComponentAwakeSystem : AwakeSystem<AIDispatcherComponent>
     {
         public override void Awake(AIDispatcherComponent self)
         {
@@ -15,7 +15,7 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class AIDispatcherComponentLoadSystem: LoadSystem<AIDispatcherComponent>
+    public class AIDispatcherComponentLoadSystem : LoadSystem<AIDispatcherComponent>
     {
         public override void Load(AIDispatcherComponent self)
         {
@@ -24,7 +24,7 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class AIDispatcherComponentDestroySystem: DestroySystem<AIDispatcherComponent>
+    public class AIDispatcherComponentDestroySystem : DestroySystem<AIDispatcherComponent>
     {
         public override void Destroy(AIDispatcherComponent self)
         {
@@ -39,8 +39,8 @@ namespace ET
         public static void Load(this AIDispatcherComponent self)
         {
             self.AIHandlers.Clear();
-            
-            var types = Game.EventSystem.GetTypes(typeof (AIHandlerAttribute));
+
+            var types = Game.EventSystem.GetTypes(typeof(AIHandlerAttribute));
             foreach (Type type in types)
             {
                 AAIHandler aaiHandler = Activator.CreateInstance(type) as AAIHandler;

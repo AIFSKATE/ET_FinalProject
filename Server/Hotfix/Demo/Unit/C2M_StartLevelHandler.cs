@@ -15,8 +15,11 @@ namespace ET
             Scene currentscene = unit.DomainScene();
             UnitComponent unitComponent = currentscene.GetComponent<UnitComponent>();
             UnitConfig unitConfig = UnitConfigCategory.Instance.Get(1002);
-            Unit unitenemy = UnitFactory.Create(currentscene, unitConfig.Id, UnitType.Monster);
-            unitComponent.Add(unitenemy);
+            for (int i = 0; i < 4; i++)
+            {
+                Unit unitenemy = UnitFactory.Create(currentscene, unitConfig.Id, UnitType.Monster);
+                unitComponent.Add(unitenemy);
+            }
             reply();
             await ETTask.CompletedTask;
         }

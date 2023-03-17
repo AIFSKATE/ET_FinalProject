@@ -40,10 +40,11 @@ namespace ET
                         unit.AddComponent<MailBoxComponent>();
 
                         NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
-                        numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
+                        numericComponent.Set(NumericType.Speed, 2f); // 速度是2米每秒
                         numericComponent.Set(NumericType.AOI, 15000); // 视野15米
 
                         unitComponent.Add(unit);
+                        unit.AddComponent<AIComponent, int>(2);
                         // 加入aoi
                         unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
                         return unit;
