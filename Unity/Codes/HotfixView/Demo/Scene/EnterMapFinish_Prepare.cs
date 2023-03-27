@@ -12,6 +12,9 @@ namespace ET
 
         private async ETTask RunAsync(EventType.EnterMapFinish args)
         {
+            //加载UI
+            UIHelper.Create(args.ZoneScene, UIType.UIGame, UILayer.Mid).Coroutine();
+
             //这一块是摄像头的逻辑
             var zoneScene = args.ZoneScene;
             CurrentScenesComponent currentScenesComponent = zoneScene.GetComponent<CurrentScenesComponent>();
@@ -30,6 +33,7 @@ namespace ET
                 //GameObject prefab = bundleGameObject.Get<GameObject>("Enemy1");
                 //GameObject.Instantiate(prefab);
             }
+
             await ETTask.CompletedTask;
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ET
 {
     [Timer(TimerType.AITimer)]
-    public class AITimer: ATimer<AIComponent>
+    public class AITimer : ATimer<AIComponent>
     {
         public override void Run(AIComponent self)
         {
@@ -18,19 +18,19 @@ namespace ET
             }
         }
     }
-    
+
     [ObjectSystem]
-    public class AIComponentAwakeSystem: AwakeSystem<AIComponent, int>
+    public class AIComponentAwakeSystem : AwakeSystem<AIComponent, int, int>
     {
-        public override void Awake(AIComponent self, int aiConfigId)
+        public override void Awake(AIComponent self, int aiConfigId, int duration = 1000)
         {
             self.AIConfigId = aiConfigId;
-            self.Timer = TimerComponent.Instance.NewRepeatedTimer(1000, TimerType.AITimer, self);
+            self.Timer = TimerComponent.Instance.NewRepeatedTimer(duration, TimerType.AITimer, self);
         }
     }
 
     [ObjectSystem]
-    public class AIComponentDestroySystem: DestroySystem<AIComponent>
+    public class AIComponentDestroySystem : DestroySystem<AIComponent>
     {
         public override void Destroy(AIComponent self)
         {
@@ -85,7 +85,7 @@ namespace ET
                 aaiHandler.Execute(self, aiConfig, cancellationToken).Coroutine();
                 return;
             }
-            
+
         }
 
         private static void Cancel(this AIComponent self)
@@ -95,4 +95,4 @@ namespace ET
             self.CancellationToken = null;
         }
     }
-} 
+}

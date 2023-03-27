@@ -55,7 +55,6 @@ namespace ET
             //}
             //myunit.FindPathMoveToAsync(unit.Position, cancellationToken).Coroutine();
 
-            Log.Debug("开始巡逻");
 
             await ETTask.CompletedTask;
         }
