@@ -12,8 +12,8 @@ namespace ET
         public override void Awake(UIGameComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
-            self.testBtn = rc.Get<GameObject>("TestBtn");
-            self.testBtn.GetComponent<Button>().onClick.AddListener(() => { self.OnTestBtn(); });
+            self.ShowUIDrawBtn = rc.Get<GameObject>("ShowUIDrawBtn");
+            self.ShowUIDrawBtn.GetComponent<Button>().onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
             //self.loginBtn = rc.Get<GameObject>("LoginBtn");
 
             //self.loginBtn.GetComponent<Button>().onClick.AddListener(() => { self.OnLogin(); });
@@ -25,9 +25,9 @@ namespace ET
     [FriendClass(typeof(UIGameComponent))]
     public static class UIGameComponentSystem
     {
-        public static void OnTestBtn(this UIGameComponent self)
+        public static void OnShowUIDrawBtn(this UIGameComponent self)
         {
-            Log.Warning("测试通过");
+            UIHelper.Create(self.DomainScene(), UIType.UIDraw, UILayer.Mid).Coroutine();
         }
     }
 }

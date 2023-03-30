@@ -28,6 +28,9 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Vector3)};
             method = type.GetMethod("ScreenPointToRay", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ScreenPointToRay_1);
+            args = new Type[]{};
+            method = type.GetMethod("get_current", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_current_2);
 
 
         }
@@ -64,6 +67,17 @@ namespace ILRuntime.Runtime.Generated
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.ScreenPointToRay(@pos);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_current_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = UnityEngine.Camera.current;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

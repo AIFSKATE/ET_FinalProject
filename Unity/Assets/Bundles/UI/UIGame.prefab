@@ -110,7 +110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Draw
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 2585103269586788347}
   - component: {fileID: 4688776274812614475}
   m_Layer: 5
-  m_Name: TestButton
+  m_Name: ShowUIDrawBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,5 +390,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-  - key: TestBtn
+  - key: ShowUIDrawBtn
     gameObject: {fileID: 3737929366712595158}

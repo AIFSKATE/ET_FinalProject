@@ -5,7 +5,8 @@
         "Unity.ThirdParty",
         "Unity.ResourceManager",
         "Unity.Addressables",
-        "Cinemachine"
+        "Cinemachine",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
