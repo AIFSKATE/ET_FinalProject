@@ -1,0 +1,8 @@
+{"list":[
+{"_t":"FuluConfig","_id":1,"Name":"O","Desc":""},
+{"_t":"FuluConfig","_id":2,"Name":"li","Desc":""},
+{"_t":"FuluConfig","_id":3,"Name":"infinite","Desc":""},
+{"_t":"FuluConfig","_id":4,"Name":"hui","Desc":""},
+{"_t":"FuluConfig","_id":5,"Name":"gou","Desc":""},
+{"_t":"FuluConfig","_id":6,"Name":"faiz","Desc":""},
+]}

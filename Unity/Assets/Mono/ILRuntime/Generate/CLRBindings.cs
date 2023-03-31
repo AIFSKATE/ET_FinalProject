@@ -138,6 +138,8 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Resources_Binding.Register(app);
             UnityEngine_UI_InputField_Binding.Register(app);
             ET_ETTask_1_GameObject_Binding.Register(app);
+            System_Collections_Generic_List_1_Toggle_Binding.Register(app);
+            UnityEngine_UI_Toggle_Binding.Register(app);
             UnityEngine_Transform_Binding.Register(app);
             UnityEngine_Animator_Binding.Register(app);
             UnityEngine_RuntimeAnimatorController_Binding.Register(app);

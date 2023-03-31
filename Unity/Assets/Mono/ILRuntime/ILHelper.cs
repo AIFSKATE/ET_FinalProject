@@ -58,8 +58,8 @@ namespace ET
             appdomain.DelegateManager.RegisterMethodDelegate<AsyncOperation>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-            
-            
+
+
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Events.UnityAction>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Single>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, ET.ETTask>();
@@ -87,7 +87,7 @@ namespace ET
                     ((Action)act)();
                 });
             });
-            
+
             appdomain.DelegateManager.RegisterDelegateConvertor<Comparison<KeyValuePair<int, int>>>((act) =>
             {
                 return new Comparison<KeyValuePair<int, int>>((x, y) =>
@@ -95,17 +95,25 @@ namespace ET
                     return ((Func<KeyValuePair<int, int>, KeyValuePair<int, int>, int>)act)(x, y);
                 });
             });
-            
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Boolean>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.Boolean>((arg0) =>
+                {
+                    ((Action<System.Boolean>)act)(arg0);
+                });
+            });
+
+
             // 注册适配器
             RegisterAdaptor(appdomain);
-            
+
             //注册Json的CLR
             LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
-            
+
             //注册ProtoBuf的CLR
             PType.RegisterILRuntime(appdomain, typeFullName => CodeLoader.Instance.GetHotfixType(typeFullName));
-           
-            
+
+
             ////////////////////////////////////
             // CLR绑定的注册，一定要记得将CLR绑定的注册写在CLR重定向的注册后面，因为同一个方法只能被重定向一次，只有先注册的那个才能生效
             ////////////////////////////////////
@@ -116,7 +124,7 @@ namespace ET
             }
             //ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
         }
-        
+
         public static void RegisterAdaptor(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
         {
             //注册自己写的适配器

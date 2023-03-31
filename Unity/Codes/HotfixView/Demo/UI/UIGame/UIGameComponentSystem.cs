@@ -27,7 +27,7 @@ namespace ET
     {
         public static void OnShowUIDrawBtn(this UIGameComponent self)
         {
-            UIHelper.Create(self.DomainScene(), UIType.UIDraw, UILayer.Mid).Coroutine();
+            UIHelper.Create(self.DomainScene(), UIType.UISkillpanel, UILayer.Mid).Coroutine();
         }
     }
 }
