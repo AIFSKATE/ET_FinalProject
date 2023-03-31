@@ -6,7 +6,7 @@ using NLog;
 namespace ET
 {
     [ConsoleHandler(ConsoleMode.CreateRobot)]
-    public class CreateRobotConsoleHandler: IConsoleHandler
+    public class CreateRobotConsoleHandler : IConsoleHandler
     {
         public async ETTask Run(ModeContex contex, string content)
         {
@@ -33,7 +33,7 @@ namespace ET
                             }
                             thisProcessRobotScenes.Add(robotSceneConfig);
                         }
-                        
+
                         // 创建机器人
                         for (int i = 0; i < options.Num; ++i)
                         {
@@ -42,7 +42,7 @@ namespace ET
                             Scene robotScene = Game.Scene.Get(robotSceneConfig.Id);
                             RobotManagerComponent robotManagerComponent = robotScene.GetComponent<RobotManagerComponent>();
                             Scene robot = await robotManagerComponent.NewRobot(Game.Options.Process * 10000 + i);
-                            robot.AddComponent<AIComponent, int>(1);
+                            robot.AddComponent<AIComponent, int, int>(1, 1000);
                             Log.Console($"create robot {robot.Zone}");
                             await TimerComponent.Instance.WaitAsync(2000);
                         }

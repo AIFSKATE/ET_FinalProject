@@ -64,13 +64,20 @@ namespace ET
             }
         }
 
-        public static void OnSelectBtn(this UISkillpanelComponent self)
+        public static async void OnSelectBtn(this UISkillpanelComponent self)
         {
             if (self.chosenId == -1)
             {
-                UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High).Coroutine();
+                self.selectBtn.interactable = false;
+                await UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High);
+                var uitips = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UITips);
+                uitips.GetComponent<UITipsComponent>().SetContent(3, "Please Select A Skill", self.selectBtn);
+                return;
             }
-
+            await UIHelper.Create(self.DomainScene(), UIType.UIDraw, UILayer.Mid);
+            var uidraw = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIDraw);
+            uidraw.GetComponent<UIDrawComponent>().GetFulu(FuluConfigCategory.Instance.GetAll()[self.chosenId].Name).Coroutine();
+            await UIHelper.Remove(self.ZoneScene(), UIType.UISkillpanel);
         }
         #endregion
     }

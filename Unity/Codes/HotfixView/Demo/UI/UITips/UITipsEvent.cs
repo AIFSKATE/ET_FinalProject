@@ -8,7 +8,7 @@ namespace ET
     {
         public override async ETTask<UI> OnCreate(UIComponent uiComponent, UILayer uiLayer)
         {
-            await uiComponent.Domain.GetComponent<ResourcesLoaderComponent>().LoadAsync(UIType.UITips.StringToAB());
+            await ResourcesComponent.Instance.LoadBundleAsync(UIType.UITips.StringToAB());
             GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset(UIType.UITips.StringToAB(), UIType.UITips);
             GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.UILayers[(int)uiLayer]);
             UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.UITips, gameObject);

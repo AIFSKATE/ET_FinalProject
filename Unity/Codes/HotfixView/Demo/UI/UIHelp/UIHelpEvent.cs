@@ -10,7 +10,7 @@ namespace ET
         {
 	        try
 	        {
-		        await uiComponent.Domain.GetComponent<ResourcesLoaderComponent>().LoadAsync(UIType.UIHelp.StringToAB());
+		        await ResourcesComponent.Instance.LoadBundleAsync(UIType.UIHelp.StringToAB());
 		        GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset(UIType.UIHelp.StringToAB(), UIType.UIHelp);
 		        GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.UILayers[(int)uiLayer]);
 		        UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.UIHelp, gameObject);

@@ -36,8 +36,6 @@ namespace ET
             self.texsize = 1 << 6;
 
             self.drawComponent.Init(self.canvasRect.GetComponent<Canvas>(), self.MyCamera, self.mydraw, self.pensize, self.brushColor).Coroutine();
-            self.GetFulu("O").Coroutine();
-
 
             self.BindListener();
         }

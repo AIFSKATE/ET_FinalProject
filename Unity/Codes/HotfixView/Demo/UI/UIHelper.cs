@@ -7,10 +7,15 @@
             UI ui = await scene.GetComponent<UIComponent>().Create(uiType, uiLayer);
             return ui;
         }
-        
+
         public static async ETTask Remove(Scene scene, string uiType)
         {
             scene.GetComponent<UIComponent>().Remove(uiType);
+            await ETTask.CompletedTask;
+        }
+        public static async ETTask Close(Scene scene, string uiType)
+        {
+            scene.GetComponent<UIComponent>().Close(uiType);
             await ETTask.CompletedTask;
         }
     }
