@@ -11,5 +11,7 @@ namespace ET
     public class UIBagComponent : Entity, IAwake
     {
         public GridUnlimitedScroller scrollercomponent;
+        public Image bgimage;
+        public Button backbtn;
     }
 }

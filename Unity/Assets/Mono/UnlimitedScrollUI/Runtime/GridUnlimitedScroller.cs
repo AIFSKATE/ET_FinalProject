@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnlimitedScrollUI {
-    public class GridUnlimitedScroller : GridLayoutGroup, IUnlimitedScroller {
+namespace UnlimitedScrollUI
+{
+    public class GridUnlimitedScroller : GridLayoutGroup, IUnlimitedScroller
+    {
         #region Properties
 
         /// <inheritdoc cref="IUnlimitedScroller.Initialized"/>
@@ -14,22 +16,32 @@ namespace UnlimitedScrollUI {
         public bool Generated { get; private set; }
 
         /// <inheritdoc cref="IUnlimitedScroller.RowCount"/>
-        public int RowCount =>
-            totalCount % CellPerRow == 0
+        public int RowCount
+        {
+            get
+            {
+                return totalCount % CellPerRow == 0
                 ? totalCount / CellPerRow
                 : totalCount / CellPerRow + 1;
+            }
+        }
+            
 
         /// <inheritdoc cref="IUnlimitedScroller.FirstRow"/>
-        public int FirstRow {
-            get {
+        public int FirstRow
+        {
+            get
+            {
                 var row = (int)((contentTrans.anchoredPosition.y - offsetPadding.top) / (cellY + spacingY));
                 return Mathf.Clamp(row, 0, RowCount - 1);
             }
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.LastRow"/>
-        public int LastRow {
-            get {
+        public int LastRow
+        {
+            get
+            {
                 var row = (int)((contentTrans.anchoredPosition.y + ViewportHeight - offsetPadding.top) /
                                 (cellY + spacingY));
                 return Mathf.Clamp(row, 0, RowCount - 1);
@@ -37,16 +49,20 @@ namespace UnlimitedScrollUI {
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.FirstCol"/>
-        public int FirstCol {
-            get {
+        public int FirstCol
+        {
+            get
+            {
                 var col = (int)((-contentTrans.anchoredPosition.x - offsetPadding.left) / (cellX + spacingX));
                 return Mathf.Clamp(col, 0, CellPerRow - 1);
             }
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.LastCol"/>
-        public int LastCol {
-            get {
+        public int LastCol
+        {
+            get
+            {
                 var col = (int)((-contentTrans.anchoredPosition.x + ViewportWidth - offsetPadding.left) /
                                 (cellX + spacingX));
                 return Mathf.Clamp(col, 0, CellPerRow - 1);
@@ -54,23 +70,25 @@ namespace UnlimitedScrollUI {
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ContentHeight"/>
-        public float ContentHeight {
+        public float ContentHeight
+        {
             get => contentTrans.rect.height;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value);
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ContentWidth"/>
-        public float ContentWidth {
+        public float ContentWidth
+        {
             get => contentTrans.rect.width;
             private set => contentTrans.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value);
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ViewportHeight"/>
         public float ViewportHeight => viewportRectTransform.rect.height;
-        
+
         /// <inheritdoc cref="IUnlimitedScroller.ViewportWidth"/>
         public float ViewportWidth => viewportRectTransform.rect.width;
-        
+
         /// <inheritdoc cref="IUnlimitedScroller.CellPerRow"/>
         public int CellPerRow => cellPerRow;
 
@@ -95,7 +113,7 @@ namespace UnlimitedScrollUI {
         /// </summary>
         [Tooltip("Max size of cached cells.")]
         public uint cacheSize;
-        
+
         /// <summary>
         /// The <c>ScrollRect</c> component on ScrollView.
         /// </summary>
@@ -111,7 +129,7 @@ namespace UnlimitedScrollUI {
         private RectTransform contentTrans;
         private LayoutGroup layoutGroup;
         private RectTransform viewportRectTransform;
-        
+
         private float cellX;
         private float cellY;
         private float spacingX;
@@ -130,12 +148,13 @@ namespace UnlimitedScrollUI {
         private Action<int, ICell> onCellGenerate;
 
         private GameObject pendingDestroyGo;
-        private LRUCache<int, GameObject> cachedCells;
+        private PoolCache<int> cachedCells;
 
         #endregion
 
         /// <inheritdoc cref="IUnlimitedScroller.Generate"/>
-        public void Generate(GameObject newCell, int newTotalCount, Action<int, ICell> onGenerate) {
+        public void Generate(GameObject newCell, int newTotalCount, Action<int, ICell> onGenerate)
+        {
             if (Generated) return;
 
             if (!Initialized) Initialize();
@@ -144,49 +163,59 @@ namespace UnlimitedScrollUI {
             onCellGenerate = onGenerate;
             InitParams();
             Generated = true;
-            
+
             if (totalCount <= 0) return;
             GenerateAllCells();
         }
 
-        public void JumpTo(uint index, JumpToMethod method) {
+        public void JumpTo(uint index, JumpToMethod method)
+        {
             if (index >= totalCount) return;
-            
+
             var cellRowCount = index / CellPerRow;
             var cellColCount = index % CellPerRow;
             float verticalPosition, horizontalPosition;
-            switch (method) {
+            switch (method)
+            {
                 case JumpToMethod.OnScreen:
                     if (cellRowCount >= FirstRow && cellRowCount <= LastRow && cellColCount >= FirstCol &&
                         cellColCount <= LastCol) return;
 
-                    if (cellRowCount > LastRow) {
+                    if (cellRowCount > LastRow)
+                    {
                         verticalPosition =
                             (offsetPadding.bottom + (RowCount - cellRowCount - 1) * cellSize.y +
                              (RowCount - cellRowCount - 1) * spacingY) /
                             (ContentHeight - ViewportHeight);
-                    } else {
+                    }
+                    else
+                    {
                         verticalPosition =
                             (offsetPadding.bottom + (RowCount - cellRowCount) * cellSize.y +
                                 (RowCount - cellRowCount - 1) * spacingY - ViewportHeight) /
                             (ContentHeight - ViewportHeight);
                     }
 
-                    if (cellColCount > LastCol) {
+                    if (cellColCount > LastCol)
+                    {
                         horizontalPosition =
                             (offsetPadding.left + (cellColCount + 1) * cellSize.x + cellColCount * spacingX -
                              ViewportWidth) / (ContentWidth - ViewportWidth);
-                    } else {
+                    }
+                    else
+                    {
                         horizontalPosition =
                             (offsetPadding.left + (cellColCount) * cellSize.x + cellColCount * spacingX) /
                             (ContentWidth - ViewportWidth);
                     }
 
-                    if (ContentHeight > ViewportHeight && !(cellRowCount >= FirstRow && cellRowCount <= LastRow)) {
+                    if (ContentHeight > ViewportHeight && !(cellRowCount >= FirstRow && cellRowCount <= LastRow))
+                    {
                         scrollRect.verticalNormalizedPosition = verticalPosition;
                     }
 
-                    if (ContentWidth > ViewportWidth && !(cellColCount >= FirstCol && cellColCount <= LastCol)) {
+                    if (ContentWidth > ViewportWidth && !(cellColCount >= FirstCol && cellColCount <= LastCol))
+                    {
                         scrollRect.horizontalNormalizedPosition = horizontalPosition;
                     }
 
@@ -201,11 +230,13 @@ namespace UnlimitedScrollUI {
                         (offsetPadding.left + (cellColCount + 0.5f) * cellSize.x + cellColCount * spacingX -
                          ViewportWidth / 2f) / (ContentWidth - ViewportWidth);
 
-                    if (ContentHeight > ViewportHeight) {
+                    if (ContentHeight > ViewportHeight)
+                    {
                         scrollRect.verticalNormalizedPosition = verticalPosition;
                     }
 
-                    if (ContentWidth > ViewportWidth) {
+                    if (ContentWidth > ViewportWidth)
+                    {
                         scrollRect.horizontalNormalizedPosition = horizontalPosition;
                     }
 
@@ -216,14 +247,16 @@ namespace UnlimitedScrollUI {
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.SetCacheSize"/>
-        public void SetCacheSize(uint newSize) {
-            cachedCells.SetCapacity(newSize);
+        public void SetCacheSize(uint newSize)
+        {
+            //cachedCells.SetCapacity(newSize);
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.Clear"/>
-        public void Clear() {
+        public void Clear()
+        {
             if (!Generated) return;
-            
+
             DestroyAllCells();
             ClearCache();
             Destroy(pendingDestroyGo);
@@ -238,53 +271,60 @@ namespace UnlimitedScrollUI {
         }
 
         /// <inheritdoc cref="IUnlimitedScroller.ClearCache"/>
-        public void ClearCache() {
+        public void ClearCache()
+        {
             cachedCells.Clear();
         }
 
-        private void Initialize() {
+        private void Initialize()
+        {
             layoutGroup = GetComponent<LayoutGroup>();
-            viewportRectTransform = scrollRect.viewport;
+            viewportRectTransform = scrollRect.GetComponent<RectTransform>();
             contentTrans = GetComponent<RectTransform>();
-            
-            offsetPadding = new Padding {
+
+            offsetPadding = new Padding
+            {
                 top = layoutGroup.padding.top,
                 bottom = layoutGroup.padding.bottom,
                 left = layoutGroup.padding.left,
                 right = layoutGroup.padding.right
             };
-            
+
             scrollRect.onValueChanged.AddListener(OnScroll);
 
             Initialized = true;
         }
 
-        private void InitParams() {
-            var gridLayoutGroup = (GridLayoutGroup) layoutGroup;
+        private void InitParams()
+        {
+            var gridLayoutGroup = (GridLayoutGroup)layoutGroup;
             cellX = gridLayoutGroup.cellSize.x;
             cellY = gridLayoutGroup.cellSize.y;
             spacingX = gridLayoutGroup.spacing.x;
             spacingY = gridLayoutGroup.spacing.y;
             cellPerRow = matchContentWidth
-                ? (int) ((ContentWidth - offsetPadding.left - offsetPadding.right + spacingX) / (cellX + spacingX))
+                ? (int)((ContentWidth - offsetPadding.left - offsetPadding.right + spacingX) / (cellX + spacingX))
                 : cellPerRow;
 
             ContentHeight = cellY * RowCount + spacingY * (RowCount - 1) + offsetPadding.top + offsetPadding.bottom;
             ContentWidth = cellX * CellPerRow + spacingX * (CellPerRow - 1) + offsetPadding.left + offsetPadding.right;
-            
+
             Vector2 contentPosition;
-            switch (horizontalAlignment) {
+            switch (horizontalAlignment)
+            {
                 case Alignment.Left:
                     contentPosition = Vector2.zero;
                     break;
                 case Alignment.Center:
-                    if (ContentWidth < ViewportWidth) {
+                    if (ContentWidth < ViewportWidth)
+                    {
                         scrollRect.horizontal = false;
                     }
                     contentPosition = Vector2.right * (ViewportWidth - ContentWidth) / 2f;
                     break;
                 case Alignment.Right:
-                    if (ContentWidth < ViewportWidth) {
+                    if (ContentWidth < ViewportWidth)
+                    {
                         scrollRect.horizontal = false;
                     }
                     contentPosition = Vector2.right * (ViewportWidth - ContentWidth);
@@ -295,28 +335,34 @@ namespace UnlimitedScrollUI {
             contentTrans.anchoredPosition = contentPosition;
             contentTrans.anchorMin = Vector2.up;
             contentTrans.anchorMax = Vector2.up;
-            
+
             currentCells = new List<Cell>();
-            
+
             pendingDestroyGo = new GameObject("[Cache Node]");
             pendingDestroyGo.transform.SetParent(transform);
             pendingDestroyGo.SetActive(false);
 
-            cachedCells = new LRUCache<int, GameObject>((_, go) => Destroy(go), cacheSize);
+            cachedCells = new PoolCache<int>();
         }
 
-        private int GetCellIndex(int row, int col) {
+        private int GetCellIndex(int row, int col)
+        {
             return CellPerRow * row + col;
         }
 
-        private int GetFirstGreater(int index) {
+        private int GetFirstGreater(int index)
+        {
             var start = 0;
             var end = currentCells.Count;
-            while (start != end) {
+            while (start != end)
+            {
                 var middle = start + (end - start) / 2;
-                if (currentCells[middle].number <= index) {
+                if (currentCells[middle].number <= index)
+                {
                     start = middle + 1;
-                } else {
+                }
+                else
+                {
                     end = middle;
                 }
             }
@@ -324,20 +370,27 @@ namespace UnlimitedScrollUI {
             return start;
         }
 
-        private void GenerateCell(int index, ScrollerPanelSide side) {
+        private void GenerateCell(int index, ScrollerPanelSide side)
+        {
             ICell iCell;
-            if (cachedCells.TryGet(index, out var instance)) {
+            if (cachedCells.TryGet(index, out var instance))
+            {
                 instance.transform.SetParent(contentTrans);
-                cachedCells.Remove(index);
-                
                 iCell = instance.GetComponent<ICell>();
-            } else {
-                instance = Instantiate(cellPrefab, contentTrans);
-                instance.name = cellPrefab.name + "_" + index;
-                
+            }
+            else if (cachedCells.Get(out instance))
+            {
+                instance.transform.SetParent(contentTrans);
                 iCell = instance.GetComponent<ICell>();
                 onCellGenerate?.Invoke(index, iCell);
             }
+            else
+            {
+                instance = Instantiate(cellPrefab, contentTrans);
+                iCell = instance.GetComponent<ICell>();
+                onCellGenerate?.Invoke(index, iCell);
+            }
+            instance.name = cellPrefab.name + "_" + index;
 
             var order = GetFirstGreater(index);
             instance.transform.SetSiblingIndex(order);
@@ -346,8 +399,9 @@ namespace UnlimitedScrollUI {
 
             iCell.OnBecomeVisible(side);
         }
-        
-        private void GenerateAllCells() {
+
+        private void GenerateAllCells()
+        {
             currentFirstCol = FirstCol;
             currentLastCol = LastCol;
             currentFirstRow = FirstRow;
@@ -361,8 +415,11 @@ namespace UnlimitedScrollUI {
                 ? 0
                 : (int)(currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
             layoutGroup.padding.bottom = offsetPadding.bottom + (int)((RowCount - LastRow - 1) * (cellY + spacingY));
-            for (var r = currentFirstRow; r <= currentLastRow; ++r) {
-                for (var c = currentFirstCol; c <= currentLastCol; ++c) {
+
+            for (var r = currentFirstRow; r <= currentLastRow; ++r)
+            {
+                for (var c = currentFirstCol; c <= currentLastCol; ++c)
+                {
                     var index = GetCellIndex(r, c);
                     if (index >= totalCount) continue;
                     GenerateCell(index, ScrollerPanelSide.NoSide);
@@ -370,7 +427,8 @@ namespace UnlimitedScrollUI {
             }
         }
 
-        private void DestroyCell(int index, ScrollerPanelSide side) {
+        private void DestroyCell(int index, ScrollerPanelSide side)
+        {
             var order = GetFirstGreater(index - 1);
             var cell = currentCells[order];
             currentCells.RemoveAt(order);
@@ -379,23 +437,27 @@ namespace UnlimitedScrollUI {
             cachedCells.Add(index, cell.go);
         }
 
-        private void DestroyAllCells() {
+        private void DestroyAllCells()
+        {
             var total = currentCells.Count;
-            for (var i = 0; i < total; i++) {
+            for (var i = 0; i < total; i++)
+            {
                 var cell = currentCells[0];
                 currentCells.RemoveAt(0);
                 cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
                 Destroy(cell.go);
             }
         }
-        
-        private void GenerateRow(int row, bool onTop) {
+
+        private void GenerateRow(int row, bool onTop)
+        {
             var firstCol = currentFirstCol;
             var lastCol = currentLastCol;
 
             var indexEnd = GetCellIndex(row, lastCol);
             indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
-            for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
+            for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i)
+            {
                 GenerateCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
@@ -403,11 +465,13 @@ namespace UnlimitedScrollUI {
             else layoutGroup.padding.bottom -= (int)(cellY + spacingY);
         }
 
-        private void GenerateCol(int col, bool onLeft) {
+        private void GenerateCol(int col, bool onLeft)
+        {
             var firstRow = currentFirstRow;
             var lastRow = currentLastRow;
 
-            for (var i = firstRow; i <= lastRow; i++) {
+            for (var i = firstRow; i <= lastRow; i++)
+            {
                 var index = GetCellIndex(i, col);
                 if (index >= totalCount) continue;
                 GenerateCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
@@ -417,13 +481,15 @@ namespace UnlimitedScrollUI {
             else layoutGroup.padding.right -= (int)(cellX + spacingX);
         }
 
-        private void DestroyRow(int row, bool onTop) {
+        private void DestroyRow(int row, bool onTop)
+        {
             var firstCol = currentFirstCol;
             var lastCol = currentLastCol;
 
             var indexEnd = GetCellIndex(row, lastCol);
             indexEnd = indexEnd >= totalCount ? totalCount - 1 : indexEnd;
-            for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i) {
+            for (var i = GetCellIndex(row, firstCol); i <= indexEnd; ++i)
+            {
                 DestroyCell(i, onTop ? ScrollerPanelSide.Top : ScrollerPanelSide.Bottom);
             }
 
@@ -431,11 +497,13 @@ namespace UnlimitedScrollUI {
             else layoutGroup.padding.bottom += (int)(cellY + spacingY);
         }
 
-        private void DestroyCol(int col, bool onLeft) {
+        private void DestroyCol(int col, bool onLeft)
+        {
             var firstRow = currentFirstRow;
             var lastRow = currentLastRow;
 
-            for (var i = firstRow; i <= lastRow; i++) {
+            for (var i = firstRow; i <= lastRow; i++)
+            {
                 var index = GetCellIndex(i, col);
                 if (index >= totalCount) continue;
                 DestroyCell(index, onLeft ? ScrollerPanelSide.Left : ScrollerPanelSide.Right);
@@ -445,88 +513,104 @@ namespace UnlimitedScrollUI {
             else layoutGroup.padding.right += (int)(cellX + spacingX);
         }
 
-        private void OnScroll(Vector2 position) {
+        private void OnScroll(Vector2 position)
+        {
             if (!Generated || totalCount <= 0) return;
 
             if (LastCol < currentFirstCol || FirstCol > currentLastCol || FirstRow > currentLastRow ||
-                LastRow < currentFirstRow) {
+                LastRow < currentFirstRow)
+            {
                 DestroyAllCells();
                 GenerateAllCells();
                 return;
             }
 
-            if (currentFirstCol > FirstCol) {
-                // new left col
-                for (var col = currentFirstCol - 1; col >= FirstCol; --col) {
-                    GenerateCol(col, true);
-                }
-
-                currentFirstCol = FirstCol;
-            }
-
-            if (currentLastCol < LastCol) {
-                // new right col
-                for (var col = currentLastCol + 1; col <= LastCol; ++col) {
-                    GenerateCol(col, false);
-                }
-
-                currentLastCol = LastCol;
-            }
-
-            if (currentFirstCol < FirstCol) {
+            if (currentFirstCol < FirstCol)
+            {
                 // left col invisible
-                for (var col = currentFirstCol; col < FirstCol; ++col) {
+                for (var col = currentFirstCol; col < FirstCol; ++col)
+                {
                     DestroyCol(col, true);
                 }
 
                 currentFirstCol = FirstCol;
             }
 
-            if (currentLastCol > LastCol) {
+            if (currentLastCol > LastCol)
+            {
                 // right col invisible
-                for (var col = currentLastCol; col > LastCol; --col) {
+                for (var col = currentLastCol; col > LastCol; --col)
+                {
                     DestroyCol(col, false);
                 }
 
                 currentLastCol = LastCol;
             }
 
-
-            if (currentFirstRow > FirstRow) {
-                // new top row
-                for (var row = currentFirstRow - 1; row >= FirstRow; --row) {
-                    GenerateRow(row, true);
+            if (currentFirstCol > FirstCol)
+            {
+                // new left col
+                for (var col = currentFirstCol - 1; col >= FirstCol; --col)
+                {
+                    GenerateCol(col, true);
                 }
 
-                currentFirstRow = FirstRow;
+                currentFirstCol = FirstCol;
             }
 
-            if (currentLastRow < LastRow) {
-                // new bottom row
-                for (var row = currentLastRow + 1; row <= LastRow; ++row) {
-                    GenerateRow(row, false);
+            if (currentLastCol < LastCol)
+            {
+                // new right col
+                for (var col = currentLastCol + 1; col <= LastCol; ++col)
+                {
+                    GenerateCol(col, false);
                 }
 
-                currentLastRow = LastRow;
+                currentLastCol = LastCol;
             }
 
-            if (currentFirstRow < FirstRow) {
+            if (currentFirstRow < FirstRow)
+            {
                 // top row invisible
-                for (var row = currentFirstRow; row < FirstRow; ++row) {
+                for (var row = currentFirstRow; row < FirstRow; ++row)
+                {
                     DestroyRow(row, true);
                 }
 
                 currentFirstRow = FirstRow;
             }
 
-            if (currentLastRow > LastRow) {
+            if (currentLastRow > LastRow)
+            {
                 // bottom row invisible
-                for (var row = currentLastRow; row > LastRow; --row) {
+                for (var row = currentLastRow; row > LastRow; --row)
+                {
                     DestroyRow(row, false);
                 }
 
                 currentLastRow = LastRow;
             }
+            if (currentFirstRow > FirstRow)
+            {
+                // new top row
+                for (var row = currentFirstRow - 1; row >= FirstRow; --row)
+                {
+                    GenerateRow(row, true);
+                }
+
+                currentFirstRow = FirstRow;
+            }
+
+            if (currentLastRow < LastRow)
+            {
+                // new bottom row
+                for (var row = currentLastRow + 1; row <= LastRow; ++row)
+                {
+                    GenerateRow(row, false);
+                }
+                currentLastRow = LastRow;
+            }
+
         }
     }
 }

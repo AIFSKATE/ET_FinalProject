@@ -9,6 +9,7 @@ namespace ET
         public override async ETTask<UI> OnCreate(UIComponent uiComponent, UILayer uiLayer)
         {
             await ResourcesComponent.Instance.LoadBundleAsync(UIType.UIBag.StringToAB());
+            await ResourcesComponent.Instance.LoadBundleAsync("uisprite.unity3d");
             GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset(UIType.UIBag.StringToAB(), UIType.UIBag);
             GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.UILayers[(int)uiLayer]);
             UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.UIBag, gameObject);

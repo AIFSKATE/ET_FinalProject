@@ -121,7 +121,6 @@ namespace ET
 
         public static async ETTask GetFulu(this UIDrawComponent self, string name)
         {
-            await self.DomainScene().GetComponent<ResourcesLoaderComponent>().LoadAsync("texture.unity3d");
             var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
             self.fulu.sprite = list.GetSprite(name);
             var spr = self.fulu.sprite;
@@ -135,6 +134,7 @@ namespace ET
             //targetTex.SetPixels(pixels);
             //targetTex.Apply();
             self.fuluTex = targetTex;
+            await ETTask.CompletedTask;
         }
 
         #region
