@@ -752,6 +752,18 @@
       <Project>{1066F652-6A89-D1C4-9881-1A19DF7AB80E}</Project>
       <Name>Unity.Hotfix</Name>
     </ProjectReference>
+    <ProjectReference Include="UnlimitedScrollUIEditor.csproj">
+      <Project>{D66FFE29-7D08-5307-090B-0FC29D0E4F59}</Project>
+      <Name>UnlimitedScrollUIEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnlimitedScrollUIExample.csproj">
+      <Project>{6DB0CCE9-68A4-A8BF-38FE-D6ECE2750D46}</Project>
+      <Name>UnlimitedScrollUIExample</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnlimitedScrollUI.csproj">
+      <Project>{EC4C4027-F002-0AFB-F9C3-36429B236D2B}</Project>
+      <Name>UnlimitedScrollUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

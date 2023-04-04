@@ -18,5 +18,6 @@ namespace ET
 
         public ToggleGroup skillTglGroup;
         public Button selectBtn;
+        public Button backBtn;
     }
 }

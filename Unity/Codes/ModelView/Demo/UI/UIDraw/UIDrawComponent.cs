@@ -16,6 +16,7 @@ namespace ET
         public Color brushColor = Color.black;
         public Camera MyCamera;
         public Button checkBtn;
+        public Button backBtn;
         public Button clearBtn;
         public Button LittlesizeButton;
         public Button MiddlesizeButton;

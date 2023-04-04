@@ -13,6 +13,7 @@ namespace ET
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.chosenId = -1;
             self.selectBtn = rc.Get<GameObject>("SelectBtn").GetComponent<Button>();
+            self.backBtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.skillTglGroup = rc.Get<GameObject>("TglGroup").GetComponent<ToggleGroup>();
             self.skillTgl_1 = rc.Get<GameObject>("Skill1").GetComponent<Toggle>();
             self.skillTgl_2 = rc.Get<GameObject>("Skill2").GetComponent<Toggle>();
@@ -49,6 +50,7 @@ namespace ET
                 self.toggles[i].onValueChanged.AddListener(self.onTglValueChanged);
             }
             self.selectBtn.onClick.AddListener(self.OnSelectBtn);
+            self.backBtn.onClick.AddListener(self.OnBackBtn);
         }
 
         #region
@@ -74,10 +76,15 @@ namespace ET
                 uitips.GetComponent<UITipsComponent>().SetContent(3, "Please Select A Skill", self.selectBtn);
                 return;
             }
-            await UIHelper.Create(self.DomainScene(), UIType.UIDraw, UILayer.Mid);
+            await UIHelper.Show(self.DomainScene(), UIType.UIDraw, UILayer.Mid);
             var uidraw = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIDraw);
             uidraw.GetComponent<UIDrawComponent>().GetFulu(FuluConfigCategory.Instance.GetAll()[self.chosenId].Name).Coroutine();
-            await UIHelper.Remove(self.ZoneScene(), UIType.UISkillpanel);
+            await UIHelper.Close(self.DomainScene(), UIType.UISkillpanel);
+        }
+        public static void OnBackBtn(this UISkillpanelComponent self)
+        {
+            UIHelper.Show(self.DomainScene(), UIType.UIGame, UILayer.Mid).Coroutine();
+            UIHelper.Close(self.DomainScene(), UIType.UISkillpanel).Coroutine();
         }
         #endregion
     }

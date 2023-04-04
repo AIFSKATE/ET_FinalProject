@@ -12,13 +12,10 @@ namespace ET
         public override void Awake(UIGameComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
-            self.ShowUIDrawBtn = rc.Get<GameObject>("ShowUIDrawBtn");
-            self.ShowUIDrawBtn.GetComponent<Button>().onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
-            //self.loginBtn = rc.Get<GameObject>("LoginBtn");
-
-            //self.loginBtn.GetComponent<Button>().onClick.AddListener(() => { self.OnLogin(); });
-            //self.account = rc.Get<GameObject>("Account");
-            //self.password = rc.Get<GameObject>("Password");
+            self.ShowUIDrawBtn = rc.Get<GameObject>("ShowUIDrawBtn").GetComponent<Button>();
+            self.ShowUIBagBtn = rc.Get<GameObject>("ShowUIBagBtn").GetComponent<Button>();
+            self.ShowUIDrawBtn.onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
+            self.ShowUIBagBtn.onClick.AddListener(() => { self.OnShowUIBagBtn(); });
         }
     }
 
@@ -27,7 +24,13 @@ namespace ET
     {
         public static void OnShowUIDrawBtn(this UIGameComponent self)
         {
-            UIHelper.Create(self.DomainScene(), UIType.UISkillpanel, UILayer.Mid).Coroutine();
+            UIHelper.Show(self.DomainScene(), UIType.UISkillpanel, UILayer.Mid).Coroutine();
+            UIHelper.Close(self.DomainScene(), UIType.UIGame).Coroutine();
+        }
+        public static void OnShowUIBagBtn(this UIGameComponent self)
+        {
+            UIHelper.Show(self.DomainScene(), UIType.UIBag, UILayer.Mid).Coroutine();
+            UIHelper.Close(self.DomainScene(), UIType.UIGame).Coroutine();
         }
     }
 }

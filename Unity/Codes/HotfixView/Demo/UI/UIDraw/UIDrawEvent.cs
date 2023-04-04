@@ -21,5 +21,24 @@ namespace ET
         {
             ResourcesComponent.Instance.UnloadBundle(UIType.UIDraw.StringToAB());
         }
+
+        public override async ETTask<UI> OnShow(UIComponent uiComponent, UILayer uiLayer)
+        {
+            UI ui = uiComponent.Get(UIType.UIDraw);
+            var gameObject = ui.GameObject;
+            gameObject.SetActive(true);
+            gameObject.transform.SetParent(UIEventComponent.Instance.UILayers[(int)uiLayer]);
+
+            ui.GetComponent<UIDrawComponent>().Clear();
+            await ETTask.CompletedTask;
+            return ui;
+        }
+
+        public override void OnClose(UIComponent uiComponent)
+        {
+            UI ui = uiComponent.Get(UIType.UIDraw);
+            var gameObject = ui.GameObject;
+            gameObject.SetActive(false);
+        }
     }
 }

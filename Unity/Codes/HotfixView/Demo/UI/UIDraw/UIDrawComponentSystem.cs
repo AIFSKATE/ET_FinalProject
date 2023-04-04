@@ -22,6 +22,7 @@ namespace ET
             self.mydraw = rc.Get<GameObject>("mydraw").GetComponent<RawImage>();
             self.canvasRect = rc.Get<GameObject>("Canvas").GetComponent<RectTransform>();
             self.checkBtn = rc.Get<GameObject>("CheckBtn").GetComponent<Button>();
+            self.backBtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.similarity = rc.Get<GameObject>("Similarity").GetComponent<TextMeshProUGUI>();
             self.LittlesizeButton = rc.Get<GameObject>("LittleSizeBtn").GetComponent<Button>();
             self.MiddlesizeButton = rc.Get<GameObject>("MiddleSizeBtn").GetComponent<Button>();
@@ -73,6 +74,7 @@ namespace ET
             self.MiddlesizeButton.onClick.AddListener(self.OnMiddleSizeBtn);
             self.BigsizeButton.onClick.AddListener(self.OnBigSizeBtn);
             self.clearBtn.onClick.AddListener(self.OnClearBtn);
+            self.backBtn.onClick.AddListener(self.OnBackBtn);
         }
 
         public static void ChangeColor(this UIDrawComponent self, int colorIndex)
@@ -139,6 +141,11 @@ namespace ET
         public static void OnClearBtn(this UIDrawComponent self)
         {
             self.Clear();
+        }
+        public static void OnBackBtn(this UIDrawComponent self)
+        {
+            UIHelper.Close(self.DomainScene(), UIType.UIDraw).Coroutine();
+            UIHelper.Show(self.DomainScene(), UIType.UISkillpanel,UILayer.Mid).Coroutine();
         }
         public static void OnLittleSizeBtn(this UIDrawComponent self)
         {

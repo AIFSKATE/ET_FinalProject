@@ -8,11 +8,18 @@
             return ui;
         }
 
+        public static async ETTask<UI> Show(Scene scene, string uiType, UILayer uiLayer)
+        {
+            UI ui = await scene.GetComponent<UIComponent>().Show(uiType, uiLayer);
+            return ui;
+        }
+
         public static async ETTask Remove(Scene scene, string uiType)
         {
             scene.GetComponent<UIComponent>().Remove(uiType);
             await ETTask.CompletedTask;
         }
+
         public static async ETTask Close(Scene scene, string uiType)
         {
             scene.GetComponent<UIComponent>().Close(uiType);

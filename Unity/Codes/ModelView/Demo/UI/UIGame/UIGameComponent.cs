@@ -9,6 +9,7 @@ namespace ET
     [ComponentOf(typeof(UI))]
     public class UIGameComponent : Entity, IAwake
     {
-        public GameObject ShowUIDrawBtn;
+        public Button ShowUIDrawBtn;
+        public Button ShowUIBagBtn;
     }
 }
