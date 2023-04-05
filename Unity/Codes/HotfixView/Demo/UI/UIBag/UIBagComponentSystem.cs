@@ -15,6 +15,9 @@ namespace ET
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             GameObject Cell = rc.Get<GameObject>("Cell");
+
+            self.cellcomponent = self.AddComponent<UIBagCellComponent, GameObject>(Cell);
+
             self.scrollercomponent = rc.Get<GameObject>("GridUnlimitedScroller").GetComponent<GridUnlimitedScroller>();
             self.bgimage = rc.Get<GameObject>("BGImage").GetComponent<Image>();
             self.backbtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
@@ -22,8 +25,7 @@ namespace ET
 
             self.scrollercomponent.Generate(Cell, 100, (index, iCell) =>
             {
-                var regularCell = iCell as RegularCell;
-                if (regularCell != null) regularCell.onGenerated?.Invoke(index);
+                self.cellcomponent.OnGenerated(index,iCell);
             });
 
             self.BindListener().Coroutine();

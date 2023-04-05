@@ -59,6 +59,9 @@ namespace ET
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int32, UnlimitedScrollUI.ICell>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ET.AService>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, UnlimitedScrollUI.ScrollerPanelSide>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnlimitedScrollUI.ScrollerPanelSide>();
 
 
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Events.UnityAction>();
@@ -79,7 +82,6 @@ namespace ET
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<System.Int64>, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
 
-            appdomain.DelegateManager.RegisterMethodDelegate<ET.AService>();
 
             appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
             {

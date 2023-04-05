@@ -13,5 +13,6 @@ namespace ET
         public GridUnlimitedScroller scrollercomponent;
         public Image bgimage;
         public Button backbtn;
+        public UIBagCellComponent cellcomponent;
     }
 }
