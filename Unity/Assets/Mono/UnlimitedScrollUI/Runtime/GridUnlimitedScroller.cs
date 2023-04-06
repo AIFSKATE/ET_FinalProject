@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +27,7 @@ namespace UnlimitedScrollUI
                 : totalCount / CellPerRow + 1;
             }
         }
-            
+
 
         /// <inheritdoc cref="IUnlimitedScroller.FirstRow"/>
         public int FirstRow
@@ -121,6 +123,9 @@ namespace UnlimitedScrollUI
         public ScrollRect scrollRect;
 
         public Alignment horizontalAlignment;
+
+        public Func<GameObject, RectTransform, GameObject> ETInstantiate;
+        public Action ETDestroyAllCells;
 
         #endregion
 
@@ -386,7 +391,8 @@ namespace UnlimitedScrollUI
             }
             else
             {
-                instance = Instantiate(cellPrefab, contentTrans);
+                //instance = Instantiate(cellPrefab, contentTrans);
+                instance = ETInstantiate?.Invoke(cellPrefab, contentTrans);
                 iCell = instance.GetComponent<ICell>();
                 onCellGenerate?.Invoke(index, iCell);
             }
@@ -416,6 +422,7 @@ namespace UnlimitedScrollUI
                 : (int)(currentFirstRow * cellY + (currentFirstRow - 1) * spacingY));
             layoutGroup.padding.bottom = offsetPadding.bottom + (int)((RowCount - LastRow - 1) * (cellY + spacingY));
 
+
             for (var r = currentFirstRow; r <= currentLastRow; ++r)
             {
                 for (var c = currentFirstCol; c <= currentLastCol; ++c)
@@ -439,13 +446,19 @@ namespace UnlimitedScrollUI
 
         private void DestroyAllCells()
         {
-            var total = currentCells.Count;
-            for (var i = 0; i < total; i++)
+            //var total = currentCells.Count;
+            //for (var i = 0; i < total; i++)
+            //{
+            //    var cell = currentCells[0];
+            //    currentCells.RemoveAt(0);
+            //    cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
+            //    Destroy(cell.go);
+            //}
+            //ETDestroyAllCells?.Invoke();
+
+            for (var i = currentFirstRow; i <= currentLastRow; i++)
             {
-                var cell = currentCells[0];
-                currentCells.RemoveAt(0);
-                cell.go.GetComponent<ICell>().OnBecomeInvisible(ScrollerPanelSide.NoSide);
-                Destroy(cell.go);
+                DestroyRow(i, true);
             }
         }
 
@@ -547,6 +560,28 @@ namespace UnlimitedScrollUI
                 currentLastCol = LastCol;
             }
 
+            if (currentFirstRow < FirstRow)
+            {
+                // top row invisible
+                for (var row = currentFirstRow; row < FirstRow; ++row)
+                {
+                    DestroyRow(row, true);
+                }
+
+                currentFirstRow = FirstRow;
+            }
+
+            if (currentLastRow > LastRow)
+            {
+                // bottom row invisible
+                for (var row = currentLastRow; row > LastRow; --row)
+                {
+                    DestroyRow(row, false);
+                }
+
+                currentLastRow = LastRow;
+            }
+
             if (currentFirstCol > FirstCol)
             {
                 // new left col
@@ -569,27 +604,6 @@ namespace UnlimitedScrollUI
                 currentLastCol = LastCol;
             }
 
-            if (currentFirstRow < FirstRow)
-            {
-                // top row invisible
-                for (var row = currentFirstRow; row < FirstRow; ++row)
-                {
-                    DestroyRow(row, true);
-                }
-
-                currentFirstRow = FirstRow;
-            }
-
-            if (currentLastRow > LastRow)
-            {
-                // bottom row invisible
-                for (var row = currentLastRow; row > LastRow; --row)
-                {
-                    DestroyRow(row, false);
-                }
-
-                currentLastRow = LastRow;
-            }
             if (currentFirstRow > FirstRow)
             {
                 // new top row

@@ -29,6 +29,15 @@ namespace ET
         }
     }
 
+    [ObjectSystem]
+    public class UIBagCellComponentDestorySystem : DestroySystem<UIBagCellComponent>
+    {
+        public override void Destroy(UIBagCellComponent self)
+        {
+            GameObject.Destroy(self.gameObject);
+        }
+    }
+
     [FriendClass(typeof(UIBagCellComponent))]
     public static class UIBagCellComponentSystem
     {
@@ -50,9 +59,8 @@ namespace ET
         }
         public static void OnGenerated(this UIBagCellComponent self, int index, ICell iCell)
         {
-            UIBagCell uIBagCell = iCell as UIBagCell;
-            //Debug.LogWarning(self.gameObject.GetHashCode());
-            uIBagCell.GetComponent<ReferenceCollector>().Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text = $"{index}";
+            self.text.text = $"{index}";
+            //uIBagCell.GetComponent<ReferenceCollector>().Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text = $"{index}";
         }
     }
 }

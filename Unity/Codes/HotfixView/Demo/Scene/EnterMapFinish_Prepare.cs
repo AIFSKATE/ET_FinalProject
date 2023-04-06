@@ -14,6 +14,7 @@ namespace ET
         {
             //加载UI
             UIHelper.Create(args.ZoneScene, UIType.UIGame, UILayer.Mid).Coroutine();
+            UIHelper.Create(args.ZoneScene, UIType.UIHP, UILayer.Low).Coroutine();
 
             //这一块是摄像头的逻辑
             var zoneScene = args.ZoneScene;
@@ -22,7 +23,7 @@ namespace ET
             var id = zoneScene.GetComponent<PlayerComponent>().MyId;
             var myunit = unitComponent.Get(id);
             zoneScene.RemoveComponent<CameraComponent>();
-            zoneScene.AddComponent<RuntimeCameraComponent,Transform>(myunit.GetComponent<GameObjectComponent>().GameObject.transform);
+            zoneScene.AddComponent<RuntimeCameraComponent, Transform>(myunit.GetComponent<GameObjectComponent>().GameObject.transform);
 
             //这一块是关卡加载通知
             M2C_Standingby m2C_Standingby = await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2M_Standingby()) as M2C_Standingby;

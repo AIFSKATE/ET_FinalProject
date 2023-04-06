@@ -7,8 +7,7 @@ using UnlimitedScrollUI;
 
 namespace ET
 {
-    [ComponentOf(typeof(UIBagComponent))]
-    public class UIBagCellComponent : Entity, IAwake<GameObject>
+    public class UIBagCellComponent : Entity, IAwake<GameObject>, IDestroy
     {
         public GameObject gameObject;
         public UIBagCell cell;

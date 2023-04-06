@@ -33,6 +33,7 @@ namespace ET
                         args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
                         args.Unit.AddComponent<AnimatorComponent>();
                         args.Unit.AddComponent<TriggerComponent>();
+                        args.Unit.AddComponent<HPComponent>();
                         return;
                     }
             }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.U2D;
@@ -14,19 +14,15 @@ namespace ET
         public override void Awake(UIBagComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
-            GameObject Cell = rc.Get<GameObject>("Cell");
-
-            self.cellcomponent = self.AddComponent<UIBagCellComponent, GameObject>(Cell);
+            self.cell = rc.Get<GameObject>("Cell");
+            self.celldic = new Dictionary<ICell, UIBagCellComponent>();
 
             self.scrollercomponent = rc.Get<GameObject>("GridUnlimitedScroller").GetComponent<GridUnlimitedScroller>();
             self.bgimage = rc.Get<GameObject>("BGImage").GetComponent<Image>();
             self.backbtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.bgimage.type = Image.Type.Sliced;
 
-            self.scrollercomponent.Generate(Cell, 100, (index, iCell) =>
-            {
-                self.cellcomponent.OnGenerated(index,iCell);
-            });
+
 
             self.BindListener().Coroutine();
         }
@@ -43,6 +39,15 @@ namespace ET
             self.backbtn.GetComponent<Image>().sprite = list.GetSprite("GUI_67");
             self.backbtn.onClick.AddListener(self.OnBackBtn);
 
+            self.scrollercomponent.ETInstantiate += self.ETInstantiate;
+            //self.scrollercomponent.ETDestroyAllCells += self.ETDestroyAllCells;
+
+
+            self.scrollercomponent.Generate(self.cell, 100, (index, iCell) =>
+            {
+                self.celldic[iCell].OnGenerated(index, iCell);
+            });
+
             await ETTask.CompletedTask;
         }
 
@@ -50,6 +55,20 @@ namespace ET
         {
             UIHelper.Show(self.DomainScene(), UIType.UIGame, UILayer.Mid).Coroutine();
             UIHelper.Close(self.DomainScene(), UIType.UIBag).Coroutine();
+        }
+
+        public static GameObject ETInstantiate(this UIBagComponent self, GameObject cell, RectTransform rectTransform)
+        {
+            var res = GameObject.Instantiate(cell, rectTransform);
+            var child = self.AddChild<UIBagCellComponent, GameObject>(res);
+            self.celldic.Add(res.GetComponent<ICell>(), child);
+            return res;
+        }
+
+        public static void ETDestroyAllCells(this UIBagComponent self)
+        {
+            self.celldic.Clear();
+            self.Children.Clear();
         }
     }
 }
