@@ -9,5 +9,7 @@ namespace ET
         public Image hpimage;
         public GameObject gameObject;
         public UI uihp;
+        public int maxhp;
+        public int hp;
     }
 }

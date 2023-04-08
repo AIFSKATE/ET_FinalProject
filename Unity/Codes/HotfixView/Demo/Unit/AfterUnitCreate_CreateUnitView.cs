@@ -29,6 +29,9 @@ namespace ET
                         GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset("Unit.unity3d", "Unit");
                         GameObject prefab = bundleGameObject.Get<GameObject>("Enemy1");
                         GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
+
+                        go.transform.SetParent(GlobalComponent.Instance.Unit, true);
+
                         go.transform.position = args.Unit.Position;
                         args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
                         args.Unit.AddComponent<AnimatorComponent>();

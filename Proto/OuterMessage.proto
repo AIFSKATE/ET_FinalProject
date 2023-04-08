@@ -280,10 +280,12 @@ message C2M_DamageMonsters // IActorLocationMessage
 {
 	int32 RpcId = 90;
 	repeated int64 ids = 1;
+	int32 damage = 2;
 }
 
 message M2C_DamageMonsters // IActorMessage
 {
 	int32 RpcId = 90;
 	repeated int64 ids = 1;
+	int32 damage = 2;
 }

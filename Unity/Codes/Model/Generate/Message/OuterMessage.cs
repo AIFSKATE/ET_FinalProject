@@ -574,6 +574,9 @@ namespace ET
 		[ProtoMember(1)]
 		public List<long> ids = new List<long>();
 
+		[ProtoMember(2)]
+		public int damage { get; set; }
+
 	}
 
 	[Message(OuterOpcode.M2C_DamageMonsters)]
@@ -585,6 +588,9 @@ namespace ET
 
 		[ProtoMember(1)]
 		public List<long> ids = new List<long>();
+
+		[ProtoMember(2)]
+		public int damage { get; set; }
 
 	}
 

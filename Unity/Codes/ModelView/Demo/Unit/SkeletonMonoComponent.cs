@@ -23,7 +23,7 @@ namespace ET
 
             private void OnTriggerEnter(Collider other)
             {
-                Debug.LogWarning("碰撞了");
+                //Debug.LogWarning("碰撞了");
             }
         }
         [ObjectSystem]

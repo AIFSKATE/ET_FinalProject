@@ -19,7 +19,7 @@ namespace ET
         {
             Unit unit = args.Unit;
             var mygameobject = unit.GetComponent<GameObjectComponent>().GameObject;
-            GameObject SnowSlashVFS = RecyclePoolComponent.Instance.Get("SnowSlash");
+            GameObject SnowSlashVFS = RecyclePoolComponent.Instance.GetUnit("SnowSlash");
             SnowSlashVFS.transform.SetParent(mygameobject.transform, false);
 
             ////范围检测代码
@@ -45,7 +45,7 @@ namespace ET
             //如果没有打中就不要发送这个消息，为了测试能否发送的话可以把if先注释掉
             if (list.Count > 0)
             {
-                args.session.Send(new C2M_DamageMonsters() { ids = list });
+                args.session.Send(new C2M_DamageMonsters() { ids = list, damage = 25 });
             }
             await ETTask.CompletedTask;
         }

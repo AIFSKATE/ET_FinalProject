@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -45,8 +46,14 @@ namespace ET
             }
         }
 
-        public static GameObject Get(this RecyclePoolComponent self, string name)
+        public static GameObject GetUnit(this RecyclePoolComponent self, string name)
         {
+            return self.Get("Unit.unity3d", "Unit", name);
+        }
+
+        public static GameObject Get(this RecyclePoolComponent self, string bundleName, string prefab, string referencename = null)
+        {
+            string name = bundleName + "_" + prefab + "_" + referencename;
             GameObject gameobjectdata;
             if (!self.pool.ContainsKey(name))
             {
@@ -54,14 +61,21 @@ namespace ET
             }
             if (self.pool[name].Count == 0)
             {
-                GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset("Unit.unity3d", "Unit");
-                try
+                GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset(bundleName, prefab);
+                if (referencename != null)
                 {
-                    gameobjectdata = bundleGameObject.GetComponent<ReferenceCollector>().Get<GameObject>(name);
+                    try
+                    {
+                        gameobjectdata = bundleGameObject.GetComponent<ReferenceCollector>().Get<GameObject>(referencename);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception($"获取{bundleGameObject.name}的ReferenceCollector key失败, key: {referencename}", e);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    throw new Exception($"获取{bundleGameObject.name}的ReferenceCollector key失败, key: {name}", e);
+                    gameobjectdata = bundleGameObject;
                 }
                 GameObject mygameobject = GameObject.Instantiate(gameobjectdata);
                 mygameobject.name = name;
@@ -83,6 +97,7 @@ namespace ET
             IRecycle recycle = item.GetComponent<IRecycle>();
             recycle?.Recycle();
             item.gameObject.SetActive(false);
+            item.transform.SetParent(GlobalComponent.Instance.Pool, false);
             self.pool[item.name].Enqueue(item);
         }
     }

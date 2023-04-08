@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ET.EventType;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace ET
 {
@@ -16,7 +18,9 @@ namespace ET
             UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
             foreach (var item in message.ids)
             {
-                unitComponent.Remove(item);
+                //unitComponent.Remove(item);
+                Unit unit = unitComponent.Get(item);
+                Game.EventSystem.PublishAsync<Damage>(new Damage() { Unit = unit, damage = message.damage }).Coroutine();
             }
         }
     }
