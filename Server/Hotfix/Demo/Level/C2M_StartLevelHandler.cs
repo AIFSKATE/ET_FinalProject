@@ -13,13 +13,14 @@ namespace ET
         protected override async ETTask Run(Unit unit, C2M_Startlevel request, M2C_Startlevel response, Action reply)
         {
             Scene currentscene = unit.DomainScene();
-            UnitComponent unitComponent = currentscene.GetComponent<UnitComponent>();
-            UnitConfig unitConfig = UnitConfigCategory.Instance.Get(1002);
-            for (int i = 0; i < 4; i++)
+            var levelComponent = currentscene.GetComponent<LevelComponent>();
+            if (request.nowlevel > levelComponent.GetEndLevel())
             {
-                Unit unitenemy = UnitFactory.Create(currentscene, unitConfig.Id, UnitType.Monster);
-                unitComponent.Add(unitenemy);
+                response.Error = ErrorCode.ERR_LevelEND;
+                reply();
+                return;
             }
+            levelComponent.StartLevel(request.nowlevel);
             reply();
             await ETTask.CompletedTask;
         }

@@ -250,12 +250,14 @@ message M2C_Standingby // IActorLocationResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
+	int32 endlevel = 1;
 }
 
 //ResponseType M2C_Startlevel
 message C2M_Startlevel // IActorLocationRequest
 {
 	int32 RpcId = 1;
+	int32 nowlevel = 2;
 }
 
 message M2C_Startlevel // IActorLocationResponse

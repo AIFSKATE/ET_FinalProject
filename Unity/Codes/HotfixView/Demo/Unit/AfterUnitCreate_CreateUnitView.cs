@@ -37,6 +37,7 @@ namespace ET
                         args.Unit.AddComponent<AnimatorComponent>();
                         args.Unit.AddComponent<TriggerComponent>();
                         args.Unit.AddComponent<HPComponent>();
+                        args.Unit.DomainScene().GetComponent<LevelComponent>().AddEnemy(args.Unit);
                         return;
                     }
             }

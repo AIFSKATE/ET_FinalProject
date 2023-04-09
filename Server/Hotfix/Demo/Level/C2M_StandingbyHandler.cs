@@ -11,6 +11,8 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_Standingby request, M2C_Standingby response, Action reply)
         {
+            var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
+            response.endlevel = levelcomponent.GetEndLevel();
             reply();
             await ETTask.CompletedTask;
         }

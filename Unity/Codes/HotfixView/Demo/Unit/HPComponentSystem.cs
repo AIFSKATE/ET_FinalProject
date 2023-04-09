@@ -45,13 +45,15 @@ namespace ET
             self.hp = hp;
             if (self.hp <= 0)
             {
-                Debug.LogWarning("已经死了");
+                self.DomainScene().GetComponent<LevelComponent>().RemoveEnemy(self.Parent as Unit);
+                self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
             }
         }
 
         public static void GetDamage(this HPComponent self, int damage)
         {
             self.SetHP(self.hp - damage);
+            self.uihp.GetComponent<UIHPComponent>().GetDamage(self.gameObject, self.Parent as Unit, damage).Coroutine();
         }
 
     }

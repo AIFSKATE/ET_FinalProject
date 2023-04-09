@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Net;
-
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +47,26 @@ namespace ET
         {
             RecyclePoolComponent.Instance.Recycle(self.dichp[unit].gameObject);
             self.dichp.Remove(unit);
+        }
+        public static async ETTask GetDamage(this UIHPComponent self, GameObject gameObject, Unit unit, int damage)
+        {
+            var t = RecyclePoolComponent.Instance.Get(UIType.UIHP.StringToAB(), UIType.UIHP, "HpNum");
+            t.transform.SetParent(self.panel, false);
+            t.transform.localScale = new Vector3(1, 1, 1);
+            Vector3 screenpositon = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(self.panel, screenpositon, null, out var pos);
+            pos.y += 100;
+            pos.x += 50;
+            t.GetComponent<RectTransform>().anchoredPosition = pos;
+            Vector2 newpos = Vector2.down;
+            newpos = pos;
+            newpos.y += 100;
+
+            t.GetComponent<TextMeshProUGUI>().text = "-" + damage;
+            t.GetComponent<RectTransform>().DOAnchorPos(newpos, 1);
+            t.GetComponent<RectTransform>().DOScale(2.5f, 1).SetLoops(1, LoopType.Restart);
+            await TimerComponent.Instance.WaitAsync(1000);
+            RecyclePoolComponent.Instance.Recycle(t);
         }
     }
 }

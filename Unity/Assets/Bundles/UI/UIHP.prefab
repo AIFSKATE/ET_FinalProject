@@ -140,6 +140,9 @@ MonoBehaviour:
       type: 3}
   - key: Panel
     gameObject: {fileID: 7688962753287886183}
+  - key: HpNum
+    gameObject: {fileID: 1670782822169950157, guid: 0bff0917af8667b49ab7625d89c9107f,
+      type: 3}
 --- !u!114 &6431056830455753969
 MonoBehaviour:
   m_ObjectHideFlags: 0

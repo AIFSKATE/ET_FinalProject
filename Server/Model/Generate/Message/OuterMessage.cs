@@ -516,6 +516,9 @@ namespace ET
 		[ProtoMember(92)]
 		public string Message { get; set; }
 
+		[ProtoMember(1)]
+		public int endlevel { get; set; }
+
 	}
 
 	[ResponseType(nameof(M2C_Startlevel))]
@@ -525,6 +528,9 @@ namespace ET
 	{
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public int nowlevel { get; set; }
 
 	}
 
