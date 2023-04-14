@@ -14,7 +14,7 @@ namespace ET
         [ObjectSystem]
         public class CoroutineLockQueueAwakeSystem: AwakeSystem<CoroutineLockQueue>
         {
-            public override void Awake(CoroutineLockQueue self)
+            public override void AwakeAsync(CoroutineLockQueue self)
             {
                 self.queue.Clear();
             }

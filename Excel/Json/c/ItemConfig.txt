@@ -1,0 +1,17 @@
+{"list":[
+{"_t":"ItemConfig","_id":0,"Name":"Meat","Desc":"巡逻"},
+{"_t":"ItemConfig","_id":1,"Name":"Gear","Desc":"攻击"},
+{"_t":"ItemConfig","_id":2,"Name":"Apple","Desc":""},
+{"_t":"ItemConfig","_id":3,"Name":"Fish Steak","Desc":""},
+{"_t":"ItemConfig","_id":4,"Name":"Bread","Desc":""},
+{"_t":"ItemConfig","_id":5,"Name":"Heart","Desc":""},
+{"_t":"ItemConfig","_id":6,"Name":"Bone","Desc":""},
+{"_t":"ItemConfig","_id":7,"Name":"Cheese","Desc":""},
+{"_t":"ItemConfig","_id":8,"Name":"Copper Coin","Desc":""},
+{"_t":"ItemConfig","_id":9,"Name":"Silver Coin","Desc":""},
+{"_t":"ItemConfig","_id":10,"Name":"Golden Coin","Desc":""},
+{"_t":"ItemConfig","_id":11,"Name":"Red Potion 2","Desc":""},
+{"_t":"ItemConfig","_id":12,"Name":"Water Bottle","Desc":""},
+{"_t":"ItemConfig","_id":13,"Name":"Green Potion","Desc":""},
+{"_t":"ItemConfig","_id":14,"Name":"Blue Potion 3","Desc":""},
+]}

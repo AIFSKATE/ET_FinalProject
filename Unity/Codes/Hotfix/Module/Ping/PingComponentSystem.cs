@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class PingComponentAwakeSystem: AwakeSystem<PingComponent>
     {
-        public override void Awake(PingComponent self)
+        public override void AwakeAsync(PingComponent self)
         {
             PingAsync(self).Coroutine();
         }

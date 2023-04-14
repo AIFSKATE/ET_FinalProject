@@ -4,7 +4,7 @@
     [ObjectSystem]
     public class LevelComponentAwakeSystem : AwakeSystem<LevelComponent>
     {
-        public override void Awake(LevelComponent self)
+        public override void AwakeAsync(LevelComponent self)
         {
             self.endlevel = 1;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using static System.Collections.Specialized.BitVector32;
 
@@ -11,11 +12,11 @@ namespace ET
         [ObjectSystem]
         public class AwakeSystem : AwakeSystem<HPComponent>
         {
-            public override void Awake(HPComponent self)
+            public override void AwakeAsync(HPComponent self)
             {
                 self.uihp = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIHP);
                 self.gameObject = self.Parent.GetComponent<GameObjectComponent>().GameObject;
-                self.uihp.GetComponent<UIHPComponent>().InitHP(self.Parent as Unit, 200, 7);
+                self.uihp.GetComponent<UIHPComponent>()?.InitHP(self.Parent as Unit, 200, 7);
 
                 self.maxhp = 100;
                 self.hp = self.maxhp;
@@ -27,7 +28,10 @@ namespace ET
         {
             public override void Update(HPComponent self)
             {
-                self.uihp.GetComponent<UIHPComponent>().SetHP(self.gameObject, self.Parent as Unit, self.hp, self.maxhp, 200);
+                if (self.uihp != null)
+                {
+                    self.uihp.GetComponent<UIHPComponent>().SetHP(self.gameObject, self.Parent as Unit, self.hp, self.maxhp, 200);
+                }
             }
         }
 
@@ -46,14 +50,15 @@ namespace ET
             if (self.hp <= 0)
             {
                 self.DomainScene().GetComponent<LevelComponent>().RemoveEnemy(self.Parent as Unit);
+                self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id }).Coroutine();
                 self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
             }
         }
 
         public static void GetDamage(this HPComponent self, int damage)
         {
-            self.SetHP(self.hp - damage);
             self.uihp.GetComponent<UIHPComponent>().GetDamage(self.gameObject, self.Parent as Unit, damage).Coroutine();
+            self.SetHP(self.hp - damage);
         }
 
     }

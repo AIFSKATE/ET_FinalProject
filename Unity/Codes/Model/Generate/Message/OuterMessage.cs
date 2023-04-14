@@ -91,6 +91,35 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(G2C_ExitMap))]
+	[Message(OuterOpcode.C2G_ExitMap)]
+	[ProtoContract]
+	public partial class C2G_ExitMap: Object, IRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_ExitMap)]
+	[ProtoContract]
+	public partial class G2C_ExitMap: Object, IResponse
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public int Error { get; set; }
+
+		[ProtoMember(3)]
+		public string Message { get; set; }
+
+// 自己unitId
+		[ProtoMember(4)]
+		public long MyId { get; set; }
+
+	}
+
 	[Message(OuterOpcode.MoveInfo)]
 	[ProtoContract]
 	public partial class MoveInfo: Object
@@ -570,6 +599,90 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.C2M_HuiXue)]
+	[ProtoContract]
+	public partial class C2M_HuiXue: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_HuiXue)]
+	[ProtoContract]
+	public partial class M2C_HuiXue: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_RemoveUnit)]
+	[ProtoContract]
+	public partial class C2M_RemoveUnit: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_RemoveUnit)]
+	[ProtoContract]
+	public partial class M2C_RemoveUnit: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_MeteorsAOE)]
+	[ProtoContract]
+	public partial class C2M_MeteorsAOE: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public float X { get; set; }
+
+		[ProtoMember(2)]
+		public float Y { get; set; }
+
+		[ProtoMember(3)]
+		public float Z { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_MeteorsAOE)]
+	[ProtoContract]
+	public partial class M2C_MeteorsAOE: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+		[ProtoMember(2)]
+		public float X { get; set; }
+
+		[ProtoMember(3)]
+		public float Y { get; set; }
+
+		[ProtoMember(4)]
+		public float Z { get; set; }
+
+	}
+
 	[Message(OuterOpcode.C2M_DamageMonsters)]
 	[ProtoContract]
 	public partial class C2M_DamageMonsters: Object, IActorLocationMessage
@@ -582,6 +695,9 @@ namespace ET
 
 		[ProtoMember(2)]
 		public int damage { get; set; }
+
+		[ProtoMember(3)]
+		public int damagetype { get; set; }
 
 	}
 
@@ -597,6 +713,12 @@ namespace ET
 
 		[ProtoMember(2)]
 		public int damage { get; set; }
+
+		[ProtoMember(3)]
+		public int damagetype { get; set; }
+
+		[ProtoMember(4)]
+		public long id { get; set; }
 
 	}
 

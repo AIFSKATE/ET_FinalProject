@@ -1,12 +1,14 @@
-﻿namespace ET
+﻿using ET.EventType;
+
+namespace ET
 {
     //Client
     [ObjectSystem]
     public class LevelComponentAwakeSystem : AwakeSystem<LevelComponent>
     {
-        public override void Awake(LevelComponent self)
+        public override void AwakeAsync(LevelComponent self)
         {
-            self.nowlevel = 0;
+            self.nowlevel = 1;
             self.enemyunit = new System.Collections.Generic.HashSet<long>();
         }
     }
@@ -22,7 +24,6 @@
             self.enemyunit.Remove(enemy.Id);
             if (self.enemyunit.Count == 0)
             {
-                Log.Warning(self.nowlevel+"");
                 self.nowlevel++;
                 self.StartLevel(self.nowlevel).Coroutine();
             }
@@ -46,8 +47,14 @@
             M2C_Startlevel m2C_Startlevel = await self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_Startlevel() { nowlevel = nowlevel }) as M2C_Startlevel;
             if (m2C_Startlevel.Error == ErrorCode.ERR_LevelEND)
             {
-                Log.Warning("游戏结束");
+                self.EndLevel().Coroutine();
             }
+        }
+
+        public static async ETTask EndLevel(this LevelComponent self)
+        {
+            Game.EventSystem.Publish(new EndLevel() { ZoneScene = self.ZoneScene(), time = 1 });
+            await ETTask.CompletedTask;
         }
     }
 }

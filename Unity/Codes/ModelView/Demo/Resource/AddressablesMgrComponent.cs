@@ -25,7 +25,7 @@ namespace ET
         [ObjectSystem]
         public class AddressablesMgrComponentAwakeSystem : AwakeSystem<AddressablesMgrComponent>
         {
-            public override void Awake(AddressablesMgrComponent self)
+            public override void AwakeAsync(AddressablesMgrComponent self)
             {
                 AddressablesMgrComponent.Instance = self;
             }

@@ -10,7 +10,13 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_DamageMonsters message)
         {
-            MessageHelper.Broadcast(unit, new M2C_DamageMonsters() { ids = message.ids, damage = message.damage });
+            MessageHelper.Broadcast(unit, new M2C_DamageMonsters()
+            {
+                ids = message.ids,
+                damage = message.damage,
+                damagetype = message.damagetype,
+                id = unit.Id,
+            });
             await ETTask.CompletedTask;
         }
     }

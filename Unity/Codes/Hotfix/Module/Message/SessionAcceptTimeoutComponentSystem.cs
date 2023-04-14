@@ -21,7 +21,7 @@ namespace ET
     [ObjectSystem]
     public class SessionAcceptTimeoutComponentAwakeSystem: AwakeSystem<SessionAcceptTimeoutComponent>
     {
-        public override void Awake(SessionAcceptTimeoutComponent self)
+        public override void AwakeAsync(SessionAcceptTimeoutComponent self)
         {
             self.Timer = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 5000, TimerType.SessionAcceptTimeout, self);
         }

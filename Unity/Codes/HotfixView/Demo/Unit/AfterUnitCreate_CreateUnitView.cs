@@ -21,6 +21,7 @@ namespace ET
                         go.transform.position = args.Unit.Position;
                         args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
                         args.Unit.AddComponent<AnimatorComponent>();
+                        args.Unit.AddComponent<MainRoleComponent>();
                         args.Unit.AddComponent<SkeletonMonoComponent>();
                         return;
                     }

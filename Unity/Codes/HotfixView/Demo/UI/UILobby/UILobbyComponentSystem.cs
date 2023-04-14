@@ -6,7 +6,7 @@ namespace ET
     [ObjectSystem]
     public class UILobbyComponentAwakeSystem: AwakeSystem<UILobbyComponent>
     {
-        public override void Awake(UILobbyComponent self)
+        public override void AwakeAsync(UILobbyComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
 
@@ -20,7 +20,7 @@ namespace ET
         public static async ETTask EnterMap(this UILobbyComponent self)
         {
             await EnterMapHelper.EnterMapAsync(self.ZoneScene());
-            await UIHelper.Remove(self.ZoneScene(), UIType.UILobby);
+            await UIHelper.Close(self.ZoneScene(), UIType.UILobby);
         }
     }
 }

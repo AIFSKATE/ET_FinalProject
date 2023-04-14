@@ -23,7 +23,7 @@ namespace ET
     {
         public class RecyclePoolComponentAwakeSystem : AwakeSystem<RecyclePoolComponent>
         {
-            public override void Awake(RecyclePoolComponent self)
+            public override void AwakeAsync(RecyclePoolComponent self)
             {
                 RecyclePoolComponent.Instance = self;
                 self.pool = new Dictionary<string, Queue<GameObject>>();

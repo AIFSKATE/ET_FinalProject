@@ -5,7 +5,7 @@ namespace ET
 {
     public class WatcherComponentAwakeSystem: AwakeSystem<WatcherComponent>
     {
-        public override void Awake(WatcherComponent self)
+        public override void AwakeAsync(WatcherComponent self)
         {
             WatcherComponent.Instance = self;
         }

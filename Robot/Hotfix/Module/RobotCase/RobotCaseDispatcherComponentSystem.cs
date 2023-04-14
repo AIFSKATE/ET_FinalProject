@@ -6,7 +6,7 @@ namespace ET
     [ObjectSystem]
     public class RobotCaseDispatcherComponentAwakeSystem: AwakeSystem<RobotCaseDispatcherComponent>
     {
-        public override void Awake(RobotCaseDispatcherComponent self)
+        public override void AwakeAsync(RobotCaseDispatcherComponent self)
         {
             RobotCaseDispatcherComponent.Instance = self;
             self.Load();

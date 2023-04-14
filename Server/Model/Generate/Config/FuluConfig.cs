@@ -81,9 +81,18 @@ namespace ET
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>描述</summary>
+		/// <summary>所需item，奇数位个数，偶数位id</summary>
 		[ProtoMember(3)]
-		public string Desc { get; set; }
+		public int[] Need { get; set; }
+		/// <summary>前置</summary>
+		[ProtoMember(4)]
+		public int[] Front { get; set; }
+		/// <summary>解锁条件，偶数位id，奇数位个数</summary>
+		[ProtoMember(5)]
+		public int[] Unlockarr { get; set; }
+		/// <summary>生成了什么，对应Consumableconfig</summary>
+		[ProtoMember(6)]
+		public int Generate { get; set; }
 
 	}
 }

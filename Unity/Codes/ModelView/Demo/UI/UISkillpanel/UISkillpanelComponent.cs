@@ -15,6 +15,7 @@ namespace ET
         public Toggle skillTgl_5;
         public List<Toggle> toggles;
         public int chosenId;
+        public HashSet<int> already;
 
         public ToggleGroup skillTglGroup;
         public Button selectBtn;

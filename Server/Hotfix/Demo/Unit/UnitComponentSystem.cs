@@ -2,7 +2,7 @@ namespace ET
 {
     public class UnitComponentAwakeSystem: AwakeSystem<UnitComponent>
     {
-        public override void Awake(UnitComponent self)
+        public override void AwakeAsync(UnitComponent self)
         {
         }
     }

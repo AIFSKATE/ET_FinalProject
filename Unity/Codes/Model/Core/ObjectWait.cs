@@ -27,7 +27,7 @@ namespace ET
         [ObjectSystem]
         public class ObjectWaitAwakeSystem: AwakeSystem<ObjectWait>
         {
-            public override void Awake(ObjectWait self)
+            public override void AwakeAsync(ObjectWait self)
             {
                 self.tcss.Clear();
             }

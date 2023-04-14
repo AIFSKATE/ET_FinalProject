@@ -8,7 +8,7 @@ namespace ET
     [ObjectSystem]
     public class AwakeSystem : AwakeSystem<TriggerComponent>
     {
-        public override void Awake(TriggerComponent self)
+        public override void AwakeAsync(TriggerComponent self)
         {
             self.Awake();
         }

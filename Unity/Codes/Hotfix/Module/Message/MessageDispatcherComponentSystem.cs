@@ -6,7 +6,7 @@ namespace ET
     [ObjectSystem]
     public class MessageDispatcherComponentAwakeSystem: AwakeSystem<MessageDispatcherComponent>
     {
-        public override void Awake(MessageDispatcherComponent self)
+        public override void AwakeAsync(MessageDispatcherComponent self)
         {
             MessageDispatcherComponent.Instance = self;
             self.Load();

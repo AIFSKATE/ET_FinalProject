@@ -32,7 +32,7 @@ namespace ET
     [ObjectSystem]
     public class MoveComponentAwakeSystem: AwakeSystem<MoveComponent>
     {
-        public override void Awake(MoveComponent self)
+        public override void AwakeAsync(MoveComponent self)
         {
             self.StartTime = 0;
             self.StartPos = Vector3.zero;

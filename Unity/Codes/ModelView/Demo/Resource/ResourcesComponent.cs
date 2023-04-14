@@ -132,7 +132,7 @@ namespace ET
         [ObjectSystem]
         public class ResourcesComponentAwakeSystem: AwakeSystem<ResourcesComponent>
         {
-            public override void Awake(ResourcesComponent self)
+            public override void AwakeAsync(ResourcesComponent self)
             {
                 ResourcesComponent.Instance = self;
 

@@ -3,7 +3,7 @@
     [ObjectSystem]
     public class ModeContexAwakeSystem: AwakeSystem<ModeContex>
     {
-        public override void Awake(ModeContex self)
+        public override void AwakeAsync(ModeContex self)
         {
             self.Mode = "";
         }

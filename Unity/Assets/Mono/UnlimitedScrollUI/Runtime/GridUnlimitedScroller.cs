@@ -387,15 +387,14 @@ namespace UnlimitedScrollUI
             {
                 instance.transform.SetParent(contentTrans);
                 iCell = instance.GetComponent<ICell>();
-                onCellGenerate?.Invoke(index, iCell);
             }
             else
             {
                 //instance = Instantiate(cellPrefab, contentTrans);
                 instance = ETInstantiate?.Invoke(cellPrefab, contentTrans);
                 iCell = instance.GetComponent<ICell>();
-                onCellGenerate?.Invoke(index, iCell);
             }
+            onCellGenerate?.Invoke(index, iCell);
             instance.name = cellPrefab.name + "_" + index;
 
             var order = GetFirstGreater(index);
@@ -406,7 +405,7 @@ namespace UnlimitedScrollUI
             iCell.OnBecomeVisible(side);
         }
 
-        private void GenerateAllCells()
+        public void GenerateAllCells()
         {
             currentFirstCol = FirstCol;
             currentLastCol = LastCol;
@@ -444,7 +443,7 @@ namespace UnlimitedScrollUI
             cachedCells.Add(index, cell.go);
         }
 
-        private void DestroyAllCells()
+        public void DestroyAllCells()
         {
             //var total = currentCells.Count;
             //for (var i = 0; i < total; i++)

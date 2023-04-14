@@ -1,8 +1,8 @@
 {"list":[
-{"_t":"FuluConfig","_id":1,"Name":"O","Desc":""},
-{"_t":"FuluConfig","_id":2,"Name":"li","Desc":""},
-{"_t":"FuluConfig","_id":3,"Name":"infinite","Desc":""},
-{"_t":"FuluConfig","_id":4,"Name":"hui","Desc":""},
-{"_t":"FuluConfig","_id":5,"Name":"gou","Desc":""},
-{"_t":"FuluConfig","_id":6,"Name":"faiz","Desc":""},
+{"_t":"FuluConfig","_id":0,"Name":"O","Need":[1,2,2,1],"Front":[-1],"Unlockarr":[-1],"Generate":5},
+{"_t":"FuluConfig","_id":1,"Name":"li","Need":[2,3,4,1],"Front":[0,2],"Unlockarr":[8,3],"Generate":3},
+{"_t":"FuluConfig","_id":2,"Name":"infinite","Need":[4,1],"Front":[-1],"Unlockarr":[-1],"Generate":2},
+{"_t":"FuluConfig","_id":3,"Name":"hui","Need":[3,2],"Front":[1,4],"Unlockarr":[9,2,10,1],"Generate":0},
+{"_t":"FuluConfig","_id":4,"Name":"gou","Need":[1,4,6,2],"Front":[1],"Unlockarr":[8,2,9,2,10,2],"Generate":1},
+{"_t":"FuluConfig","_id":5,"Name":"faiz","Need":[2,4,3,1],"Front":[-1],"Unlockarr":[-1],"Generate":6},
 ]}

@@ -9,7 +9,7 @@ namespace ET
         [ObjectSystem]
         public class NumericWatcherComponentAwakeSystem : AwakeSystem<NumericWatcherComponent>
         {
-            public override void Awake(NumericWatcherComponent self)
+            public override void AwakeAsync(NumericWatcherComponent self)
             {
                 NumericWatcherComponent.Instance = self;
                 self.Init();

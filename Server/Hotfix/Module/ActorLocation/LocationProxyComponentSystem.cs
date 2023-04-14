@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class LocationProxyComponentAwakeSystem: AwakeSystem<LocationProxyComponent>
     {
-        public override void Awake(LocationProxyComponent self)
+        public override void AwakeAsync(LocationProxyComponent self)
         {
             LocationProxyComponent.Instance = self;
         }

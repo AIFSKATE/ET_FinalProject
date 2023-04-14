@@ -22,7 +22,7 @@ namespace ET
     [ObjectSystem]
     public class ActorMessageSenderComponentAwakeSystem: AwakeSystem<ActorMessageSenderComponent>
     {
-        public override void Awake(ActorMessageSenderComponent self)
+        public override void AwakeAsync(ActorMessageSenderComponent self)
         {
             ActorMessageSenderComponent.Instance = self;
 

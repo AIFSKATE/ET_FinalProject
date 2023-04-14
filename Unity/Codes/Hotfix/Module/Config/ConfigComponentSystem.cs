@@ -7,7 +7,7 @@ namespace ET
 	[ObjectSystem]
     public class ConfigAwakeSystem : AwakeSystem<ConfigComponent>
     {
-        public override void Awake(ConfigComponent self)
+        public override void AwakeAsync(ConfigComponent self)
         {
 	        ConfigComponent.Instance = self;
         }

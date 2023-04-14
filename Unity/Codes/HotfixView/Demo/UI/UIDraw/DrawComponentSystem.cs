@@ -11,7 +11,7 @@ namespace ET
     [ObjectSystem]
     public class DrawComponentAwakeSystem : AwakeSystem<DrawComponent>
     {
-        public override void Awake(DrawComponent self)
+        public override void AwakeAsync(DrawComponent self)
         {
 
         }

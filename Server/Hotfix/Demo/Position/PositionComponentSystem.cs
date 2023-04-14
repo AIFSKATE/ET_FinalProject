@@ -11,7 +11,7 @@ namespace ET
     {
         public class PositionComponentAwakeSystem : AwakeSystem<PositionComponent>
         {
-            public override void Awake(PositionComponent self)
+            public override void AwakeAsync(PositionComponent self)
             {
                 PositionComponent.Instance = self;
                 self.nowindex = 0;

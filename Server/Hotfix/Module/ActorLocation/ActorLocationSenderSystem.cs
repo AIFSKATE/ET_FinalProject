@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class ActorLocationSenderAwakeSystem: AwakeSystem<ActorLocationSender>
     {
-        public override void Awake(ActorLocationSender self)
+        public override void AwakeAsync(ActorLocationSender self)
         {
             self.LastSendOrRecvTime = TimeHelper.ServerNow();
             self.ActorId = 0;

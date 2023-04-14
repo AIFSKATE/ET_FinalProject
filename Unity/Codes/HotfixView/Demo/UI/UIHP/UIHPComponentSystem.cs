@@ -10,7 +10,7 @@ namespace ET
     [ObjectSystem]
     public class UIHPComponentAwakeSystem : AwakeSystem<UIHPComponent>
     {
-        public override void Awake(UIHPComponent self)
+        public override void AwakeAsync(UIHPComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.hpimage = rc.Get<GameObject>("HP");
@@ -55,8 +55,8 @@ namespace ET
             t.transform.localScale = new Vector3(1, 1, 1);
             Vector3 screenpositon = Camera.main.WorldToScreenPoint(gameObject.transform.position);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(self.panel, screenpositon, null, out var pos);
-            pos.y += 100;
-            pos.x += 50;
+            pos.y += 50;
+            pos.x += 15;
             t.GetComponent<RectTransform>().anchoredPosition = pos;
             Vector2 newpos = Vector2.down;
             newpos = pos;

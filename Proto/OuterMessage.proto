@@ -45,6 +45,21 @@ message G2C_EnterMap // IResponse
 	int64 MyId = 4;
 }
 
+//ResponseType G2C_ExitMap
+message C2G_ExitMap // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_ExitMap // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}
+
 message MoveInfo
 {
 	repeated float X = 1;
@@ -278,11 +293,52 @@ message M2C_SnowSlash // IActorMessage
 	int64 Id = 1;
 }
 
+message C2M_HuiXue // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_HuiXue // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_RemoveUnit // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message M2C_RemoveUnit // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_MeteorsAOE // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	float X = 1;
+	float Y = 2;
+	float Z = 3;
+}
+
+message M2C_MeteorsAOE // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+	float X = 2;
+	float Y = 3;
+	float Z = 4;
+}
+
 message C2M_DamageMonsters // IActorLocationMessage
 {
 	int32 RpcId = 90;
 	repeated int64 ids = 1;
 	int32 damage = 2;
+	int32 damagetype = 3;
 }
 
 message M2C_DamageMonsters // IActorMessage
@@ -290,4 +346,6 @@ message M2C_DamageMonsters // IActorMessage
 	int32 RpcId = 90;
 	repeated int64 ids = 1;
 	int32 damage = 2;
+	int32 damagetype = 3;
+	int64 id = 4;
 }

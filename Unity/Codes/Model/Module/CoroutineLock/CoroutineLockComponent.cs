@@ -9,7 +9,7 @@ namespace ET
         [ObjectSystem]
         public class CoroutineLockComponentAwakeSystem: AwakeSystem<CoroutineLockComponent>
         {
-            public override void Awake(CoroutineLockComponent self)
+            public override void AwakeAsync(CoroutineLockComponent self)
             {
                 CoroutineLockComponent.Instance = self;
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using TMPro;
@@ -15,12 +16,13 @@ namespace ET
     [ObjectSystem]
     public class UIDrawComponentAwakeSystem : AwakeSystem<UIDrawComponent>
     {
-        public override void Awake(UIDrawComponent self)
+        public override void AwakeAsync(UIDrawComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.fulu = rc.Get<GameObject>("fulu").GetComponent<Image>();
             self.mydraw = rc.Get<GameObject>("mydraw").GetComponent<RawImage>();
             self.canvasRect = rc.Get<GameObject>("Canvas").GetComponent<RectTransform>();
+            self.contentRect = rc.Get<GameObject>("Content").GetComponent<RectTransform>();
             self.checkBtn = rc.Get<GameObject>("CheckBtn").GetComponent<Button>();
             self.backBtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.similarity = rc.Get<GameObject>("Similarity").GetComponent<TextMeshProUGUI>();
@@ -28,6 +30,9 @@ namespace ET
             self.MiddlesizeButton = rc.Get<GameObject>("MiddleSizeBtn").GetComponent<Button>();
             self.BigsizeButton = rc.Get<GameObject>("BigSizeBtn").GetComponent<Button>();
             self.clearBtn = rc.Get<GameObject>("ClearBtn").GetComponent<Button>();
+            self.needItem = rc.Get<GameObject>("NeedItem");
+            self.imagelist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "Pixel");
+            self.uibag = null;
 
             self.drawComponent = self.AddComponent<DrawComponent>();
             self.phashcomponent = self.AddComponent<PHashComponent>();
@@ -35,8 +40,11 @@ namespace ET
             self.MyCamera = Camera.current;
             self.pensize = 200;
             self.texsize = 1 << 6;
+            self.chosenid = -1;
+            self.res = 0;
 
             self.drawComponent.Init(self.canvasRect.GetComponent<Canvas>(), self.MyCamera, self.mydraw, self.pensize, self.brushColor).Coroutine();
+
 
             self.BindListener();
         }
@@ -76,6 +84,15 @@ namespace ET
             self.clearBtn.onClick.AddListener(self.OnClearBtn);
             self.backBtn.onClick.AddListener(self.OnBackBtn);
         }
+        public static async ETTask Prepare(this UIDrawComponent self)
+        {
+            self.uibag = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIBag);
+            if (self.uibag == null)
+            {
+                self.uibag = await UIHelper.Show(self.DomainScene(), UIType.UIBag, UILayer.Mid);
+                UIHelper.Close(self.DomainScene(), UIType.UIBag).Coroutine();
+            }
+        }
 
         public static void ChangeColor(this UIDrawComponent self, int colorIndex)
         {
@@ -93,6 +110,7 @@ namespace ET
         public static void Clear(this UIDrawComponent self)
         {
             self.drawComponent.Clear();
+            self.similarity.text = String.Empty;
         }
 
         public static void Save(this UIDrawComponent self)
@@ -119,8 +137,10 @@ namespace ET
             //Debug.Log("抬笔");
         }
 
-        public static async ETTask GetFulu(this UIDrawComponent self, string name)
+        public static async ETTask GetFulu(this UIDrawComponent self, int chosenId)
         {
+            string name = FuluConfigCategory.Instance.GetAll()[chosenId].Name;
+            self.chosenid = chosenId;
             var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
             self.fulu.sprite = list.GetSprite(name);
             var spr = self.fulu.sprite;
@@ -134,6 +154,7 @@ namespace ET
             //targetTex.SetPixels(pixels);
             //targetTex.Apply();
             self.fuluTex = targetTex;
+            self.SetNeedItem().Coroutine();
             await ETTask.CompletedTask;
         }
 
@@ -145,7 +166,7 @@ namespace ET
         public static void OnBackBtn(this UIDrawComponent self)
         {
             UIHelper.Close(self.DomainScene(), UIType.UIDraw).Coroutine();
-            UIHelper.Show(self.DomainScene(), UIType.UISkillpanel,UILayer.Mid).Coroutine();
+            UIHelper.Show(self.DomainScene(), UIType.UISkillpanel, UILayer.Mid).Coroutine();
         }
         public static void OnLittleSizeBtn(this UIDrawComponent self)
         {
@@ -162,8 +183,22 @@ namespace ET
 
         public static async void CheckPHash(this UIDrawComponent self)
         {
+            //钱不够
+            if (!await self.CheckEnough())
+            {
+                await UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High);
+                var uitips = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UITips);
+                uitips.GetComponent<UITipsComponent>().SetContent(2, "You don't have enough money");
+                return;
+            }
+
+
             self.similarity.text = "wait a while";
+            //计算
             await self.CheckPHashAsync();
+            //通知结果
+            await self.Notify();
+            
         }
 
         public static async ETTask CheckPHashAsync(this UIDrawComponent self)
@@ -206,6 +241,52 @@ namespace ET
             });
 
             self.similarity.text = (res * 100).ToString();
+            self.res = (int)(res * 10);
+        }
+
+        public static async ETTask Notify(this UIDrawComponent self)
+        {
+            //扣除消耗
+            self.uibag.GetComponent<UIBagComponent>().CostAndGenerate(self.chosenid);
+            //刷新needitem列表
+            self.SetNeedItem().Coroutine();
+            //MainRoleComponent.Instance.ChangeNum(self.chosenid, self.res);
+            await ETTask.CompletedTask;
+        }
+        public static async ETTask SetNeedItem(this UIDrawComponent self)
+        {
+            await self.Prepare();
+            await self.ClearNeedItem();
+
+            var costlist = FuluConfigCategory.Instance.Get(self.chosenid).Need;
+            int end = costlist.Length;
+            for (int i = 0; i < end; i += 2)
+            {
+                var item = RecyclePoolComponent.Instance.Get(UIType.UIDraw.StringToAB(), UIType.UIDraw, "NeedItem");
+                item.GetComponent<Image>().sprite = self.imagelist.GetSprite(ItemConfigCategory.Instance.Get(costlist[i]).Name);
+                item.GetComponent<ReferenceCollector>().Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text =
+                    $"Need :{costlist[i + 1]}  Have:{self.uibag.GetComponent<UIBagComponent>().GetNum(costlist[i])}";
+                item.transform.SetParent(self.contentRect, false);
+            }
+        }
+
+        public static async ETTask ClearNeedItem(this UIDrawComponent self)
+        {
+            await ETTask.CompletedTask;
+
+            while (self.contentRect.childCount > 0)
+            {
+                RecyclePoolComponent.Instance.Recycle(self.contentRect.GetChild(0).gameObject);
+            }
+        }
+        public static async ETTask<bool> CheckEnough(this UIDrawComponent self)
+        {
+            await ETTask.CompletedTask;
+
+            //扣除消耗
+            //MainRoleComponent.Instance.ChangeNum(self.chosenid, self.res);
+            return self.uibag.GetComponent<UIBagComponent>().CheckEnough(self.chosenid);
+
         }
         #endregion
     }

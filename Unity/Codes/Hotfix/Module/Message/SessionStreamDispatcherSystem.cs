@@ -7,7 +7,7 @@ namespace ET
     [ObjectSystem]
     public class SessionStreamDispatcherAwakeSystem: AwakeSystem<SessionStreamDispatcher>
     {
-        public override void Awake(SessionStreamDispatcher self)
+        public override void AwakeAsync(SessionStreamDispatcher self)
         {
             SessionStreamDispatcher.Instance = self;
             self.Load();

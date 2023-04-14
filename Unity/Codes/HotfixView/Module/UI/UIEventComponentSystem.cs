@@ -7,7 +7,7 @@ namespace ET
     [ObjectSystem]
     public class UIEventComponentAwakeSystem : AwakeSystem<UIEventComponent>
     {
-        public override void Awake(UIEventComponent self)
+        public override void AwakeAsync(UIEventComponent self)
         {
             UIEventComponent.Instance = self;
 

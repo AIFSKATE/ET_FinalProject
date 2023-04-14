@@ -6,7 +6,8 @@ namespace ET
     {
         protected override void Run(EventType.AppStartInitFinish args)
         {
-            args.ZoneScene.AddComponent<CameraComponent>();
+            var cameraComponent = args.ZoneScene.AddComponent<CameraComponent>();
+            cameraComponent.AddComponent<CameraUpdateComponent>();
             UIHelper.Create(args.ZoneScene, UIType.UILogin, UILayer.Mid).Coroutine();
         }
     }

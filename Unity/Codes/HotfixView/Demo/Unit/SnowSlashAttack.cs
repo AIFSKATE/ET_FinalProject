@@ -34,19 +34,37 @@ namespace ET
             //g.transform.localScale = vector3;
             //g.transform.rotation = SnowSlashVFS.transform.rotation;
 
-            await TimerComponent.Instance.WaitAsync(750);
-            //回收
-            RecyclePoolComponent.Instance.Recycle(SnowSlashVFS);
+
             List<long> list = new List<long>();
             foreach (var item in colliders)
             {
-                list.Add(item.GetComponent<DelegateMonoBehaviour>().BelongToUnitId);
+                if (item.tag == "Animal" && item.GetComponent<DelegateMonoBehaviour>() != null)
+                {
+                    list.Add(item.GetComponent<DelegateMonoBehaviour>().BelongToUnitId);
+                }
             }
             //如果没有打中就不要发送这个消息，为了测试能否发送的话可以把if先注释掉
             if (list.Count > 0)
             {
-                args.session.Send(new C2M_DamageMonsters() { ids = list, damage = 25 });
+                int damage = unit.GetComponent<MainRoleComponent>().GetNum((int)NumType.damage);
+                args.session.Send(new C2M_DamageMonsters()
+                {
+                    ids = list,
+                    damage = damage,
+                    damagetype = (int)DamageType.SnowSlash,
+                });
+                var unitComponent = unit.DomainScene().GetComponent<UnitComponent>();
+                foreach (var item in list)
+                {
+                    Unit tempunit = unitComponent.Get(item);
+                    Game.EventSystem.PublishAsync<Damage>(new Damage() { Unit = tempunit, damage = damage }).Coroutine();
+                }
             }
+
+            await TimerComponent.Instance.WaitAsync(750);
+            //回收
+            RecyclePoolComponent.Instance.Recycle(SnowSlashVFS);
+
             await ETTask.CompletedTask;
         }
     }

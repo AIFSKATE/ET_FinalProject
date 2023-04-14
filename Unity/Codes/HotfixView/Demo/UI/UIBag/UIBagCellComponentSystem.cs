@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,10 @@ namespace ET
             self.gameObject = gameObject;
             ReferenceCollector rc = self.gameObject.GetComponent<ReferenceCollector>();
             self.image = rc.Get<GameObject>("Image").GetComponent<Image>();
+            self.itemimg = rc.Get<GameObject>("Item").GetComponent<Image>();
             self.text = rc.Get<GameObject>("Text").GetComponent<TextMeshProUGUI>();
+
+
             self.cell = self.gameObject.GetComponent<UIBagCell>();
             if (self.cell == null)
             {
@@ -57,9 +61,18 @@ namespace ET
         {
 
         }
-        public static void OnGenerated(this UIBagCellComponent self, int index, ICell iCell)
+        public static void OnGenerated(this UIBagCellComponent self, int index, ICell iCell, List<Iteminfo> havelist, SpriteAtlas imagelist)
         {
-            self.text.text = $"{index}";
+            self.itemimg.enabled = false;
+            self.text.enabled = false;
+            if (index >= havelist.Count)
+            {
+                return;
+            }
+            self.itemimg.enabled = true;
+            self.text.enabled = true;
+            self.text.text = $"{havelist[index].num}";
+            self.itemimg.sprite = imagelist.GetSprite(ItemConfigCategory.Instance.Get(havelist[index].itemid).Name);
             //uIBagCell.GetComponent<ReferenceCollector>().Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text = $"{index}";
         }
     }

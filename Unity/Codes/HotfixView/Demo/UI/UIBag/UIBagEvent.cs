@@ -20,6 +20,7 @@ namespace ET
         public override void OnRemove(UIComponent uiComponent)
         {
             ResourcesComponent.Instance.UnloadBundle(UIType.UIBag.StringToAB());
+            ResourcesComponent.Instance.UnloadBundle("uisprite.unity3d");
         }
 
         public override async ETTask<UI> OnShow(UIComponent uiComponent, UILayer uiLayer)
@@ -28,6 +29,9 @@ namespace ET
             var gameObject = ui.GameObject;
             gameObject.SetActive(true);
             gameObject.transform.SetParent(UIEventComponent.Instance.UILayers[(int)uiLayer]);
+
+            ui.GetComponent<UIBagComponent>().Refresh();
+
             await ETTask.CompletedTask;
             return ui;
         }

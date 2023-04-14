@@ -6,7 +6,7 @@ namespace ET
     [ObjectSystem]
     public class NetThreadComponentAwakeSystem: AwakeSystem<NetThreadComponent>
     {
-        public override void Awake(NetThreadComponent self)
+        public override void AwakeAsync(NetThreadComponent self)
         {
             NetThreadComponent.Instance = self;
             

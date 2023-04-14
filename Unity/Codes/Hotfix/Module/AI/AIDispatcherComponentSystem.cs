@@ -7,7 +7,7 @@ namespace ET
     [ObjectSystem]
     public class AIDispatcherComponentAwakeSystem : AwakeSystem<AIDispatcherComponent>
     {
-        public override void Awake(AIDispatcherComponent self)
+        public override void AwakeAsync(AIDispatcherComponent self)
         {
             AIDispatcherComponent.Instance = self;
             self.Load();

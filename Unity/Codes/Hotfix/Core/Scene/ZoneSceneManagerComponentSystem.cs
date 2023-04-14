@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class ZoneSceneManagerComponentAwakeSystem: AwakeSystem<ZoneSceneManagerComponent>
     {
-        public override void Awake(ZoneSceneManagerComponent self)
+        public override void AwakeAsync(ZoneSceneManagerComponent self)
         {
             ZoneSceneManagerComponent.Instance = self;
         }

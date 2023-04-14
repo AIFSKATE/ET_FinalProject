@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: -4198875302633845666}
   m_Layer: 20
   m_Name: Tiger Drago PolyArt Baby
-  m_TagString: Animal
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194dd7b8e371f584a8ab5315925a6763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BelongToUnitId: 0
 --- !u!1 &1076617173599144
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,10 +62,10 @@ namespace ET
 
         public void Run(object o)
         {
-            this.Awake((T)o);
+            this.AwakeAsync((T)o);
         }
 
-        public abstract void Awake(T self);
+        public abstract void AwakeAsync(T self);
     }
     
     [ObjectSystem]

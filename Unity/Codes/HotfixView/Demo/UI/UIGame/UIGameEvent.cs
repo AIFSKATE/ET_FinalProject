@@ -9,6 +9,7 @@ namespace ET
         public override async ETTask<UI> OnCreate(UIComponent uiComponent, UILayer uiLayer)
         {
             await ResourcesComponent.Instance.LoadBundleAsync(UIType.UIGame.StringToAB());
+            await ResourcesComponent.Instance.LoadBundleAsync("uisprite.unity3d");
             GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset(UIType.UIGame.StringToAB(), UIType.UIGame);
             GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.UILayers[(int)uiLayer]);
             UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.UIGame, gameObject);
@@ -19,6 +20,7 @@ namespace ET
         public override void OnRemove(UIComponent uiComponent)
         {
             ResourcesComponent.Instance.UnloadBundle(UIType.UIGame.StringToAB());
+            ResourcesComponent.Instance.UnloadBundle("uisprite.unity3d");
         }
 
         public override async ETTask<UI> OnShow(UIComponent uiComponent, UILayer uiLayer)

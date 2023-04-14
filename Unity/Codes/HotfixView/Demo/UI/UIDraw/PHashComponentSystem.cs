@@ -11,7 +11,7 @@ namespace ET
     [ObjectSystem]
     public class PHashComponentAwakeSystem : AwakeSystem<PHashComponent>
     {
-        public override void Awake(PHashComponent self)
+        public override void AwakeAsync(PHashComponent self)
         {
 
         }

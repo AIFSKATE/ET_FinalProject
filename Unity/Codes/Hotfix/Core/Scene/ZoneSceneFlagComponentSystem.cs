@@ -12,7 +12,7 @@
     [ObjectSystem]
     public class ZoneSceneFlagComponentAwakeSystem: AwakeSystem<ZoneSceneFlagComponent>
     {
-        public override void Awake(ZoneSceneFlagComponent self)
+        public override void AwakeAsync(ZoneSceneFlagComponent self)
         {
             ZoneSceneManagerComponent.Instance.Add(self.GetParent<Scene>());
         }

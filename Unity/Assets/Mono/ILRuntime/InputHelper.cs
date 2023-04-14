@@ -6,7 +6,17 @@ namespace ET
     {
         public static bool GetKeyDown(int code)
         {
-            return Input.GetKeyDown((KeyCode) code);
+            return Input.GetKeyDown((KeyCode)code);
+        }
+
+        public static bool GetKey(int code)
+        {
+            return Input.GetKey((KeyCode)code);
+        }
+
+        public static bool GetKeyUp(int code)
+        {
+            return Input.GetKeyUp((KeyCode)code);
         }
 
         public static bool GetMouseButtonDown(int code)

@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class ActorMessageDispatcherComponentAwakeSystem: AwakeSystem<ActorMessageDispatcherComponent>
     {
-        public override void Awake(ActorMessageDispatcherComponent self)
+        public override void AwakeAsync(ActorMessageDispatcherComponent self)
         {
             ActorMessageDispatcherComponent.Instance = self;
             self.Awake();

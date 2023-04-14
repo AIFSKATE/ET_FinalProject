@@ -8,7 +8,7 @@ namespace ET
         [ObjectSystem]
         public class CoroutineLockQueueTypeAwakeSystem: AwakeSystem<CoroutineLockQueueType>
         {
-            public override void Awake(CoroutineLockQueueType self)
+            public override void AwakeAsync(CoroutineLockQueueType self)
             {
                 if (self.dictionary == null)
                 {

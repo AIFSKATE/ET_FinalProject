@@ -8,7 +8,7 @@ namespace ET
     [ObjectSystem]
     public class UISkillpanelComponentAwakeSystem : AwakeSystem<UISkillpanelComponent>
     {
-        public override void Awake(UISkillpanelComponent self)
+        public override void AwakeAsync(UISkillpanelComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.chosenId = -1;
@@ -28,6 +28,10 @@ namespace ET
             self.toggles.Add(self.skillTgl_4);
             self.toggles.Add(self.skillTgl_5);
 
+            self.already = new HashSet<int>();
+
+            self.InitSkill().Coroutine();
+
             self.BindListener().Coroutine();
         }
     }
@@ -42,43 +46,104 @@ namespace ET
             await self.DomainScene().GetComponent<ResourcesLoaderComponent>().LoadAsync("texture.unity3d");
             var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
             var dic = FuluConfigCategory.Instance.GetAll();
-            self.skillTglGroup.allowSwitchOff = false;
+            self.skillTglGroup.allowSwitchOff = true;
             for (int i = 0; i < self.toggles.Count; i++)
             {
                 self.toggles[i].group = self.skillTglGroup;
-                self.toggles[i].GetComponent<Image>().sprite = list.GetSprite(dic[i + 1].Name);
+                self.toggles[i].SetIsOnWithoutNotify(false);
+                self.toggles[i].GetComponent<Image>().sprite = list.GetSprite(dic[i].Name);
                 self.toggles[i].onValueChanged.AddListener(self.onTglValueChanged);
             }
             self.selectBtn.onClick.AddListener(self.OnSelectBtn);
             self.backBtn.onClick.AddListener(self.OnBackBtn);
         }
 
+        public static async ETTask InitSkill(this UISkillpanelComponent self)
+        {
+            await ETTask.CompletedTask;
+            var list = FuluConfigCategory.Instance.GetAll();
+            foreach (var item in list)
+            {
+                if (item.Value.Front[0] == -1)
+                {
+                    self.already.Add(item.Value.Id);
+                }
+            }
+        }
+        public static bool CheckQuali(this UISkillpanelComponent self, int id)
+        {
+            var list = FuluConfigCategory.Instance.Get(id);
+            foreach (var item in list.Front)
+            {
+                if (!self.already.Contains(item))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         #region
-        public static void onTglValueChanged(this UISkillpanelComponent self, bool value)
+        public static async void onTglValueChanged(this UISkillpanelComponent self, bool value)
         {
             for (int i = 0; i < self.toggles.Count; i++)
             {
                 if (self.toggles[i].isOn)
                 {
-                    self.chosenId = i + 1;
-                    return;
+                    self.chosenId = i;
+                    if (self.already.Contains(i))
+                    {
+                        return;
+                    }
+                    self.toggles[i].SetIsOnWithoutNotify(false);
+                    if (!self.CheckQuali(i))
+                    {
+                        await UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High);
+                        var uitips = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UITips);
+                        uitips.GetComponent<UITipsComponent>().SetContent(2, "Please unlock the pre-skill first");
+                    }
+                    else
+                    {
+                        await UIHelper.Create(self.DomainScene(), UIType.UIConfirm, UILayer.High);
+                        var uiConfirm = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIConfirm);
+                        uiConfirm.GetComponent<UIConfirmComponent>().SetContent(i, "Are you sure you want to unlock?", self.OnYesBtn, self.OnNoBtn);
+                    }
                 }
             }
         }
 
-        public static async void OnSelectBtn(this UISkillpanelComponent self)
+        public static async void OnYesBtn(this UISkillpanelComponent self)
         {
-            if (self.chosenId == -1)
+            var uibagcomponent = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIBag).GetComponent<UIBagComponent>();
+            if (!uibagcomponent.CheckUnlock(self.chosenId))
             {
-                self.selectBtn.interactable = false;
                 await UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High);
                 var uitips = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UITips);
-                uitips.GetComponent<UITipsComponent>().SetContent(3, "Please Select A Skill", self.selectBtn);
+                uitips.GetComponent<UITipsComponent>().SetContent(2, "You don't have enough money");
+                return;
+            }
+            uibagcomponent.CostUnlock(self.chosenId);
+            self.already.Add(self.chosenId);
+            self.toggles[self.chosenId].GetComponent<Image>().color = Color.white;
+        }
+
+        public static async void OnNoBtn(this UISkillpanelComponent self)
+        {
+            await ETTask.CompletedTask;
+        }
+
+        public static async void OnSelectBtn(this UISkillpanelComponent self)
+        {
+            if (!self.already.Contains(self.chosenId))
+            {
+                await UIHelper.Create(self.DomainScene(), UIType.UITips, UILayer.High);
+                var uitips = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UITips);
+                uitips.GetComponent<UITipsComponent>().SetContent(3, "Please Select A Skill");
                 return;
             }
             await UIHelper.Show(self.DomainScene(), UIType.UIDraw, UILayer.Mid);
             var uidraw = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIDraw);
-            uidraw.GetComponent<UIDrawComponent>().GetFulu(FuluConfigCategory.Instance.GetAll()[self.chosenId].Name).Coroutine();
+            uidraw.GetComponent<UIDrawComponent>().GetFulu(self.chosenId).Coroutine();
             await UIHelper.Close(self.DomainScene(), UIType.UISkillpanel);
         }
         public static void OnBackBtn(this UISkillpanelComponent self)

@@ -14,8 +14,6 @@ namespace ET
     [ComponentOf(typeof(Scene))]
     public class RuntimeCameraComponent : Entity, IAwake<Transform>, IDestroy
     {
-        public static RuntimeCameraComponent Instance { get; set; }
-
         public Camera camera;
 
         public CinemachineVirtualCamera cinemachine;
@@ -45,7 +43,7 @@ namespace ET
         {
             public override void Destroy(RuntimeCameraComponent self)
             {
-                RuntimeCameraComponent.Instance = null;
+                self.SetTarget(null);
             }
         }
 

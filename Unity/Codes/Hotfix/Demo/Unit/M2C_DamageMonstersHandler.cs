@@ -13,7 +13,10 @@ namespace ET
     {
         protected override void Run(Session session, M2C_DamageMonsters message)
         {
-            Log.Warning("看到这个就证明M2C_DamageMonsters成功下放了");
+            if (message.id == session.ZoneScene().GetComponent<PlayerComponent>().MyId)
+            {
+                return;
+            }
             Scene currentScene = session.DomainScene().CurrentScene();
             UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
             foreach (var item in message.ids)

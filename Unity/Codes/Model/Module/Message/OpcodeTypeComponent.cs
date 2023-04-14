@@ -9,7 +9,7 @@ namespace ET
         [ObjectSystem]
         public class OpcodeTypeComponentAwakeSystem: AwakeSystem<OpcodeTypeComponent>
         {
-            public override void Awake(OpcodeTypeComponent self)
+            public override void AwakeAsync(OpcodeTypeComponent self)
             {
                 OpcodeTypeComponent.Instance = self;
                 

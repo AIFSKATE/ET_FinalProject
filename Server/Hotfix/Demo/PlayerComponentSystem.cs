@@ -7,7 +7,7 @@ namespace ET
     {
         public class AwakeSystem : AwakeSystem<PlayerComponent>
         {
-            public override void Awake(PlayerComponent self)
+            public override void AwakeAsync(PlayerComponent self)
             {
             }
         }

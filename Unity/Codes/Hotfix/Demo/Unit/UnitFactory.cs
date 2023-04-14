@@ -40,8 +40,8 @@ namespace ET
 	        unit.AddComponent<ObjectWait>();
 
 	        unit.AddComponent<XunLuoPathComponent>();
-	        
-	        Game.EventSystem.Publish(new EventType.AfterUnitCreate() {Unit = unit});
+
+            Game.EventSystem.Publish(new EventType.AfterUnitCreate() {Unit = unit});
             return unit;
         }
     }

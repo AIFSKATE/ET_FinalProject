@@ -8,7 +8,7 @@ namespace ET
     [ObjectSystem]
     public class ConsoleComponentAwakeSystem: AwakeSystem<ConsoleComponent>
     {
-        public override void Awake(ConsoleComponent self)
+        public override void AwakeAsync(ConsoleComponent self)
         {
             self.Load();
             

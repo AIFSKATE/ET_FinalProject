@@ -14,7 +14,7 @@ namespace ET
         [ObjectSystem]
         public class AwakeSystem : AwakeSystem<SkeletonMonoComponent>
         {
-            public override void Awake(SkeletonMonoComponent self)
+            public override void AwakeAsync(SkeletonMonoComponent self)
             {
                 GameObjectComponent gameObjectComponent = self.Parent.GetComponent<GameObjectComponent>();
                 self.delegateCollider = gameObjectComponent.delegateCollider;

@@ -9,7 +9,7 @@ namespace ET
     [ObjectSystem]
     public class UILoginComponentAwakeSystem : AwakeSystem<UILoginComponent>
     {
-        public override void Awake(UILoginComponent self)
+        public override void AwakeAsync(UILoginComponent self)
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.loginBtn = rc.Get<GameObject>("LoginBtn");

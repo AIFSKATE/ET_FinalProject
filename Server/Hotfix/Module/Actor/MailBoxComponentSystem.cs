@@ -5,7 +5,7 @@ namespace ET
     [ObjectSystem]
     public class MailBoxComponentAwakeSystem: AwakeSystem<MailBoxComponent>
     {
-        public override void Awake(MailBoxComponent self)
+        public override void AwakeAsync(MailBoxComponent self)
         {
             self.MailboxType = MailboxType.MessageDispatcher;
         }

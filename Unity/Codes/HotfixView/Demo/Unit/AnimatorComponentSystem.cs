@@ -6,7 +6,7 @@ namespace ET
 	[ObjectSystem]
 	public class AnimatorComponentAwakeSystem : AwakeSystem<AnimatorComponent>
 	{
-		public override void Awake(AnimatorComponent self)
+		public override void AwakeAsync(AnimatorComponent self)
 		{
 			self.Awake();
 		}

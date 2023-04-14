@@ -8,7 +8,7 @@ namespace ET
         [ObjectSystem]
         public class DBManagerComponentAwakeSystem: AwakeSystem<DBManagerComponent>
         {
-            public override void Awake(DBManagerComponent self)
+            public override void AwakeAsync(DBManagerComponent self)
             {
                 DBManagerComponent.Instance = self;
             }

@@ -53,3 +53,12 @@ MonoBehaviour:
   - key: SnowSlash
     gameObject: {fileID: 2060900179291159282, guid: ca6705a3f9070d14d819d179493bcfa0,
       type: 3}
+  - key: MeteorsAOE
+    gameObject: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c,
+      type: 3}
+  - key: MeteorsAOECircle
+    gameObject: {fileID: 6780837204242998937, guid: 752e9ff32f67eb04f9e3f264dea9fd3d,
+      type: 3}
+  - key: Healing
+    gameObject: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05,
+      type: 3}

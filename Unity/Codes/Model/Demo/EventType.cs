@@ -113,11 +113,29 @@ namespace ET
             public Unit Unit;
             public Session session;
         }
+        public struct HuiXue
+        {
+            public Unit Unit;
+            public Session session;
+        }
+
+        public struct MeteorsAOE
+        {
+            public Unit Unit;
+            public Session session;
+            public Vector3 Position;
+        }
 
         public struct Damage
         {
             public Unit Unit;
             public int damage;
+        }
+
+        public struct EndLevel
+        {
+            public Scene ZoneScene;
+            public int time;
         }
 
         public struct TestEvent

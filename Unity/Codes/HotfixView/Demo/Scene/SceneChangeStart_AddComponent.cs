@@ -28,9 +28,9 @@ namespace ET
             //{
             //    sceneChangeComponent?.Dispose();
             //}
-			
+            await ETTask.CompletedTask;
 
-            currentScene.AddComponent<OperaComponent>();
+            //currentScene.AddComponent<OperaComponent>();
         }
     }
 }
