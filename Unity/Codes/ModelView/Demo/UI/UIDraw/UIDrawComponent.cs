@@ -15,6 +15,7 @@ namespace ET
         public DrawComponent drawComponent;
         public RectTransform canvasRect;
         public RectTransform contentRect;
+        public RectTransform generateContentRect;
         public GameObject needItem;
         public Color brushColor = Color.black;
         public Camera MyCamera;
@@ -29,6 +30,7 @@ namespace ET
         public Texture2D fuluTex;
         public SpriteAtlas imagelist;
         public UI uibag;
+        public UI uigame;
 
         public int pensize = 100;
         public int texsize;

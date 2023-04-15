@@ -13,6 +13,8 @@ namespace ET
         public Toggle skillTgl_3;
         public Toggle skillTgl_4;
         public Toggle skillTgl_5;
+        public Toggle skillTgl_6;
+        public Toggle skillTgl_7;
         public List<Toggle> toggles;
         public int chosenId;
         public HashSet<int> already;

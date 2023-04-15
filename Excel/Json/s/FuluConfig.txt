@@ -4,5 +4,6 @@
 {"_t":"FuluConfig","_id":2,"Name":"infinite","Need":[4,1],"Front":[-1],"Unlockarr":[-1],"Generate":2},
 {"_t":"FuluConfig","_id":3,"Name":"hui","Need":[3,2],"Front":[1,4],"Unlockarr":[9,2,10,1],"Generate":0},
 {"_t":"FuluConfig","_id":4,"Name":"gou","Need":[1,4,6,2],"Front":[1],"Unlockarr":[8,2,9,2,10,2],"Generate":1},
-{"_t":"FuluConfig","_id":5,"Name":"faiz","Need":[2,4,3,1],"Front":[-1],"Unlockarr":[-1],"Generate":6},
+{"_t":"FuluConfig","_id":5,"Name":"faiz","Need":[2,4,3,1],"Front":[4,6],"Unlockarr":[8,2,9,1,10,3],"Generate":6},
+{"_t":"FuluConfig","_id":6,"Name":"W","Need":[1,4,4,2,7,3],"Front":[4],"Unlockarr":[8,3,9,3,10,4],"Generate":7},
 ]}

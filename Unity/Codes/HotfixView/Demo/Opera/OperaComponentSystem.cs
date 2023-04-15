@@ -30,7 +30,7 @@ namespace ET
     {
         public static async void Update(this OperaComponent self)
         {
-            //KeyCode.W
+            //KeyCode.Q
             if (InputHelper.GetMouseButtonDown(0) || InputHelper.GetKeyDown(113))
             {
                 //GameObject SnowSlash = RecyclePoolComponent.Instance.Get("SnowSlash");
@@ -41,7 +41,11 @@ namespace ET
                 //var myunit = unitComponent.Get(id);
                 //var mygameobject = myunit.GetComponent<GameObjectComponent>().GameObject;
                 //GameObject.Instantiate(SnowSlash, mygameobject.transform);
-                self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_SnowSlash()).Coroutine();
+                var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
+                if (await uigame.GetComponent<UIGameComponent>().Consume(4))
+                {
+                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_SnowSlash()).Coroutine();
+                }
             }
 
             if (InputHelper.GetMouseButtonDown(1))
@@ -58,29 +62,25 @@ namespace ET
                 }
             }
 
-            //// KeyCode.R
-            //if (InputHelper.GetKeyDown(114))
-            //{
-            //    CodeLoader.Instance.LoadLogic();
-            //    Game.EventSystem.Add(CodeLoader.Instance.GetHotfixTypes());
-            //    Game.EventSystem.Load();
-            //    Log.Debug("hot reload success!");
-            //}
 
             //KeyCode.W
             if (InputHelper.GetKeyDown(119))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
+                var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
+                if (await uigame.GetComponent<UIGameComponent>().Consume(5))
                 {
-                    self.ClickPoint = hit.point;
-                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_MeteorsAOE()
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
                     {
-                        X = self.ClickPoint.x,
-                        Y = self.ClickPoint.y,
-                        Z = self.ClickPoint.z,
-                    }).Coroutine();
+                        self.ClickPoint = hit.point;
+                        self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_MeteorsAOE()
+                        {
+                            X = self.ClickPoint.x,
+                            Y = self.ClickPoint.y,
+                            Z = self.ClickPoint.z,
+                        }).Coroutine();
+                    }
                 }
 
             }
@@ -88,19 +88,55 @@ namespace ET
             //KeyCode.E
             if (InputHelper.GetKeyDown(101))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
+                var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
+                if (await uigame.GetComponent<UIGameComponent>().Consume(6))
                 {
-                    self.ClickPoint = hit.point;
-                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_MeteorsAOE()
+                    var gameobject = self.DomainScene().GetComponent<UnitComponent>().Get(self.ZoneScene().GetComponent<PlayerComponent>().MyId).GetComponent<GameObjectComponent>().GameObject;
+                    Vector3 position = gameobject.transform.position;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
                     {
-                        X = self.ClickPoint.x,
-                        Y = self.ClickPoint.y,
-                        Z = self.ClickPoint.z,
-                    }).Coroutine();
+                        self.ClickPoint = hit.point;
+                        position = new Vector3(self.ClickPoint.x - position.x, self.ClickPoint.y - position.y, self.ClickPoint.z - position.z);
+                        position = position.normalized;
+                        self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_SpinningChop()
+                        {
+                            X = position.x,
+                            Y = position.y,
+                            Z = position.z,
+                        }).Coroutine();
+                    }
                 }
+            }
 
+            // KeyCode.R
+            if (InputHelper.GetKeyDown(114))
+            {
+                //CodeLoader.Instance.LoadLogic();
+                //Game.EventSystem.Add(CodeLoader.Instance.GetHotfixTypes());
+                //Game.EventSystem.Load();
+                //Log.Debug("hot reload success!");
+                var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
+                if (await uigame.GetComponent<UIGameComponent>().Consume(7))
+                {
+                    var gameobject = self.DomainScene().GetComponent<UnitComponent>().Get(self.ZoneScene().GetComponent<PlayerComponent>().MyId).GetComponent<GameObjectComponent>().GameObject;
+                    Vector3 position = gameobject.transform.position;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 1000, self.mapMask))
+                    {
+                        self.ClickPoint = hit.point;
+                        position = new Vector3(self.ClickPoint.x - position.x, self.ClickPoint.y - position.y, self.ClickPoint.z - position.z);
+                        position = position.normalized;
+                        self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_DragonPunch()
+                        {
+                            X = position.x,
+                            Y = position.y,
+                            Z = position.z,
+                        }).Coroutine();
+                    }
+                }
             }
 
             //alpha1
@@ -118,7 +154,7 @@ namespace ET
                 var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
                 if (await uigame.GetComponent<UIGameComponent>().Consume(1))
                 {
-
+                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_IncreaseMaxHP()).Coroutine();
                 }
             }
             //alpha3
@@ -127,7 +163,7 @@ namespace ET
                 var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
                 if (await uigame.GetComponent<UIGameComponent>().Consume(2))
                 {
-
+                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_IncreaseAttack()).Coroutine();
                 }
             }
             //alpha4
@@ -136,7 +172,7 @@ namespace ET
                 var uigame = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame);
                 if (await uigame.GetComponent<UIGameComponent>().Consume(3))
                 {
-
+                    self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_IncreaseDefense()).Coroutine();
                 }
             }
         }

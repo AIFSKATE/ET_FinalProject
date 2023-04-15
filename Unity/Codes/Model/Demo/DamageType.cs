@@ -10,5 +10,6 @@ namespace ET
     {
         SnowSlash,
         MeteorsAOE,
+        SpinningChop,
     }
 }

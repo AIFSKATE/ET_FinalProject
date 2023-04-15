@@ -40,13 +40,23 @@ namespace ET
 		 public const ushort M2C_Startlevel = 10037;
 		 public const ushort C2M_SnowSlash = 10038;
 		 public const ushort M2C_SnowSlash = 10039;
-		 public const ushort C2M_HuiXue = 10040;
-		 public const ushort M2C_HuiXue = 10041;
-		 public const ushort C2M_RemoveUnit = 10042;
-		 public const ushort M2C_RemoveUnit = 10043;
-		 public const ushort C2M_MeteorsAOE = 10044;
-		 public const ushort M2C_MeteorsAOE = 10045;
-		 public const ushort C2M_DamageMonsters = 10046;
-		 public const ushort M2C_DamageMonsters = 10047;
+		 public const ushort C2M_SpinningChop = 10040;
+		 public const ushort M2C_SpinningChop = 10041;
+		 public const ushort C2M_DragonPunch = 10042;
+		 public const ushort M2C_DragonPunch = 10043;
+		 public const ushort C2M_HuiXue = 10044;
+		 public const ushort M2C_HuiXue = 10045;
+		 public const ushort C2M_IncreaseAttack = 10046;
+		 public const ushort M2C_IncreaseAttack = 10047;
+		 public const ushort C2M_IncreaseDefense = 10048;
+		 public const ushort M2C_IncreaseDefense = 10049;
+		 public const ushort C2M_IncreaseMaxHP = 10050;
+		 public const ushort M2C_IncreaseMaxHP = 10051;
+		 public const ushort C2M_RemoveUnit = 10052;
+		 public const ushort M2C_RemoveUnit = 10053;
+		 public const ushort C2M_MeteorsAOE = 10054;
+		 public const ushort M2C_MeteorsAOE = 10055;
+		 public const ushort C2M_DamageMonsters = 10056;
+		 public const ushort M2C_DamageMonsters = 10057;
 	}
 }

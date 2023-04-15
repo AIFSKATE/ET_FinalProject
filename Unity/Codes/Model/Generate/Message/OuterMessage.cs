@@ -599,6 +599,84 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.C2M_SpinningChop)]
+	[ProtoContract]
+	public partial class C2M_SpinningChop: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public float X { get; set; }
+
+		[ProtoMember(2)]
+		public float Y { get; set; }
+
+		[ProtoMember(3)]
+		public float Z { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_SpinningChop)]
+	[ProtoContract]
+	public partial class M2C_SpinningChop: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+		[ProtoMember(2)]
+		public float X { get; set; }
+
+		[ProtoMember(3)]
+		public float Y { get; set; }
+
+		[ProtoMember(4)]
+		public float Z { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_DragonPunch)]
+	[ProtoContract]
+	public partial class C2M_DragonPunch: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public float X { get; set; }
+
+		[ProtoMember(2)]
+		public float Y { get; set; }
+
+		[ProtoMember(3)]
+		public float Z { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_DragonPunch)]
+	[ProtoContract]
+	public partial class M2C_DragonPunch: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+		[ProtoMember(2)]
+		public float X { get; set; }
+
+		[ProtoMember(3)]
+		public float Y { get; set; }
+
+		[ProtoMember(4)]
+		public float Z { get; set; }
+
+	}
+
 	[Message(OuterOpcode.C2M_HuiXue)]
 	[ProtoContract]
 	public partial class C2M_HuiXue: Object, IActorLocationMessage
@@ -611,6 +689,69 @@ namespace ET
 	[Message(OuterOpcode.M2C_HuiXue)]
 	[ProtoContract]
 	public partial class M2C_HuiXue: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_IncreaseAttack)]
+	[ProtoContract]
+	public partial class C2M_IncreaseAttack: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_IncreaseAttack)]
+	[ProtoContract]
+	public partial class M2C_IncreaseAttack: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_IncreaseDefense)]
+	[ProtoContract]
+	public partial class C2M_IncreaseDefense: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_IncreaseDefense)]
+	[ProtoContract]
+	public partial class M2C_IncreaseDefense: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_IncreaseMaxHP)]
+	[ProtoContract]
+	public partial class C2M_IncreaseMaxHP: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_IncreaseMaxHP)]
+	[ProtoContract]
+	public partial class M2C_IncreaseMaxHP: Object, IActorMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }

@@ -84,6 +84,9 @@ namespace ET
 		/// <summary>描述</summary>
 		[ProtoMember(3)]
 		public string Desc { get; set; }
+		/// <summary>冷却时间</summary>
+		[ProtoMember(4)]
+		public float CoolTime { get; set; }
 
 	}
 }

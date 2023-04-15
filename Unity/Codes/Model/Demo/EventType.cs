@@ -118,12 +118,40 @@ namespace ET
             public Unit Unit;
             public Session session;
         }
+        public struct IncreaseMaxHP
+        {
+            public Unit Unit;
+            public Session session;
+        }
+        public struct IncreaseAttack
+        {
+            public Unit Unit;
+            public Session session;
+        }
+        public struct IncreaseDefense
+        {
+            public Unit Unit;
+            public Session session;
+        }
 
         public struct MeteorsAOE
         {
             public Unit Unit;
             public Session session;
             public Vector3 Position;
+        }
+
+        public struct SpinningChop
+        {
+            public Unit Unit;
+            public Session session;
+            public Vector3 Forward;
+        }
+        public struct DragonPunch
+        {
+            public Unit Unit;
+            public Session session;
+            public Vector3 Forward;
         }
 
         public struct Damage

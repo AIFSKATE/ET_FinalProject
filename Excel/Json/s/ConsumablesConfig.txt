@@ -1,10 +1,10 @@
 {"list":[
-{"_t":"ConsumablesConfig","_id":0,"Name":"Red Potion 2","Desc":""},
-{"_t":"ConsumablesConfig","_id":1,"Name":"Water Bottle","Desc":""},
-{"_t":"ConsumablesConfig","_id":2,"Name":"Green Potion","Desc":""},
-{"_t":"ConsumablesConfig","_id":3,"Name":"Blue Potion 3","Desc":""},
-{"_t":"ConsumablesConfig","_id":4,"Name":"actor_relation_10034","Desc":""},
-{"_t":"ConsumablesConfig","_id":5,"Name":"actor_skill_400301","Desc":""},
-{"_t":"ConsumablesConfig","_id":6,"Name":"actor_skill_101902","Desc":""},
-{"_t":"ConsumablesConfig","_id":7,"Name":"actor_skill_100201","Desc":""},
+{"_t":"ConsumablesConfig","_id":0,"Name":"Red Potion 2","Desc":"","CoolTime":5},
+{"_t":"ConsumablesConfig","_id":1,"Name":"Water Bottle","Desc":"","CoolTime":5},
+{"_t":"ConsumablesConfig","_id":2,"Name":"Green Potion","Desc":"","CoolTime":5},
+{"_t":"ConsumablesConfig","_id":3,"Name":"Blue Potion 3","Desc":"","CoolTime":5},
+{"_t":"ConsumablesConfig","_id":4,"Name":"actor_relation_10034","Desc":"","CoolTime":0.5},
+{"_t":"ConsumablesConfig","_id":5,"Name":"actor_skill_400301","Desc":"","CoolTime":1},
+{"_t":"ConsumablesConfig","_id":6,"Name":"actor_skill_100201","Desc":"","CoolTime":1},
+{"_t":"ConsumablesConfig","_id":7,"Name":"actor_skill_101902","Desc":"","CoolTime":1},
 ]}

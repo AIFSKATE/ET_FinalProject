@@ -293,12 +293,79 @@ message M2C_SnowSlash // IActorMessage
 	int64 Id = 1;
 }
 
+message C2M_SpinningChop // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	float X = 1;
+	float Y = 2;
+	float Z = 3;
+}
+
+message M2C_SpinningChop // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+	float X = 2;
+	float Y = 3;
+	float Z = 4;
+}
+
+message C2M_DragonPunch // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	float X = 1;
+	float Y = 2;
+	float Z = 3;
+}
+
+message M2C_DragonPunch // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+	float X = 2;
+	float Y = 3;
+	float Z = 4;
+}
+
 message C2M_HuiXue // IActorLocationMessage
 {
 	int32 RpcId = 90;
 }
 
 message M2C_HuiXue // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_IncreaseAttack // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_IncreaseAttack // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_IncreaseDefense // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_IncreaseDefense // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message C2M_IncreaseMaxHP // IActorLocationMessage
+{
+	int32 RpcId = 90;
+}
+
+message M2C_IncreaseMaxHP // IActorMessage
 {
 	int32 RpcId = 90;
 	int64 Id = 1;

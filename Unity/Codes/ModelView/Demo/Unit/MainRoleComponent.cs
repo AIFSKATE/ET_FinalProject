@@ -9,12 +9,12 @@ namespace ET
         damage,
         hp,
         defense,
-        max,
+        maxhp,
     }
     [ComponentOf(typeof(Unit))]
-    public class MainRoleComponent : Entity, IAwake, IDestroy, IUpdate
+    public class MainRoleComponent : Entity, IAwake, IDestroy
     {
-        public static MainRoleComponent Instance;
         public Dictionary<int, int> dic;
+        public UIGameComponent uigamecomponent;
     }
 }

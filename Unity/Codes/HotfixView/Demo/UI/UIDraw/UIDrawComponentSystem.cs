@@ -23,6 +23,7 @@ namespace ET
             self.mydraw = rc.Get<GameObject>("mydraw").GetComponent<RawImage>();
             self.canvasRect = rc.Get<GameObject>("Canvas").GetComponent<RectTransform>();
             self.contentRect = rc.Get<GameObject>("Content").GetComponent<RectTransform>();
+            self.generateContentRect = rc.Get<GameObject>("GenerateContent").GetComponent<RectTransform>();
             self.checkBtn = rc.Get<GameObject>("CheckBtn").GetComponent<Button>();
             self.backBtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.similarity = rc.Get<GameObject>("Similarity").GetComponent<TextMeshProUGUI>();
@@ -33,6 +34,7 @@ namespace ET
             self.needItem = rc.Get<GameObject>("NeedItem");
             self.imagelist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "Pixel");
             self.uibag = null;
+            self.uigame = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIGame);
 
             self.drawComponent = self.AddComponent<DrawComponent>();
             self.phashcomponent = self.AddComponent<PHashComponent>();
@@ -154,7 +156,7 @@ namespace ET
             //targetTex.SetPixels(pixels);
             //targetTex.Apply();
             self.fuluTex = targetTex;
-            self.SetNeedItem().Coroutine();
+            self.SetNeedAndGenerateItem().Coroutine();
             await ETTask.CompletedTask;
         }
 
@@ -198,7 +200,7 @@ namespace ET
             await self.CheckPHashAsync();
             //通知结果
             await self.Notify();
-            
+
         }
 
         public static async ETTask CheckPHashAsync(this UIDrawComponent self)
@@ -249,11 +251,11 @@ namespace ET
             //扣除消耗
             self.uibag.GetComponent<UIBagComponent>().CostAndGenerate(self.chosenid);
             //刷新needitem列表
-            self.SetNeedItem().Coroutine();
+            self.SetNeedAndGenerateItem().Coroutine();
             //MainRoleComponent.Instance.ChangeNum(self.chosenid, self.res);
             await ETTask.CompletedTask;
         }
-        public static async ETTask SetNeedItem(this UIDrawComponent self)
+        public static async ETTask SetNeedAndGenerateItem(this UIDrawComponent self)
         {
             await self.Prepare();
             await self.ClearNeedItem();
@@ -268,6 +270,13 @@ namespace ET
                     $"Need :{costlist[i + 1]}  Have:{self.uibag.GetComponent<UIBagComponent>().GetNum(costlist[i])}";
                 item.transform.SetParent(self.contentRect, false);
             }
+
+            var generateid = FuluConfigCategory.Instance.Get(self.chosenid).Generate;
+            var generateitem = RecyclePoolComponent.Instance.Get(UIType.UIDraw.StringToAB(), UIType.UIDraw, "NeedItem");
+            generateitem.GetComponent<Image>().sprite = self.imagelist.GetSprite(ConsumablesConfigCategory.Instance.Get(generateid).Name);
+            generateitem.GetComponent<ReferenceCollector>().Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text =
+                $"Have:{self.uigame.GetComponent<UIGameComponent>().GetNum(generateid)}";
+            generateitem.transform.SetParent(self.generateContentRect, false);
         }
 
         public static async ETTask ClearNeedItem(this UIDrawComponent self)
@@ -277,6 +286,10 @@ namespace ET
             while (self.contentRect.childCount > 0)
             {
                 RecyclePoolComponent.Instance.Recycle(self.contentRect.GetChild(0).gameObject);
+            }
+            while (self.generateContentRect.childCount > 0)
+            {
+                RecyclePoolComponent.Instance.Recycle(self.generateContentRect.GetChild(0).gameObject);
             }
         }
         public static async ETTask<bool> CheckEnough(this UIDrawComponent self)

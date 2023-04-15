@@ -20,6 +20,8 @@ namespace ET
             self.skillTgl_3 = rc.Get<GameObject>("Skill3").GetComponent<Toggle>();
             self.skillTgl_4 = rc.Get<GameObject>("Skill4").GetComponent<Toggle>();
             self.skillTgl_5 = rc.Get<GameObject>("Skill5").GetComponent<Toggle>();
+            self.skillTgl_6 = rc.Get<GameObject>("Skill6").GetComponent<Toggle>();
+            self.skillTgl_7 = rc.Get<GameObject>("Skill7").GetComponent<Toggle>();
 
             self.toggles = new List<Toggle>();
             self.toggles.Add(self.skillTgl_1);
@@ -27,6 +29,8 @@ namespace ET
             self.toggles.Add(self.skillTgl_3);
             self.toggles.Add(self.skillTgl_4);
             self.toggles.Add(self.skillTgl_5);
+            self.toggles.Add(self.skillTgl_6);
+            self.toggles.Add(self.skillTgl_7);
 
             self.already = new HashSet<int>();
 

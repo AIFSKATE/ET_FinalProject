@@ -6,7 +6,7 @@ namespace ET
     public class DelegateMonoBehaviour : MonoBehaviour
     {
         public long BelongToUnitId;
-        
+
         public event Action<Collider> on_TriggerEnter;
         public event Action<Collider> on_TriggerStay;
         public event Action<Collider> on_TriggerExit;
@@ -41,6 +41,16 @@ namespace ET
         private void OnCollisionExit(Collision collision)
         {
             on_CollisionExit?.Invoke(collision);
+        }
+        public void Clear()
+        {
+            BelongToUnitId = 0;
+            on_TriggerEnter = null;
+            on_TriggerStay = null;
+            on_TriggerExit = null;
+            on_CollisionEnter = null;
+            on_CollisionStay = null;
+            on_CollisionExit = null;
         }
     }
 }

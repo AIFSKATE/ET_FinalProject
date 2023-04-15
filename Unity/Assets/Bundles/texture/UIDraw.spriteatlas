@@ -50,6 +50,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 28da26922f5a14447bfd98dbb8d48ce0, type: 3}
     - {fileID: 2800000, guid: e962ee0b8b5db5a4bb2caf61e7971e03, type: 3}
     - {fileID: 2800000, guid: d2fc16f2decde82479075517e2ce29ff, type: 3}
+    - {fileID: 2800000, guid: f837eebd6b0accd43980e21aec94aaad, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -61,6 +62,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4b661e9808bda5744a79d481d840fe3f, type: 3}
   - {fileID: 21300000, guid: e962ee0b8b5db5a4bb2caf61e7971e03, type: 3}
   - {fileID: 21300000, guid: 9d319b2c92db0f043834ec2557237daa, type: 3}
+  - {fileID: 21300000, guid: f837eebd6b0accd43980e21aec94aaad, type: 3}
   m_PackedSpriteNamesToIndex:
   - hui
   - faiz
@@ -68,6 +70,7 @@ SpriteAtlas:
   - O
   - gou
   - li
+  - W
   m_RenderDataMap: {}
   m_Tag: UIDraw
   m_IsVariant: 0
