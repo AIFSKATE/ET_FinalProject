@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using static System.Collections.Specialized.BitVector32;
 
@@ -14,6 +15,7 @@ namespace ET
             {
                 self.dic = new System.Collections.Generic.Dictionary<int, int>();
                 self.uigamecomponent = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame).GetComponent<UIGameComponent>();
+                self.dead = false;
 
                 self.ChangeNum((int)NumType.maxhp, 100);
                 self.ChangeNum((int)NumType.damage, 20);
@@ -74,9 +76,15 @@ namespace ET
             {
                 self.dic[type] = maxhp;
             }
-            if (self.dic[type] < 0)
+            if (!self.dead && self.dic[type] <= 0)
             {
+                //self.dead = true;
+                //self.ZoneScene().CurrentScene().GetComponent<LevelComponent>().EndLevel().Coroutine();
 
+                //var zonescene = self.ZoneScene();
+                //var list = zonescene.CurrentScene().GetComponent<LevelComponent>().GetAllEnemy();
+                //var unitcomponent = zonescene.CurrentScene().GetComponent<UnitComponent>();
+                //var unit = unitcomponent.Get(list[0]);
             }
             self.uigamecomponent.RefreshHP(self.dic[type], self.dic[(int)NumType.maxhp]);
         }

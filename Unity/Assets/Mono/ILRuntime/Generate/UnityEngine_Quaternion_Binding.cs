@@ -31,12 +31,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(UnityEngine.Quaternion), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("op_Multiply", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, op_Multiply_2);
-            args = new Type[]{typeof(UnityEngine.Vector3), typeof(UnityEngine.Vector3)};
-            method = type.GetMethod("FromToRotation", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, FromToRotation_3);
+            args = new Type[]{};
+            method = type.GetMethod("get_eulerAngles", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_eulerAngles_3);
+            args = new Type[]{typeof(UnityEngine.Vector3)};
+            method = type.GetMethod("Euler", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Euler_4);
             args = new Type[]{typeof(System.Single), typeof(UnityEngine.Vector3)};
             method = type.GetMethod("AngleAxis", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AngleAxis_4);
+            app.RegisterCLRMethodRedirection(method, AngleAxis_5);
 
             app.RegisterCLRCreateDefaultInstance(type, () => new UnityEngine.Quaternion());
 
@@ -200,32 +203,56 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* FromToRotation_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_eulerAngles_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Vector3 @toDirection = new UnityEngine.Vector3();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder.ParseValue(ref @toDirection, __intp, ptr_of_this_method, __mStack, true);
+            UnityEngine.Quaternion instance_of_this_method = new UnityEngine.Quaternion();
+            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder != null) {
+                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder.ParseValue(ref instance_of_this_method, __intp, ptr_of_this_method, __mStack, false);
             } else {
-                @toDirection = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
+                ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
+                instance_of_this_method = (UnityEngine.Quaternion)typeof(UnityEngine.Quaternion).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
+            }
+
+            var result_of_this_method = instance_of_this_method.eulerAngles;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder != null) {
+                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder.WriteBackValue(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+            } else {
+                WriteBackInstance(__domain, ptr_of_this_method, __mStack, ref instance_of_this_method);
+            }
+
+            __intp.Free(ptr_of_this_method);
+            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder != null) {
+                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder.PushValue(ref result_of_this_method, __intp, __ret, __mStack);
+                return __ret + 1;
+            } else {
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+            }
+        }
+
+        static StackObject* Euler_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            UnityEngine.Vector3 @euler = new UnityEngine.Vector3();
+            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder != null) {
+                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder.ParseValue(ref @euler, __intp, ptr_of_this_method, __mStack, true);
+            } else {
+                @euler = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
                 __intp.Free(ptr_of_this_method);
             }
 
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Vector3 @fromDirection = new UnityEngine.Vector3();
-            if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder != null) {
-                ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector3_Binding_Binder.ParseValue(ref @fromDirection, __intp, ptr_of_this_method, __mStack, true);
-            } else {
-                @fromDirection = (UnityEngine.Vector3)typeof(UnityEngine.Vector3).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
-                __intp.Free(ptr_of_this_method);
-            }
 
-
-            var result_of_this_method = UnityEngine.Quaternion.FromToRotation(@fromDirection, @toDirection);
+            var result_of_this_method = UnityEngine.Quaternion.Euler(@euler);
 
             if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder != null) {
                 ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Quaternion_Binding_Binder.PushValue(ref result_of_this_method, __intp, __ret, __mStack);
@@ -235,7 +262,7 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* AngleAxis_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AngleAxis_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

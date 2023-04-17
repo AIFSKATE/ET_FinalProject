@@ -77,3 +77,6 @@ MonoBehaviour:
   - key: Love aura
     gameObject: {fileID: 5766691976136461342, guid: 43d1d06cf70fcb2488255051aaae40a5,
       type: 3}
+  - key: Enemy2
+    gameObject: {fileID: 1745187925684929670, guid: 012df9bbdff5fea43bbcf66c6b1106f1,
+      type: 3}

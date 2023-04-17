@@ -383,6 +383,17 @@ message M2C_RemoveUnit // IActorMessage
 	int64 Id = 1;
 }
 
+message C2M_RemoveAllEnemyUnit // IActorLocationMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+}
+
+message M2C_EndLevel // IActorMessage
+{
+	int32 RpcId = 90;
+}
+
 message C2M_MeteorsAOE // IActorLocationMessage
 {
 	int32 RpcId = 90;
@@ -398,6 +409,21 @@ message M2C_MeteorsAOE // IActorMessage
 	float X = 2;
 	float Y = 3;
 	float Z = 4;
+}
+
+message M2C_MonsterDamage // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 MonsterId = 1;
+	int64 PlayerId = 2;
+	int32 damage = 3;
+}
+
+message M2C_AnimatorTrigger // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 Id = 1;
+	string trigger = 2;
 }
 
 message C2M_DamageMonsters // IActorLocationMessage

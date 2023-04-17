@@ -14,6 +14,7 @@ namespace ET
         {
             Scene currentscene = unit.DomainScene();
             var levelComponent = currentscene.GetComponent<LevelComponent>();
+            levelComponent.SetNowLevel(request.nowlevel);
             if (request.nowlevel > levelComponent.GetEndLevel())
             {
                 response.Error = ErrorCode.ERR_LevelEND;

@@ -2,6 +2,7 @@
 using System.Net;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -120,6 +121,7 @@ namespace ET
         public static void RefreshHP(this UIGameComponent self, int hp, int maxhp)
         {
             self.htTmp.text = hp + "/" + maxhp;
+            self.playerHPBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, self.playerHPBarBg.GetComponent<RectTransform>().rect.width * (float)hp / maxhp);
         }
 
         public static void RefreshAttack(this UIGameComponent self, int attack)

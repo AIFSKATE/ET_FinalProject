@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Linq;
+using ILRuntime.Runtime.Enviorment;
 
 namespace ET
 {
@@ -28,7 +29,7 @@ namespace ET
 
 		private CodeLoader()
 		{
-			Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+			Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
 			foreach (Assembly ass in assemblies)
 			{
 				foreach (Type type in ass.GetTypes())
@@ -76,8 +77,13 @@ namespace ET
 					{
 						this.monoTypes[type.FullName] = type;
 						this.hotfixTypes[type.FullName] = type;
-					}
-					IStaticMethod start = new MonoStaticMethod(assembly, "ET.Entry", "Start");
+						}
+						//appDomain = new ILRuntime.Runtime.Enviorment.AppDomain(ILRuntime.Runtime.ILRuntimeJITFlags.JITOnDemand);
+						//appDomain.DebugService.StartDebugService(56000);
+						//Log.Warning("进入");
+						////DISABLE_ILRUNTIME_DEBUG
+						IStaticMethod start = new MonoStaticMethod(assembly, "ET.Entry", "Start");
+
 					start.Run();
 					break;
 				}
@@ -110,8 +116,7 @@ namespace ET
 					}
 					
 					ILHelper.InitILRuntime(appDomain);
-					
-					IStaticMethod start = new ILStaticMethod(appDomain, "ET.Entry", "Start", 0);
+                        IStaticMethod start = new ILStaticMethod(appDomain, "ET.Entry", "Start", 0);
 					start.Run();
 					break;
 				}

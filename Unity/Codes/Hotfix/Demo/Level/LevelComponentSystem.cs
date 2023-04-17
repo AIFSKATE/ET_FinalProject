@@ -1,4 +1,5 @@
 ﻿using ET.EventType;
+using System.Collections.Generic;
 
 namespace ET
 {
@@ -27,6 +28,11 @@ namespace ET
                 self.nowlevel++;
                 self.StartLevel(self.nowlevel).Coroutine();
             }
+        }
+
+        public static HashSet<long> GetAllEnemy(this LevelComponent self)
+        {
+            return self.enemyunit;
         }
 
 

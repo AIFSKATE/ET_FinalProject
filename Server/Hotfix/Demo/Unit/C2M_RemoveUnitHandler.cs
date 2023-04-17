@@ -12,6 +12,19 @@ namespace ET
         {
             var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
             unitcomponent.Remove(message.Id);
+
+            //if (unitcomponent.GetPlauerList().Count == unitcomponent.Children.Count)
+            //{
+            //    Scene currentscene = unit.DomainScene();
+            //    var levelComponent = currentscene.GetComponent<LevelComponent>();
+            //    if (levelComponent.GetEndLevel() < levelComponent.GetNowLevel())
+            //    {
+            //        MessageHelper.Broadcast(unit, new M2C_EndLevel());
+            //        return;
+            //    }
+            //    levelComponent.NextLevel();
+            //}
+
             await ETTask.CompletedTask;
         }
     }

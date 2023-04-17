@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ET.EventType;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
@@ -15,6 +18,8 @@ namespace ET
         {
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.startBtn = rc.Get<GameObject>("StartBtn").GetComponent<Button>();
+            self.setBtn = rc.Get<GameObject>("SetBtn").GetComponent<Button>();
+            self.exitBtn = rc.Get<GameObject>("ExitBtn").GetComponent<Button>();
 
             self.BindListener();
         }
@@ -26,6 +31,7 @@ namespace ET
         public static void BindListener(this UIMainComponent self)
         {
             self.startBtn.onClick.AddListener(self.OnStartBtn);
+            self.exitBtn.onClick.AddListener(self.OnExitBtn);
         }
 
         public static void OnStartBtn(this UIMainComponent self)
@@ -41,14 +47,30 @@ namespace ET
             zoneScene.AddComponent<RuntimeCameraComponent, Transform>(myunit.GetComponent<GameObjectComponent>().GameObject.transform);
 
 
-            var levelcomponent = currentScenesComponent.Scene.AddComponent<LevelComponent>();
+            var levelcomponent = currentScenesComponent.Scene.GetComponent<LevelComponent>();
+            if (levelcomponent == null)
+            {
+                levelcomponent = currentScenesComponent.Scene.AddComponent<LevelComponent>();
+            }
             var operaComponent = currentScenesComponent.Scene.AddComponent<OperaComponent>();
+
 
             //关卡开始
             levelcomponent.StandingBy().Coroutine();
 
+
             UIHelper.Close(zoneScene, UIType.UIMain).Coroutine();
+            UIHelper.Show(zoneScene, UIType.UIHP, UILayer.Mid).Coroutine();
             UIHelper.Create(zoneScene, UIType.UIGame, UILayer.Mid).Coroutine();
+        }
+
+        public static void OnExitBtn(this UIMainComponent self)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+		Application.Quit();
+#endif
         }
 
     }

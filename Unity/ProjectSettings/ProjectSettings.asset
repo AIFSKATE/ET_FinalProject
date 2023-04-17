@@ -744,7 +744,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: DISABLE_ILRUNTIME_DEBUG
+    1: 
     4: DISABLE_ILRUNTIME_DEBUG
     7: DISABLE_ILRUNTIME_DEBUG
     13: DISABLE_ILRUNTIME_DEBUG
@@ -754,7 +754,7 @@ PlayerSettings:
     iPhone: 1
   scriptingBackend:
     Android: 0
-    Standalone: 0
+    Standalone: 1
     iPhone: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}

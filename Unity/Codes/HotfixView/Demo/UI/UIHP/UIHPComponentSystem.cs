@@ -61,7 +61,6 @@ namespace ET
             Vector2 newpos = Vector2.down;
             newpos = pos;
             newpos.y += 100;
-
             t.GetComponent<TextMeshProUGUI>().text = "-" + damage;
             t.GetComponent<RectTransform>().DOAnchorPos(newpos, 1);
             t.GetComponent<RectTransform>().DOScale(2.5f, 1).SetLoops(1, LoopType.Restart);

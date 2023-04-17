@@ -49,6 +49,14 @@ namespace ET
             self.hp = hp;
             if (self.hp <= 0)
             {
+                //self.ZoneScene().GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id });
+                //self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
+                //var list = self.DomainScene().GetComponent<UnitComponent>().Get((self.Parent as Unit).Id).Components;
+                //foreach (var item in list)
+                //{
+                //    Log.Warning(item + "");
+                //}
+
                 self.DomainScene().GetComponent<LevelComponent>().RemoveEnemy(self.Parent as Unit);
                 self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id }).Coroutine();
                 self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);

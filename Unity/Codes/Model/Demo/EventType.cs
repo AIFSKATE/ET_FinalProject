@@ -160,6 +160,21 @@ namespace ET
             public int damage;
         }
 
+        public struct MonsterDamage
+        {
+            public Unit PlayerUnit;
+            public Unit MonsterUnit;
+            public int damage;
+            public Session session;
+        }
+
+        public struct AnimatorTrigger
+        {
+            public Unit Unit;
+            public Session session;
+            public string trigger;
+        }
+
         public struct EndLevel
         {
             public Scene ZoneScene;

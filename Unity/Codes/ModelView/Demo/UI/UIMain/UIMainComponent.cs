@@ -10,5 +10,7 @@ namespace ET
     public class UIMainComponent : Entity, IAwake
     {
         public Button startBtn;
+        public Button setBtn;
+        public Button exitBtn;
     }
 }

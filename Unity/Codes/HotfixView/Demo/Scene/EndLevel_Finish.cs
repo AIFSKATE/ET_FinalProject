@@ -19,12 +19,12 @@
                 await TimerComponent.Instance.WaitAsync(1000);
             }
             UIHelper.Remove(zonescene, UIType.UITips).Coroutine();
-            UIHelper.Remove(zonescene, UIType.UIGame).Coroutine();
+            UIHelper.Close(zonescene, UIType.UIGame).Coroutine();
             UIHelper.Show(zonescene, UIType.UIMain, UILayer.Mid).Coroutine();
 
             //通知后端
             //G2C_ExitMap g2CExitMap = await zonescene.GetComponent<SessionComponent>().Session.Call(new C2G_ExitMap()) as G2C_ExitMap;
-
+            //Log.Warning(g2CExitMap.MyId+"");
             zonescene.CurrentScene().RemoveComponent<LevelComponent>();
             zonescene.CurrentScene().RemoveComponent<OperaComponent>();
 

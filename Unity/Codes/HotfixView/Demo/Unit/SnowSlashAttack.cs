@@ -57,7 +57,10 @@ namespace ET
                 foreach (var item in list)
                 {
                     Unit tempunit = unitComponent.Get(item);
-                    Game.EventSystem.PublishAsync<Damage>(new Damage() { Unit = tempunit, damage = damage }).Coroutine();
+                    if (tempunit != null)
+                    {
+                        Game.EventSystem.PublishAsync<Damage>(new Damage() { Unit = tempunit, damage = damage }).Coroutine();
+                    }
                 }
             }
 

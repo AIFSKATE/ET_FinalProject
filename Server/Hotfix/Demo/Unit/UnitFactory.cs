@@ -44,7 +44,7 @@ namespace ET
                         numericComponent.Set(NumericType.AOI, 15000); // 视野15米
 
                         unitComponent.Add(unit);
-                        unit.AddComponent<AIComponent, int, int>(2, 100);
+                        unit.AddComponent<AIComponent, int, int>(2, 1000);
                         // 加入aoi
                         unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
                         return unit;

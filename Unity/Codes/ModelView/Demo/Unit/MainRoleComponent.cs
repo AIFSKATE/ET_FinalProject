@@ -15,6 +15,7 @@ namespace ET
     public class MainRoleComponent : Entity, IAwake, IDestroy
     {
         public Dictionary<int, int> dic;
+        public bool dead;
         public UIGameComponent uigamecomponent;
     }
 }

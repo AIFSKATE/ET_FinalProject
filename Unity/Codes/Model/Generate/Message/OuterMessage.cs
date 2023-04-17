@@ -785,6 +785,27 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.C2M_RemoveAllEnemyUnit)]
+	[ProtoContract]
+	public partial class C2M_RemoveAllEnemyUnit: Object, IActorLocationMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_EndLevel)]
+	[ProtoContract]
+	public partial class M2C_EndLevel: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
 	[Message(OuterOpcode.C2M_MeteorsAOE)]
 	[ProtoContract]
 	public partial class C2M_MeteorsAOE: Object, IActorLocationMessage
@@ -821,6 +842,39 @@ namespace ET
 
 		[ProtoMember(4)]
 		public float Z { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_MonsterDamage)]
+	[ProtoContract]
+	public partial class M2C_MonsterDamage: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long MonsterId { get; set; }
+
+		[ProtoMember(2)]
+		public long PlayerId { get; set; }
+
+		[ProtoMember(3)]
+		public int damage { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_AnimatorTrigger)]
+	[ProtoContract]
+	public partial class M2C_AnimatorTrigger: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Id { get; set; }
+
+		[ProtoMember(2)]
+		public string trigger { get; set; }
 
 	}
 

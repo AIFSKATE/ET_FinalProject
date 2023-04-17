@@ -10,6 +10,8 @@ namespace ET
             UIHelper.Create(args.ZoneScene, UIType.UIHP, UILayer.Low).Coroutine();
             await UIHelper.Create(args.ZoneScene, UIType.UIGame, UILayer.Mid);
             UIHelper.Close(args.ZoneScene, UIType.UIGame).Coroutine();
+            await UIHelper.Create(args.ZoneScene, UIType.UITips, UILayer.Mid);
+            UIHelper.Close(args.ZoneScene, UIType.UITips).Coroutine();
         }
     }
 }

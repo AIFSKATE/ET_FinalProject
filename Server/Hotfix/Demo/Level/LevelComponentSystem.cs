@@ -6,7 +6,7 @@
     {
         public override void AwakeAsync(LevelComponent self)
         {
-            self.endlevel = 1;
+            self.endlevel = 2;
         }
     }
     [FriendClass(typeof(ET.LevelComponent))]
@@ -15,6 +15,19 @@
         public static int GetEndLevel(this LevelComponent self)
         {
             return self.endlevel;
+        }
+        public static int GetNowLevel(this LevelComponent self)
+        {
+            return self.nowlevel;
+        }
+        public static void SetNowLevel(this LevelComponent self, int nowlevel)
+        {
+            self.nowlevel = nowlevel;
+        }
+        public static void NextLevel(this LevelComponent self)
+        {
+            self.nowlevel += 1;
+            self.StartLevel(self.nowlevel);
         }
 
         public static void StartLevel(this LevelComponent self, int nowlevel)
