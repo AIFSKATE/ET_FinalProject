@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 
 namespace ET
 {
-    public class AI_Locate : AAIHandler
+    public class AI_XunLuoFarSee : AAIHandler
     {
         public override int Check(AIComponent aiComponent, AIConfig aiConfig)
         {
@@ -16,7 +15,7 @@ namespace ET
 
             UnityEngine.Vector3 targetposition = unit.Position;
             UnityEngine.Vector3 myposition = myunit.Position;
-            if (Vector3.Distance(targetposition, myposition) > 1.5)
+            if (Vector3.Distance(targetposition, myposition) > 4)
             {
                 return 0;
             }
@@ -28,6 +27,11 @@ namespace ET
             await ETTask.CompletedTask;
             while (true)
             {
+                bool ret = await TimerComponent.Instance.WaitAsync(100, cancellationToken);
+                if (!ret)
+                {
+                    return;
+                }
                 var unitlist = aiComponent.DomainScene().GetComponent<UnitComponent>().GetPlauerList();
                 Unit unit = aiComponent.Parent as Unit;
                 Unit myunit = aiComponent.Parent as Unit;
@@ -35,15 +39,7 @@ namespace ET
                 int index = (int)((myunit.Id / 2) & 15) % unitlist.Count;
                 unit = unitlist[index];
 
-                int ran = RandomHelper.RandomNumber(-6, 7);
-
-                Vector3 straight = (myunit.Position - unit.Position).normalized;
-                straight.y = 0;
-                Vector3 randompos = unit.Position + Quaternion.CreateFromAxisAngle(Vector3.up, ran / 10f) * straight;
-
-                //var randompos = unit.Position + UnityEngine.Vector3.right * sin + UnityEngine.Vector3.forward * cos;
-
-                myunit.FindPathMoveToAsync(randompos, cancellationToken).Coroutine();
+                myunit.FindPathMoveToAsync(unit.Position, cancellationToken).Coroutine();
 
                 if (myunit != null)
                 {
@@ -52,11 +48,6 @@ namespace ET
                         Id = myunit.Id,
                         trigger = "Walk",
                     });
-                }
-                bool ret = await TimerComponent.Instance.WaitAsync(800, cancellationToken);
-                if (!ret)
-                {
-                    return;
                 }
             }
         }

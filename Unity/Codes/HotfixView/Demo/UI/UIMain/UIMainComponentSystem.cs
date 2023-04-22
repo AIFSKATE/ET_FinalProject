@@ -32,6 +32,7 @@ namespace ET
         {
             self.startBtn.onClick.AddListener(self.OnStartBtn);
             self.exitBtn.onClick.AddListener(self.OnExitBtn);
+            self.setBtn.onClick.AddListener(self.OnSetBtn);
         }
 
         public static void OnStartBtn(this UIMainComponent self)
@@ -71,6 +72,11 @@ namespace ET
 #else
 		Application.Quit();
 #endif
+        }
+
+        public static void OnSetBtn(this UIMainComponent self)
+        {
+            UIHelper.Show(self.ZoneScene(), UIType.UISetting, UILayer.Mid).Coroutine();
         }
 
     }

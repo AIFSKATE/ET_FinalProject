@@ -6,7 +6,7 @@
     {
         public override void AwakeAsync(LevelComponent self)
         {
-            self.endlevel = 2;
+            self.endlevel = 3;
         }
     }
     [FriendClass(typeof(ET.LevelComponent))]
@@ -33,10 +33,16 @@
         public static void StartLevel(this LevelComponent self, int nowlevel)
         {
             UnitComponent unitComponent = self.DomainScene().GetComponent<UnitComponent>();
-            UnitConfig unitConfig = UnitConfigCategory.Instance.Get(1002);
+            UnitConfig unitConfig_1 = UnitConfigCategory.Instance.Get(1002);
             for (int i = 0; i < 4; i++)
             {
-                Unit unitenemy = UnitFactory.Create(self.DomainScene(), unitConfig.Id, UnitType.Monster);
+                Unit unitenemy = UnitFactory.Create(self.DomainScene(), unitConfig_1.Id, UnitType.Monster);
+                unitComponent.Add(unitenemy);
+            }
+            UnitConfig unitConfig_2 = UnitConfigCategory.Instance.Get(1003);
+            for (int i = 0; i < 4; i++)
+            {
+                Unit unitenemy = UnitFactory.Create(self.DomainScene(), unitConfig_2.Id, UnitType.Shooter);
                 unitComponent.Add(unitenemy);
             }
         }

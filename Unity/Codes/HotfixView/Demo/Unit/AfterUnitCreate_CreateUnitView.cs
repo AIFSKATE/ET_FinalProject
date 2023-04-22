@@ -41,6 +41,22 @@ namespace ET
                         args.Unit.DomainScene().GetComponent<LevelComponent>().AddEnemy(args.Unit);
                         return;
                     }
+                case 1003:
+                    {
+                        GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset("Unit.unity3d", "Unit");
+                        GameObject prefab = bundleGameObject.Get<GameObject>("Enemy2");
+                        GameObject go = UnityEngine.Object.Instantiate(prefab, GlobalComponent.Instance.Unit, true);
+
+                        go.transform.SetParent(GlobalComponent.Instance.Unit, true);
+
+                        go.transform.position = args.Unit.Position;
+                        args.Unit.AddComponent<GameObjectComponent, GameObject>(go);
+                        args.Unit.AddComponent<AnimatorComponent>();
+                        //args.Unit.AddComponent<TriggerComponent>();
+                        args.Unit.AddComponent<HPComponent>();
+                        args.Unit.DomainScene().GetComponent<LevelComponent>().AddEnemy(args.Unit);
+                        return;
+                    }
             }
 
         }

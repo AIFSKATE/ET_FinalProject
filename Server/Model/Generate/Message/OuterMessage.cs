@@ -863,6 +863,24 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.M2C_MonsterShoot)]
+	[ProtoContract]
+	public partial class M2C_MonsterShoot: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long MonsterId { get; set; }
+
+		[ProtoMember(2)]
+		public long PlayerId { get; set; }
+
+		[ProtoMember(3)]
+		public int damage { get; set; }
+
+	}
+
 	[Message(OuterOpcode.M2C_AnimatorTrigger)]
 	[ProtoContract]
 	public partial class M2C_AnimatorTrigger: Object, IActorMessage

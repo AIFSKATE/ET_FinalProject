@@ -78,10 +78,10 @@ namespace ET
 						this.monoTypes[type.FullName] = type;
 						this.hotfixTypes[type.FullName] = type;
 						}
-						//appDomain = new ILRuntime.Runtime.Enviorment.AppDomain(ILRuntime.Runtime.ILRuntimeJITFlags.JITOnDemand);
-						//appDomain.DebugService.StartDebugService(56000);
-						//Log.Warning("进入");
-						////DISABLE_ILRUNTIME_DEBUG
+						appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
+						appDomain.DebugService.StartDebugService(56000);
+						Log.Warning("进入");
+						//DISABLE_ILRUNTIME_DEBUG
 						IStaticMethod start = new MonoStaticMethod(assembly, "ET.Entry", "Start");
 
 					start.Run();

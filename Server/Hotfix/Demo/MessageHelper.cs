@@ -15,13 +15,13 @@ namespace ET
                 SendToClient(u.Unit, message);
             }
         }
-        
+
         public static void SendToClient(Unit unit, IActorMessage message)
         {
             SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, message);
         }
-        
-        
+
+
         /// <summary>
         /// 发送协议给ActorLocation
         /// </summary>
@@ -31,7 +31,7 @@ namespace ET
         {
             ActorLocationSenderComponent.Instance.Send(id, message);
         }
-        
+
         /// <summary>
         /// 发送协议给Actor
         /// </summary>
@@ -41,7 +41,7 @@ namespace ET
         {
             ActorMessageSenderComponent.Instance.Send(actorId, message);
         }
-        
+
         /// <summary>
         /// 发送RPC协议给Actor
         /// </summary>
@@ -52,7 +52,7 @@ namespace ET
         {
             return await ActorMessageSenderComponent.Instance.Call(actorId, message);
         }
-        
+
         /// <summary>
         /// 发送RPC协议给ActorLocation
         /// </summary>

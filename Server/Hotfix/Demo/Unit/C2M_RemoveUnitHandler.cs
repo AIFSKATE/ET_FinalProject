@@ -10,9 +10,22 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_RemoveUnit message)
         {
-            var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
-            unitcomponent.Remove(message.Id);
 
+            //if (monsterunit != null)
+            //{
+
+            //    monsterunit.RemoveComponent<MoveComponent>();
+
+            //    monsterunit.RemoveComponent<PathfindingComponent>();
+
+            //    //monsterunit.RemoveComponent<MailBoxComponent>();
+
+            //    monsterunit.RemoveComponent<AIComponent>();
+            //    // aoi
+            //    //monsterunit.RemoveComponent<AOIEntity>();
+            //}
+
+            RunAsync(unit, message).Coroutine();
             //if (unitcomponent.GetPlauerList().Count == unitcomponent.Children.Count)
             //{
             //    Scene currentscene = unit.DomainScene();
@@ -26,6 +39,15 @@ namespace ET
             //}
 
             await ETTask.CompletedTask;
+        }
+        protected async ETTask RunAsync(Unit unit, C2M_RemoveUnit message)
+        {
+            await ETTask.CompletedTask;
+            var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
+            var monsterunit = unitcomponent.Get(message.Id);
+            //monsterunit.RemoveComponent<AIComponent>();
+            //await TimerComponent.Instance.WaitAsync(5000);
+            unitcomponent.Remove(message.Id);
         }
     }
 }

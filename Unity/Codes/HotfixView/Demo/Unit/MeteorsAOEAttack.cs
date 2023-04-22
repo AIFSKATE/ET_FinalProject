@@ -25,13 +25,16 @@ namespace ET
             //范围检测代码
             var position = meteorsAOEVFS.transform.position;
             position += 1.5f * meteorsAOEVFS.transform.forward;
-            Collider[] colliders = Physics.OverlapSphere(position, 1.7f);
+            //Debug.LogWarning("检测前");
 
+            Collider[] colliders = Physics.OverlapSphere(position, 1.7f);
+            //Debug.LogWarning("检测中" + colliders.Length);
             //Test，测试范围检测代码的范围是什么
             //var g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             //g.transform.position = meteorsAOEVFS.transform.position;
             //g.transform.rotation = meteorsAOEVFS.transform.rotation;
             //g.transform.localScale = new Vector3(2, 2, 2);
+
 
             List<long> list = new List<long>();
             foreach (var item in colliders)
@@ -39,6 +42,7 @@ namespace ET
                 if (item.tag == "Animal" && item.GetComponent<DelegateMonoBehaviour>() != null)
                 {
                     list.Add(item.GetComponent<DelegateMonoBehaviour>().BelongToUnitId);
+                    //Debug.LogWarning("MeteorsAOEAttack 进入");
                 }
             }
             ////如果没有打中就不要发送这个消息，为了测试能否发送的话可以把if先注释掉

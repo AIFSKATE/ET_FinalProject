@@ -13,6 +13,16 @@ namespace ET
             self.enemyunit = new System.Collections.Generic.HashSet<long>();
         }
     }
+
+    [ObjectSystem]
+    public class LevelComponentDestroySystem : DestroySystem<LevelComponent>
+    {
+        public override void Destroy(LevelComponent self)
+        {
+            self.enemyunit.Clear();
+        }
+    }
+
     [FriendClass(typeof(ET.LevelComponent))]
     public static class LevelComponentSystem
     {

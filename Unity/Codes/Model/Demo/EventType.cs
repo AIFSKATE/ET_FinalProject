@@ -167,6 +167,13 @@ namespace ET
             public int damage;
             public Session session;
         }
+        public struct MonsterShoot
+        {
+            public Unit PlayerUnit;
+            public Unit MonsterUnit;
+            public int damage;
+            public Session session;
+        }
 
         public struct AnimatorTrigger
         {

@@ -419,6 +419,14 @@ message M2C_MonsterDamage // IActorMessage
 	int32 damage = 3;
 }
 
+message M2C_MonsterShoot // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 MonsterId = 1;
+	int64 PlayerId = 2;
+	int32 damage = 3;
+}
+
 message M2C_AnimatorTrigger // IActorMessage
 {
 	int32 RpcId = 90;

@@ -1,4 +1,5 @@
 {"list":[
-{"_t":"UnitConfig","_id":1001,"Type":1,"Name":"米克尔","Desc":"带有强力攻击技能","Position":1,"Height":178,"Weight":68},
-{"_t":"UnitConfig","_id":1002,"Type":2,"Name":"enemy1","Desc":"普通小怪物","Position":1,"Height":1,"Weight":1},
+{"_t":"UnitConfig","_id":1001,"Type":1,"Name":"米克尔","Desc":"带有强力攻击技能","Position":1,"Speed":1,"Weight":68},
+{"_t":"UnitConfig","_id":1002,"Type":2,"Name":"enemy1","Desc":"普通小怪物","Position":1,"Speed":20,"Weight":1},
+{"_t":"UnitConfig","_id":1003,"Type":3,"Name":"shooter","Desc":"","Position":0,"Speed":12,"Weight":0},
 ]}

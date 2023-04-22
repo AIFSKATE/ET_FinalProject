@@ -17,6 +17,7 @@ namespace ET
         public const string UITips = "UITips";
         public const string UIConfirm = "UIConfirm";
         public const string UIHP = "UIHP";
+        public const string UISetting = "UISetting";
         public const string UISkillpanel = "UISkillPanel";
     }
 }

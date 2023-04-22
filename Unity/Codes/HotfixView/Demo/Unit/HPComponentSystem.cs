@@ -49,6 +49,8 @@ namespace ET
             self.hp = hp;
             if (self.hp <= 0)
             {
+                self.DomainScene().GetComponent<LevelComponent>().RemoveEnemy(self.Parent as Unit);
+                self.ZoneScene().GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id });
                 //self.ZoneScene().GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id });
                 //self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
                 //var list = self.DomainScene().GetComponent<UnitComponent>().Get((self.Parent as Unit).Id).Components;
@@ -56,10 +58,27 @@ namespace ET
                 //{
                 //    Log.Warning(item + "");
                 //}
+                //Debug.LogWarning("有Unit死了");
 
-                self.DomainScene().GetComponent<LevelComponent>().RemoveEnemy(self.Parent as Unit);
-                self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id }).Coroutine();
-                self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
+                //self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
+
+                //Debug.LogWarning(self.DomainScene().GetComponent<UnitComponent>().Children.Count);
+
+                //test1
+                //self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
+
+                //test2
+                //var unit=self.DomainScene().GetComponent<UnitComponent>().Get((self.Parent as Unit).Id);
+                //unit.GetComponent<GameObjectComponent>().Dispose();
+
+                //test3
+                //self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2M_RemoveUnit() { Id = (self.Parent as Unit).Id }).Coroutine();
+                ////await TimerComponent.Instance.WaitAsync(2000);
+                //self.DomainScene().GetComponent<UnitComponent>().Remove((self.Parent as Unit).Id);
+
+                //test4
+                //var unit = self.DomainScene().GetComponent<UnitComponent>().Get((self.Parent as Unit).Id);
+                //unit.Dispose();
             }
         }
 

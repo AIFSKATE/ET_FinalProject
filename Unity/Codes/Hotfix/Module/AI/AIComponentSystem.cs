@@ -75,7 +75,7 @@ namespace ET
                 if (self.Current == aiConfig.Id)
                 {
                     //注释是我后来加的
-                    //break;
+                    break;
                 }
 
                 self.Cancel(); // 取消之前的行为

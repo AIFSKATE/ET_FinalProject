@@ -78,13 +78,8 @@ namespace ET
             }
             if (!self.dead && self.dic[type] <= 0)
             {
-                //self.dead = true;
+                self.dead = true;
                 //self.ZoneScene().CurrentScene().GetComponent<LevelComponent>().EndLevel().Coroutine();
-
-                //var zonescene = self.ZoneScene();
-                //var list = zonescene.CurrentScene().GetComponent<LevelComponent>().GetAllEnemy();
-                //var unitcomponent = zonescene.CurrentScene().GetComponent<UnitComponent>();
-                //var unit = unitcomponent.Get(list[0]);
             }
             self.uigamecomponent.RefreshHP(self.dic[type], self.dic[(int)NumType.maxhp]);
         }
