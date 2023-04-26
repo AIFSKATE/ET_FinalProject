@@ -100,5 +100,14 @@ namespace ET
             item.transform.SetParent(GlobalComponent.Instance.Pool, false);
             self.pool[item.name].Enqueue(item);
         }
+
+        public static bool AlreaHave(this RecyclePoolComponent self, GameObject item)
+        {
+            if (self.pool.ContainsKey(item.name) && self.pool[item.name].Contains(item))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

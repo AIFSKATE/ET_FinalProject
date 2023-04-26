@@ -15,6 +15,7 @@ namespace ET
         public const string UIBag = "UIBag";
         public const string UIDraw = "UIDraw";
         public const string UITips = "UITips";
+        public const string UICountDown = "UICountDown";
         public const string UIConfirm = "UIConfirm";
         public const string UIHP = "UIHP";
         public const string UISetting = "UISetting";

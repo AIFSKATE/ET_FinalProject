@@ -13,14 +13,7 @@ namespace ET
         {
             public override void AwakeAsync(MainRoleComponent self)
             {
-                self.dic = new System.Collections.Generic.Dictionary<int, int>();
-                self.uigamecomponent = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame).GetComponent<UIGameComponent>();
-                self.dead = false;
-
-                self.ChangeNum((int)NumType.maxhp, 100);
-                self.ChangeNum((int)NumType.damage, 20);
-                self.ChangeNum((int)NumType.hp, 100);
-                self.ChangeNum((int)NumType.defense, 2);
+                self.Awake();
             }
         }
 
@@ -41,6 +34,19 @@ namespace ET
 
         //    }
         //}
+
+        public static void Awake(this MainRoleComponent self)
+        {
+            self.dic?.Clear();
+            self.dic = new System.Collections.Generic.Dictionary<int, int>();
+            self.uigamecomponent = self.ZoneScene().GetComponent<UIComponent>().Get(UIType.UIGame).GetComponent<UIGameComponent>();
+            self.dead = false;
+
+            self.ChangeNum((int)NumType.maxhp, 100);
+            self.ChangeNum((int)NumType.damage, 20);
+            self.ChangeNum((int)NumType.hp, 100);
+            self.ChangeNum((int)NumType.defense, 2);
+        }
 
         public static void ChangeNum(this MainRoleComponent self, int type, int num)
         {
@@ -79,7 +85,7 @@ namespace ET
             if (!self.dead && self.dic[type] <= 0)
             {
                 self.dead = true;
-                //self.ZoneScene().CurrentScene().GetComponent<LevelComponent>().EndLevel().Coroutine();
+                self.ZoneScene().CurrentScene().GetComponent<LevelComponent>().EndLevel().Coroutine();
             }
             self.uigamecomponent.RefreshHP(self.dic[type], self.dic[(int)NumType.maxhp]);
         }

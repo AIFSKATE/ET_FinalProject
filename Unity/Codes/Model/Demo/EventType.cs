@@ -188,6 +188,12 @@ namespace ET
             public int time;
         }
 
+        public struct PrepareTheNext
+        {
+            public Scene ZoneScene;
+            public int time;
+        }
+
         public struct TestEvent
         {
             //public Scene zonescene;

@@ -80,3 +80,9 @@ MonoBehaviour:
   - key: Enemy2
     gameObject: {fileID: 1745187925684929670, guid: b85c7d50b3dc5b2418a5e93535aeced6,
       type: 3}
+  - key: Marker
+    gameObject: {fileID: 1195808797154278, guid: 3812f015b509cb743afe1dcb7471712d,
+      type: 3}
+  - key: Projectile
+    gameObject: {fileID: 1626773867093234237, guid: eeefe92347a5d5c4a9eea5fba016e725,
+      type: 3}

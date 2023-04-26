@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace ET
 {
@@ -23,9 +24,42 @@ namespace ET
             int damage = args.damage;
 
             monster.GetComponent<AnimatorComponent>().SetTrigger("Shoot");
+            var monstergameobject = monster.GetComponent<GameObjectComponent>().GameObject;
+
+            GameObject Projectile = RecyclePoolComponent.Instance.GetUnit("Projectile");
+            Projectile.transform.forward = monstergameobject.transform.forward;
+            Projectile.transform.position = monstergameobject.transform.position;
+            Projectile.GetComponent<DelegateMonoBehaviour>().Clear();
+            Projectile.GetComponent<DelegateMonoBehaviour>().on_TriggerEnter += TriggerEnter;
+            Projectile.GetComponent<Rigidbody>().velocity = Projectile.transform.forward * 3;
+
             LookAt(monster, player.GetComponent<GameObjectComponent>().GameObject.transform).Coroutine();
-        
+            await TimerComponent.Instance.WaitAsync(2500);
+            //回收
+            if (!RecyclePoolComponent.Instance.AlreaHave(Projectile))
+            {
+                Projectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                RecyclePoolComponent.Instance.Recycle(Projectile);
+            }
+
+            void TriggerEnter(Collider collider)
+            {
+                var targetdele = collider.GetComponent<DelegateMonoBehaviour>();
+                if (collider.tag == "Player" && targetdele != null && monster != null)
+                {
+                    var unitComponent = monster?.DomainScene()?.GetComponent<UnitComponent>();
+                    var unit = unitComponent?.Get(targetdele.BelongToUnitId);
+                    unit?.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.hp, -3);
+                    if (!RecyclePoolComponent.Instance.AlreaHave(Projectile))
+                    {
+                        Projectile.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        RecyclePoolComponent.Instance.Recycle(Projectile);
+                    }
+                }
+            }
         }
+
+
 
         protected async ETTask LookAt(Unit monster, Transform tgt)
         {

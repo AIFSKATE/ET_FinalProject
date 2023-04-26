@@ -22,12 +22,7 @@ namespace ET
             }
 
             //移除所有敌人
-            var set = new HashSet<long>(zonescene.CurrentScene().GetComponent<LevelComponent>().GetAllEnemy());
-            var unitcomponent = zonescene.CurrentScene().GetComponent<UnitComponent>();
-            foreach (var item in set)
-            {
-                zonescene.GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = item });
-            }
+            zonescene.GetComponent<SessionComponent>().Session.Send(new C2M_RemoveAllEnemyUnit());
 
             UIHelper.Remove(zonescene, UIType.UITips).Coroutine();
             UIHelper.Close(zonescene, UIType.UIGame).Coroutine();

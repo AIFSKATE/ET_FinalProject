@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+
+namespace ET
 {
     //Server
     [ComponentOf(typeof(Scene))]
@@ -6,6 +8,6 @@
     {
         public int nowlevel;
         public int endlevel;
-        public int enemynum;
+        public List<long> enemylist;
     }
 }

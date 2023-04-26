@@ -56,12 +56,13 @@ namespace ET
 		 public const ushort M2C_RemoveUnit = 10053;
 		 public const ushort C2M_RemoveAllEnemyUnit = 10054;
 		 public const ushort M2C_EndLevel = 10055;
-		 public const ushort C2M_MeteorsAOE = 10056;
-		 public const ushort M2C_MeteorsAOE = 10057;
-		 public const ushort M2C_MonsterDamage = 10058;
-		 public const ushort M2C_MonsterShoot = 10059;
-		 public const ushort M2C_AnimatorTrigger = 10060;
-		 public const ushort C2M_DamageMonsters = 10061;
-		 public const ushort M2C_DamageMonsters = 10062;
+		 public const ushort M2C_PrepareTheNext = 10056;
+		 public const ushort C2M_MeteorsAOE = 10057;
+		 public const ushort M2C_MeteorsAOE = 10058;
+		 public const ushort M2C_MonsterDamage = 10059;
+		 public const ushort M2C_MonsterShoot = 10060;
+		 public const ushort M2C_AnimatorTrigger = 10061;
+		 public const ushort C2M_DamageMonsters = 10062;
+		 public const ushort M2C_DamageMonsters = 10063;
 	}
 }

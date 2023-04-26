@@ -394,6 +394,12 @@ message M2C_EndLevel // IActorMessage
 	int32 RpcId = 90;
 }
 
+message M2C_PrepareTheNext // IActorMessage
+{
+	int32 RpcId = 90;
+	int32 time = 1;
+}
+
 message C2M_MeteorsAOE // IActorLocationMessage
 {
 	int32 RpcId = 90;

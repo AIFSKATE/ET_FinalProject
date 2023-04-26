@@ -1,4 +1,7 @@
-﻿namespace ET
+﻿using SharpCompress.Common;
+using System.ServiceModel.Channels;
+
+namespace ET
 {
     //Server
     [ObjectSystem]
@@ -7,6 +10,7 @@
         public override void AwakeAsync(LevelComponent self)
         {
             self.endlevel = 3;
+            self.enemylist = new System.Collections.Generic.List<long>();
         }
     }
     [FriendClass(typeof(ET.LevelComponent))]
@@ -24,10 +28,40 @@
         {
             self.nowlevel = nowlevel;
         }
-        public static void NextLevel(this LevelComponent self)
+        public static async void NextLevel(this LevelComponent self)
         {
             self.nowlevel += 1;
-            self.StartLevel(self.nowlevel);
+            if (self.nowlevel > self.endlevel)
+            {
+                foreach (var item in self.DomainScene().GetComponent<UnitComponent>().GetPlauerList())
+                {
+                    MessageHelper.SendToClient(item, new M2C_EndLevel());
+                }
+            }
+            else
+            {
+                if (self.nowlevel != 1)
+                {
+                    foreach (var item in self.DomainScene().GetComponent<UnitComponent>().GetPlauerList())
+                    {
+                        MessageHelper.SendToClient(item, new M2C_PrepareTheNext() { time = 40 });
+                    }
+                    await TimerComponent.Instance.WaitAsync(40000);
+                }
+                self.StartLevel(self.nowlevel);
+            }
+        }
+
+        public static void RemoveEnemy(this LevelComponent self, long id)
+        {
+            var unitcomponent = self.DomainScene().GetComponent<UnitComponent>();
+            unitcomponent.Remove(id);
+            self.enemylist.Remove(id);
+
+            if (self.enemylist.Count == 0)
+            {
+                self.NextLevel();
+            }
         }
 
         public static void StartLevel(this LevelComponent self, int nowlevel)
@@ -38,12 +72,14 @@
             {
                 Unit unitenemy = UnitFactory.Create(self.DomainScene(), unitConfig_1.Id, UnitType.Monster);
                 unitComponent.Add(unitenemy);
+                self.enemylist.Add(unitenemy.Id);
             }
             UnitConfig unitConfig_2 = UnitConfigCategory.Instance.Get(1003);
             for (int i = 0; i < 4; i++)
             {
                 Unit unitenemy = UnitFactory.Create(self.DomainScene(), unitConfig_2.Id, UnitType.Shooter);
                 unitComponent.Add(unitenemy);
+                self.enemylist.Add(unitenemy.Id);
             }
         }
     }

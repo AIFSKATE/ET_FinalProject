@@ -28,16 +28,16 @@ SpriteAtlas:
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 1
-      enableTightPacking: 1
+      enableTightPacking: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 2b31c5cb4593d414787a268307422aaa, type: 3}
-    - {fileID: 2800000, guid: fed2086bdc531a54c970368b8b99f1c1, type: 3}
+    - {fileID: 2800000, guid: d5f46b17d40ce474c88f5341fc818ac8, type: 3}
     - {fileID: 2800000, guid: eb145a5cb3f15ca4ebaf30707d9838f7, type: 3}
     - {fileID: 2800000, guid: 0ccbed126bed50c4db2e8504a6fda19b, type: 3}
-    - {fileID: 2800000, guid: d5f46b17d40ce474c88f5341fc818ac8, type: 3}
-    bindAsDefault: 1
+    - {fileID: 2800000, guid: fed2086bdc531a54c970368b8b99f1c1, type: 3}
+    bindAsDefault: 0
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}

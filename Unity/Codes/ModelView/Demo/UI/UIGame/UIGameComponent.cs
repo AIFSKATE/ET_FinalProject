@@ -26,5 +26,14 @@ namespace ET
         public TextMeshProUGUI htTmp;
         public TextMeshProUGUI attackTmp;
         public TextMeshProUGUI defenseTmp;
+
+        public TextMeshProUGUI countdown;
+        public GameObject PanelParent;
+        public GameObject TipsParent;
+        public GameObject Panel;
+        public GameObject Cell;
+        public SpriteAtlas uilist;
+        public Button YesButton;
+        public UI uibag;
     }
 }

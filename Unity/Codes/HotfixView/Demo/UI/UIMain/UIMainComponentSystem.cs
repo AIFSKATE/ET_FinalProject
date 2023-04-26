@@ -57,8 +57,8 @@ namespace ET
 
 
             //关卡开始
+            myunit.GetComponent<MainRoleComponent>().Awake();
             levelcomponent.StandingBy().Coroutine();
-
 
             UIHelper.Close(zoneScene, UIType.UIMain).Coroutine();
             UIHelper.Show(zoneScene, UIType.UIHP, UILayer.Mid).Coroutine();

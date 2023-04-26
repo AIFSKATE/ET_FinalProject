@@ -31,11 +31,19 @@ namespace ET
             self.cooltime = new System.Collections.Generic.List<float>(8);
             self.canconsume = new System.Collections.Generic.List<bool>(8);
             self.imagelist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "Pixel");
-            var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "uisprite");
+            self.uilist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "uisprite");
 
-            self.playerHP.sprite = list.GetSprite("GUI_20");
-            self.playerHPBar.sprite = list.GetSprite("GUI_19");
-            self.playerHPBarBg.sprite = list.GetSprite("GUI_23");
+            self.countdown = rc.Get<GameObject>("CountDown").GetComponent<TextMeshProUGUI>();
+            self.PanelParent = rc.Get<GameObject>("PanelParent");
+            self.TipsParent = rc.Get<GameObject>("Tips");
+            self.Panel = rc.Get<GameObject>("Panel");
+            self.YesButton = rc.Get<GameObject>("YesButton").GetComponent<Button>();
+            self.uibag = null;
+            self.Cell = rc.Get<GameObject>("Cell");
+
+            self.playerHP.sprite = self.uilist.GetSprite("GUI_20");
+            self.playerHPBar.sprite = self.uilist.GetSprite("GUI_19");
+            self.playerHPBarBg.sprite = self.uilist.GetSprite("GUI_23");
 
             self.playerHPBar.type = Image.Type.Sliced;
 
@@ -43,7 +51,7 @@ namespace ET
             {
                 var item = RecyclePoolComponent.Instance.Get(UIType.UIGame.StringToAB(), UIType.UIGame, "SkillIcon");
                 item.transform.SetParent(self.consumablePanel, false);
-                item.GetComponent<Image>().sprite = list.GetSprite("GUI_53");
+                item.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_53");
                 var trc = item.GetComponent<ReferenceCollector>();
                 self.skills.Add(trc);
                 self.cooltime.Add(ConsumablesConfigCategory.Instance.Get(i).CoolTime);
@@ -53,13 +61,14 @@ namespace ET
                 trc.Get<GameObject>("Skillicon").GetComponent<Image>().sprite = self.imagelist.GetSprite(ConsumablesConfigCategory.Instance.Get(i).Name);
                 trc.Get<GameObject>("Num").GetComponent<TextMeshProUGUI>().text = self.numlist[i] + "";
             }
-            self.consumablePanel.GetComponent<Image>().sprite = list.GetSprite("GUI_27");
+            self.consumablePanel.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_27");
             self.consumablePanel.GetComponent<Image>().type = Image.Type.Sliced;
-            self.skillPanel.GetComponent<Image>().sprite = list.GetSprite("GUI_27");
+            self.skillPanel.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_27");
             self.skillPanel.GetComponent<Image>().type = Image.Type.Sliced;
 
             self.ShowUIDrawBtn.onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
             self.ShowUIBagBtn.onClick.AddListener(() => { self.OnShowUIBagBtn(); });
+            self.YesButton.onClick.AddListener(self.OnYesButton);
 
             for (int i = 0; i < 8; i++)
             {
@@ -165,6 +174,61 @@ namespace ET
                 targetskill.fillAmount = now / time;
             }
             self.canconsume[id] = true;
+        }
+
+        public static async void CountDown(this UIGameComponent self, int time)
+        {
+            self.TipsParent.SetActive(true);
+            self.PanelParent.SetActive(true);
+            self.ClearCountDown();
+            for (int i = time; i > 0; i--)
+            {
+                self.countdown.text = i.ToString();
+                await TimerComponent.Instance.WaitAsync(1000);
+            }
+
+            self.TipsParent.SetActive(false);
+            self.PanelParent.SetActive(false);
+        }
+
+        public static async void GenerateAndAdd(this UIGameComponent self)
+        {
+            await self.Prepare();
+            var itemlist = ItemConfigCategory.Instance.GetAll();
+
+            for (int i = 0; i < 11; i++)
+            {
+                self.uibag.GetComponent<UIBagComponent>().AddItem(i, 10);
+                var item = RecyclePoolComponent.Instance.Get(UIType.UIGame.StringToAB(), UIType.UIGame, "Cell");
+                ReferenceCollector itemrc = item.GetComponent<ReferenceCollector>();
+                itemrc.Get<GameObject>("Image").GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_53");
+                itemrc.Get<GameObject>("Item").GetComponent<Image>().sprite = self.imagelist.GetSprite(itemlist[i].Name);
+                itemrc.Get<GameObject>("Text").GetComponent<TextMeshProUGUI>().text = 10.ToString();
+                item.transform.SetParent(self.Panel.transform, false);
+            }
+        }
+
+        public static async ETTask Prepare(this UIGameComponent self)
+        {
+            self.uibag = self.DomainScene().GetComponent<UIComponent>().Get(UIType.UIBag);
+            if (self.uibag == null)
+            {
+                self.uibag = await UIHelper.Show(self.DomainScene(), UIType.UIBag, UILayer.Mid);
+                UIHelper.Close(self.DomainScene(), UIType.UIBag).Coroutine();
+            }
+        }
+
+        public static void ClearCountDown(this UIGameComponent self)
+        {
+            while (self.Panel.transform.childCount > 0)
+            {
+                RecyclePoolComponent.Instance.Recycle(self.Panel.transform.GetChild(0).gameObject);
+            }
+        }
+
+        public static void OnYesButton(this UIGameComponent self)
+        {
+            self.PanelParent.SetActive(false);
         }
     }
 }

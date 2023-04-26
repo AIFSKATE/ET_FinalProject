@@ -24,7 +24,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 2048
+      m_MaxTextureSize: 4096
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
       m_TextureCompression: 1
@@ -51,7 +51,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: e962ee0b8b5db5a4bb2caf61e7971e03, type: 3}
     - {fileID: 2800000, guid: d2fc16f2decde82479075517e2ce29ff, type: 3}
     - {fileID: 2800000, guid: f837eebd6b0accd43980e21aec94aaad, type: 3}
-    bindAsDefault: 1
+    bindAsDefault: 0
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}

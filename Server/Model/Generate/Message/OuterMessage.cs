@@ -806,6 +806,18 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.M2C_PrepareTheNext)]
+	[ProtoContract]
+	public partial class M2C_PrepareTheNext: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int time { get; set; }
+
+	}
+
 	[Message(OuterOpcode.C2M_MeteorsAOE)]
 	[ProtoContract]
 	public partial class C2M_MeteorsAOE: Object, IActorLocationMessage

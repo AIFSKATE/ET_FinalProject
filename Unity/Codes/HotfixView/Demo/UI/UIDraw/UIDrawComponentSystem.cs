@@ -196,6 +196,10 @@ namespace ET
 
 
             self.similarity.text = "wait a while";
+
+            Log.Error(self.fuluTex.width + "");//2048
+            Log.Error(self.mydraw.texture.width + "");
+
             //计算
             await self.CheckPHashAsync();
             //通知结果
