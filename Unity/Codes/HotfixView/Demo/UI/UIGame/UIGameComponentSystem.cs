@@ -40,10 +40,13 @@ namespace ET
             self.YesButton = rc.Get<GameObject>("YesButton").GetComponent<Button>();
             self.uibag = null;
             self.Cell = rc.Get<GameObject>("Cell");
+            self.Title = rc.Get<GameObject>("Title").GetComponent<Image>();
 
             self.playerHP.sprite = self.uilist.GetSprite("GUI_20");
             self.playerHPBar.sprite = self.uilist.GetSprite("GUI_19");
             self.playerHPBarBg.sprite = self.uilist.GetSprite("GUI_23");
+            self.Title.sprite = self.uilist.GetSprite("GUI_59");
+            self.Panel.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_28");
 
             self.playerHPBar.type = Image.Type.Sliced;
 

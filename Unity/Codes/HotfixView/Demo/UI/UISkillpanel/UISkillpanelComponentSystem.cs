@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -48,14 +49,23 @@ namespace ET
         public static async ETTask BindListener(this UISkillpanelComponent self)
         {
             await self.DomainScene().GetComponent<ResourcesLoaderComponent>().LoadAsync("texture.unity3d");
-            var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
+            //var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
             var dic = FuluConfigCategory.Instance.GetAll();
             self.skillTglGroup.allowSwitchOff = true;
             for (int i = 0; i < self.toggles.Count; i++)
             {
                 self.toggles[i].group = self.skillTglGroup;
                 self.toggles[i].SetIsOnWithoutNotify(false);
-                self.toggles[i].GetComponent<Image>().sprite = list.GetSprite(dic[i].Name);
+                var load = ResourcesComponent.Instance.GetAsset("texture.unity3d", dic[i].Name);
+                if (load.GetType() == typeof(Texture2D))
+                {
+                    var textload = load as Texture2D; ;
+                    self.toggles[i].GetComponent<Image>().sprite = Sprite.Create(textload, new Rect(0, 0, textload.width, textload.height), Vector2.zero);
+                }
+                else
+                {
+                    self.toggles[i].GetComponent<Image>().sprite = load as Sprite;
+                }
                 self.toggles[i].onValueChanged.AddListener(self.onTglValueChanged);
             }
             self.selectBtn.onClick.AddListener(self.OnSelectBtn);

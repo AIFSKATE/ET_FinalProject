@@ -143,10 +143,22 @@ namespace ET
         {
             string name = FuluConfigCategory.Instance.GetAll()[chosenId].Name;
             self.chosenid = chosenId;
-            var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
-            self.fulu.sprite = list.GetSprite(name);
-            var spr = self.fulu.sprite;
-            var targetTex = spr.texture; ;
+            //var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
+            //self.fulu.sprite = list.GetSprite(name);
+            var load = ResourcesComponent.Instance.GetAsset("texture.unity3d", name);
+            if (load.GetType() == typeof(Texture2D))
+            {
+                self.fuluTex = load as Texture2D;
+                self.fulu.sprite = Sprite.Create(self.fuluTex, new Rect(0, 0, self.fuluTex.width, self.fuluTex.height), Vector2.zero);
+            }
+            else
+            {
+                self.fuluTex = (load as Sprite).texture;
+                self.fulu.sprite = (Sprite)load;
+            }
+
+
+
             //var targetTex = new Texture2D((int)spr.rect.width, (int)spr.rect.height);
             //var pixels = self.fulu.sprite.texture.GetPixels(
             //    (int)spr.textureRect.x,
@@ -155,7 +167,6 @@ namespace ET
             //    (int)spr.textureRect.height);
             //targetTex.SetPixels(pixels);
             //targetTex.Apply();
-            self.fuluTex = targetTex;
             self.SetNeedAndGenerateItem().Coroutine();
             await ETTask.CompletedTask;
         }
@@ -196,9 +207,6 @@ namespace ET
 
 
             self.similarity.text = "wait a while";
-
-            Log.Error(self.fuluTex.width + "");//2048
-            Log.Error(self.mydraw.texture.width + "");
 
             //计算
             await self.CheckPHashAsync();

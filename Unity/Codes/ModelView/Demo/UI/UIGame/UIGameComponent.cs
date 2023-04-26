@@ -32,6 +32,7 @@ namespace ET
         public GameObject TipsParent;
         public GameObject Panel;
         public GameObject Cell;
+        public Image Title;
         public SpriteAtlas uilist;
         public Button YesButton;
         public UI uibag;
