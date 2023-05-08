@@ -13,8 +13,7 @@ namespace ET
         {
             var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
             response.endlevel = levelcomponent.GetEndLevel();
-            levelcomponent.SetNowLevel(0);
-            levelcomponent.NextLevel();
+            levelcomponent.Prepare();
             reply();
             await ETTask.CompletedTask;
         }

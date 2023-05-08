@@ -44,12 +44,15 @@ namespace ET
         {
             await ETTask.CompletedTask;
             var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
+            var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
+            levelcomponent.Clear();
+
             var monsterunit = unitcomponent.Get(message.Id);
             int count = unitcomponent.Children.Count;
             List<long> tidlist = new List<long>();
             foreach (var item in unitcomponent.Children)
             {
-                if((item.Value as Unit).Type != UnitType.Player)
+                if ((item.Value as Unit).Type != UnitType.Player)
                 {
                     tidlist.Add(item.Key);
                 }

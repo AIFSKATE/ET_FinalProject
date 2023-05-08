@@ -50,6 +50,7 @@ namespace ET
 
             self.playerHPBar.type = Image.Type.Sliced;
 
+
             for (int i = 0; i < 8; i++)
             {
                 var item = RecyclePoolComponent.Instance.Get(UIType.UIGame.StringToAB(), UIType.UIGame, "SkillIcon");
@@ -58,7 +59,7 @@ namespace ET
                 var trc = item.GetComponent<ReferenceCollector>();
                 self.skills.Add(trc);
                 self.cooltime.Add(ConsumablesConfigCategory.Instance.Get(i).CoolTime);
-                self.numlist.Add(i == 4 ? 1 : 0);
+                self.numlist.Add(i == 4 ? 1 : 10);
                 self.canconsume.Add(true);
                 trc.Get<GameObject>("Key").GetComponent<TextMeshProUGUI>().text = self.GetKeyName(i);
                 trc.Get<GameObject>("Skillicon").GetComponent<Image>().sprite = self.imagelist.GetSprite(ConsumablesConfigCategory.Instance.Get(i).Name);
@@ -72,11 +73,6 @@ namespace ET
             self.ShowUIDrawBtn.onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
             self.ShowUIBagBtn.onClick.AddListener(() => { self.OnShowUIBagBtn(); });
             self.YesButton.onClick.AddListener(self.OnYesButton);
-
-            for (int i = 0; i < 8; i++)
-            {
-                self.numlist[i] = 10;
-            }
 
         }
     }

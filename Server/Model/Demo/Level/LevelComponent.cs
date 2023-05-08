@@ -8,6 +8,7 @@ namespace ET
     {
         public int nowlevel;
         public int endlevel;
+        public int playernum;
         public List<long> enemylist;
     }
 }

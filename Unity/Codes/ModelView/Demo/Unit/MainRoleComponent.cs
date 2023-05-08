@@ -14,6 +14,7 @@ namespace ET
     [ComponentOf(typeof(Unit))]
     public class MainRoleComponent : Entity, IAwake, IDestroy
     {
+        public static MainRoleComponent Instance { get; set; }
         public Dictionary<int, int> dic;
         public bool dead;
         public UIGameComponent uigamecomponent;

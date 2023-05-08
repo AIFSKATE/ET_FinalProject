@@ -10,6 +10,7 @@ namespace ET
         public override void AwakeAsync(LevelComponent self)
         {
             self.endlevel = 3;
+            self.playernum = 0;
             self.enemylist = new System.Collections.Generic.List<long>();
         }
     }
@@ -28,11 +29,27 @@ namespace ET
         {
             self.nowlevel = nowlevel;
         }
+        public static void Clear(this LevelComponent self)
+        {
+            self.enemylist.Clear();
+            self.playernum = 0;
+        }
+
+        public static void Prepare(this LevelComponent self)
+        {
+            self.SetNowLevel(0);
+            self.playernum++;
+            if (self.playernum == 2)
+            {
+                self.NextLevel();
+            }
+        }
         public static async void NextLevel(this LevelComponent self)
         {
             self.nowlevel += 1;
             if (self.nowlevel > self.endlevel)
             {
+                self.playernum = 0;
                 foreach (var item in self.DomainScene().GetComponent<UnitComponent>().GetPlauerList())
                 {
                     MessageHelper.SendToClient(item, new M2C_EndLevel());

@@ -13,6 +13,7 @@ namespace ET
         {
             public override void AwakeAsync(MainRoleComponent self)
             {
+                MainRoleComponent.Instance = self;
                 self.Awake();
             }
         }
