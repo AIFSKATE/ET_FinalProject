@@ -34,6 +34,7 @@ message Actor_TransferResponse // IActorLocationResponse
 message C2G_EnterMap // IRequest
 {
 	int32 RpcId = 1;
+	int32 RoomId = 2;
 }
 
 message G2C_EnterMap // IResponse

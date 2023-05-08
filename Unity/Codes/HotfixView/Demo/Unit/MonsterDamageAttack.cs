@@ -23,7 +23,9 @@ namespace ET
             int damage = args.damage;
 
             monster.GetComponent<AnimatorComponent>().SetTrigger("Attack");
-            player.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.hp, -damage);
+            int realdamage = damage - player.GetComponent<MainRoleComponent>().GetNum((int)NumType.defense);
+            realdamage = realdamage > 0 ? realdamage : 0;
+            player.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.hp, -realdamage);
             LookAt(monster, player.GetComponent<GameObjectComponent>().GameObject.transform).Coroutine();
         }
 

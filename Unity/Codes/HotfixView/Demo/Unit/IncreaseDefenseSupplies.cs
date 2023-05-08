@@ -22,7 +22,7 @@ namespace ET
             GameObject HealingVFS = RecyclePoolComponent.Instance.GetUnit("Buff");
             HealingVFS.transform.SetParent(mygameobject.transform, false);
 
-            unit.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.defense, 10);
+            unit.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.defense, 1);
 
             await TimerComponent.Instance.WaitAsync(2500);
             //回收

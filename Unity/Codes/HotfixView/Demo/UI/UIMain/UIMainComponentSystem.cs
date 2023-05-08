@@ -72,6 +72,9 @@ namespace ET
 #else
 		Application.Quit();
 #endif
+            var zoneScene = self.ZoneScene();
+            var id = zoneScene.GetComponent<PlayerComponent>().MyId;
+            self.ZoneScene().GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = id });
         }
 
         public static void OnSetBtn(this UIMainComponent self)

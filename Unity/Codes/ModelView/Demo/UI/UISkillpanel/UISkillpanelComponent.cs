@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace ET
@@ -22,5 +23,9 @@ namespace ET
         public ToggleGroup skillTglGroup;
         public Button selectBtn;
         public Button backBtn;
+
+        public Image titleImage;
+        public SpriteAtlas imagelist;
+        public SpriteAtlas uilist;
     }
 }

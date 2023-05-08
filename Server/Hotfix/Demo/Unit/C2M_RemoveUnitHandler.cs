@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,11 +44,17 @@ namespace ET
         protected async ETTask RunAsync(Unit unit, C2M_RemoveUnit message)
         {
             await ETTask.CompletedTask;
+            if (unit.Type == UnitType.Player)
+            {
+                var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
+                unitcomponent.Remove(message.Id);
+                return;
+            }
             var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
             levelcomponent.RemoveEnemy(message.Id);
             //monsterunit.RemoveComponent<AIComponent>();
             //await TimerComponent.Instance.WaitAsync(5000);
-            
+
         }
     }
 }

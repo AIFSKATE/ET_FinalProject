@@ -26,6 +26,7 @@ namespace ET
         public Button MiddlesizeButton;
         public Button BigsizeButton;
         public TextMeshProUGUI similarity;
+        public TextMeshProUGUI checktext;
         public PHashComponent phashcomponent;
         public Texture2D fuluTex;
         public SpriteAtlas imagelist;

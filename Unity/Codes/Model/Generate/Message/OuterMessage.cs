@@ -70,6 +70,9 @@ namespace ET
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(2)]
+		public int RoomId { get; set; }
+
 	}
 
 	[Message(OuterOpcode.G2C_EnterMap)]

@@ -65,7 +65,7 @@ namespace ET
             tidlist = null;
             //monsterunit.RemoveComponent<AIComponent>();
             //await TimerComponent.Instance.WaitAsync(5000);
-            unitcomponent.Remove(message.Id);
+            //unitcomponent.Remove(message.Id);
         }
     }
 }

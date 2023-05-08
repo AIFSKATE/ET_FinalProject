@@ -24,6 +24,8 @@ namespace ET
             self.skillTgl_6 = rc.Get<GameObject>("Skill6").GetComponent<Toggle>();
             self.skillTgl_7 = rc.Get<GameObject>("Skill7").GetComponent<Toggle>();
 
+            self.titleImage = rc.Get<GameObject>("TitleImage").GetComponent<Image>();
+
             self.toggles = new List<Toggle>();
             self.toggles.Add(self.skillTgl_1);
             self.toggles.Add(self.skillTgl_2);
@@ -32,6 +34,10 @@ namespace ET
             self.toggles.Add(self.skillTgl_5);
             self.toggles.Add(self.skillTgl_6);
             self.toggles.Add(self.skillTgl_7);
+
+            //self.imagelist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "Pixel");
+            self.uilist = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("uisprite.unity3d", "uisprite");
+
 
             self.already = new HashSet<int>();
 
@@ -49,6 +55,9 @@ namespace ET
         public static async ETTask BindListener(this UISkillpanelComponent self)
         {
             await self.DomainScene().GetComponent<ResourcesLoaderComponent>().LoadAsync("texture.unity3d");
+            self.titleImage.sprite = self.uilist.GetSprite("GUI_68");
+            self.backBtn.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_12");
+            self.selectBtn.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_12");
             //var list = (SpriteAtlas)ResourcesComponent.Instance.GetAsset("texture.unity3d", "UIDraw");
             var dic = FuluConfigCategory.Instance.GetAll();
             self.skillTglGroup.allowSwitchOff = true;

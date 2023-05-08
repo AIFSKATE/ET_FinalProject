@@ -39,7 +39,7 @@ namespace ET
         {
             self.SetNowLevel(0);
             self.playernum++;
-            if (self.playernum == 2)
+            if (self.playernum == 1)
             {
                 self.NextLevel();
             }

@@ -27,6 +27,7 @@ namespace ET
             self.checkBtn = rc.Get<GameObject>("CheckBtn").GetComponent<Button>();
             self.backBtn = rc.Get<GameObject>("BackBtn").GetComponent<Button>();
             self.similarity = rc.Get<GameObject>("Similarity").GetComponent<TextMeshProUGUI>();
+            self.checktext = rc.Get<GameObject>("CheckText").GetComponent<TextMeshProUGUI>();
             self.LittlesizeButton = rc.Get<GameObject>("LittleSizeBtn").GetComponent<Button>();
             self.MiddlesizeButton = rc.Get<GameObject>("MiddleSizeBtn").GetComponent<Button>();
             self.BigsizeButton = rc.Get<GameObject>("BigSizeBtn").GetComponent<Button>();
@@ -113,6 +114,7 @@ namespace ET
         {
             self.drawComponent.Clear();
             self.similarity.text = String.Empty;
+            self.checktext.text = String.Empty;
         }
 
         public static void Save(this UIDrawComponent self)
@@ -210,8 +212,16 @@ namespace ET
 
             //计算
             await self.CheckPHashAsync();
-            //通知结果
-            await self.Notify();
+            if (self.res > 6)
+            {
+                self.checktext.text = "Success!";
+                //通知结果
+                await self.Notify();
+            }
+            else
+            {
+                self.checktext.text = "Fail!";
+            }
 
         }
 

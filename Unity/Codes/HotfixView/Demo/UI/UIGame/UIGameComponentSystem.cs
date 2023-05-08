@@ -17,6 +17,7 @@ namespace ET
             ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
             self.ShowUIDrawBtn = rc.Get<GameObject>("ShowUIDrawBtn").GetComponent<Button>();
             self.ShowUIBagBtn = rc.Get<GameObject>("ShowUIBagBtn").GetComponent<Button>();
+            self.ExitBtn = rc.Get<GameObject>("ExitBtn").GetComponent<Button>();
             self.consumablePanel = rc.Get<GameObject>("ConsumablePanel").GetComponent<RectTransform>();
             self.skillPanel = rc.Get<GameObject>("SkillPanel").GetComponent<RectTransform>();
             self.playerHP = rc.Get<GameObject>("PlayerHP").GetComponent<Image>();
@@ -43,6 +44,7 @@ namespace ET
             self.Title = rc.Get<GameObject>("Title").GetComponent<Image>();
 
             self.playerHP.sprite = self.uilist.GetSprite("GUI_20");
+            self.ExitBtn.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_67");
             self.playerHPBar.sprite = self.uilist.GetSprite("GUI_19");
             self.playerHPBarBg.sprite = self.uilist.GetSprite("GUI_23");
             self.Title.sprite = self.uilist.GetSprite("GUI_59");
@@ -70,8 +72,9 @@ namespace ET
             self.skillPanel.GetComponent<Image>().sprite = self.uilist.GetSprite("GUI_27");
             self.skillPanel.GetComponent<Image>().type = Image.Type.Sliced;
 
-            self.ShowUIDrawBtn.onClick.AddListener(() => { self.OnShowUIDrawBtn(); });
-            self.ShowUIBagBtn.onClick.AddListener(() => { self.OnShowUIBagBtn(); });
+            self.ShowUIDrawBtn.onClick.AddListener(self.OnShowUIDrawBtn);
+            self.ShowUIBagBtn.onClick.AddListener(self.OnShowUIBagBtn);
+            self.ExitBtn.onClick.AddListener(self.OnExitBtn);
             self.YesButton.onClick.AddListener(self.OnYesButton);
 
         }
@@ -89,6 +92,31 @@ namespace ET
         {
             UIHelper.Show(self.DomainScene(), UIType.UIBag, UILayer.Mid).Coroutine();
             UIHelper.Close(self.DomainScene(), UIType.UIGame).Coroutine();
+        }
+
+        public static void OnExitBtn(this UIGameComponent self)
+        {
+            //#if UNITY_EDITOR
+            //            UnityEditor.EditorApplication.isPlaying = false;
+            //#else
+            //		Application.Quit();
+            //#endif
+            var zoneScene = self.ZoneScene();
+            //zoneScene.GetComponent<SessionComponent>().Session.Send(new C2M_RemoveAllEnemyUnit());
+            var id = zoneScene.GetComponent<PlayerComponent>().MyId;
+            self.ZoneScene().GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = id });
+
+            UIHelper.Close(zoneScene, UIType.UIGame).Coroutine();
+            UIHelper.Close(zoneScene, UIType.UIHP).Coroutine();
+            UIHelper.Close(zoneScene, UIType.UIBag).Coroutine();
+            UIHelper.Close(zoneScene, UIType.UISkillpanel).Coroutine();
+            UIHelper.Close(zoneScene, UIType.UIDraw).Coroutine();
+            UIHelper.Show(zoneScene, UIType.UILobby, UILayer.Mid).Coroutine();
+
+            //Camera
+            zoneScene.RemoveComponent<RuntimeCameraComponent>();
+            var cameraComponent = zoneScene.GetComponent<CameraComponent>();
+            cameraComponent.AddComponent<CameraUpdateComponent>();
         }
 
         public static string GetKeyName(this UIGameComponent self, int index)

@@ -23,11 +23,16 @@ namespace ET
 
             //移除所有敌人
             zonescene.GetComponent<SessionComponent>().Session.Send(new C2M_RemoveAllEnemyUnit());
+            var id = zonescene.GetComponent<PlayerComponent>().MyId;
+            zonescene.GetComponent<SessionComponent>().Session.Send(new C2M_RemoveUnit() { Id = id });
 
             UIHelper.Remove(zonescene, UIType.UITips).Coroutine();
             UIHelper.Close(zonescene, UIType.UIGame).Coroutine();
             UIHelper.Close(zonescene, UIType.UIHP).Coroutine();
-            UIHelper.Show(zonescene, UIType.UIMain, UILayer.Mid).Coroutine();
+            UIHelper.Close(zonescene, UIType.UIBag).Coroutine();
+            UIHelper.Close(zonescene, UIType.UISkillpanel).Coroutine();
+            UIHelper.Close(zonescene, UIType.UIDraw).Coroutine();
+            UIHelper.Show(zonescene, UIType.UILobby, UILayer.Mid).Coroutine();
 
             zonescene.CurrentScene().RemoveComponent<LevelComponent>();
             zonescene.CurrentScene().RemoveComponent<OperaComponent>();

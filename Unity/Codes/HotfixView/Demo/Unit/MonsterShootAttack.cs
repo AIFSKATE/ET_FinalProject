@@ -49,7 +49,9 @@ namespace ET
                 {
                     var unitComponent = monster?.DomainScene()?.GetComponent<UnitComponent>();
                     var unit = unitComponent?.Get(targetdele.BelongToUnitId);
-                    unit?.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.hp, -3);
+                    int realdamage = 3 - player.GetComponent<MainRoleComponent>().GetNum((int)NumType.defense);
+                    realdamage = realdamage > 0 ? realdamage : 0;
+                    unit?.GetComponent<MainRoleComponent>().ChangeNum((int)NumType.hp, -realdamage);
                     if (!RecyclePoolComponent.Instance.AlreaHave(Projectile))
                     {
                         Projectile.GetComponent<Rigidbody>().velocity = Vector3.zero;

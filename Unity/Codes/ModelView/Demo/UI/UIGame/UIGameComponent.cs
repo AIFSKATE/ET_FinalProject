@@ -13,6 +13,7 @@ namespace ET
     {
         public Button ShowUIDrawBtn;
         public Button ShowUIBagBtn;
+        public Button ExitBtn;
         public RectTransform consumablePanel;
         public RectTransform skillPanel;
         public List<ReferenceCollector> skills;

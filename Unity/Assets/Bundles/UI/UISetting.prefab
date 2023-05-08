@@ -818,6 +818,10 @@ MonoBehaviour:
   - key: HpNum
     gameObject: {fileID: 1670782822169950157, guid: 0bff0917af8667b49ab7625d89c9107f,
       type: 3}
+  - key: Bk
+    gameObject: {fileID: 4836549912043433644}
+  - key: Handle
+    gameObject: {fileID: 3035740268667409537}
 --- !u!114 &6431056830455753969
 MonoBehaviour:
   m_ObjectHideFlags: 0

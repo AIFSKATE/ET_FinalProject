@@ -18,12 +18,13 @@ namespace ET
             self.enterMap.GetComponent<Button>().onClick.AddListener(() => { self.EnterMap().Coroutine(); });
         }
     }
-
+    [FriendClassAttribute(typeof(ET.UILobbyComponent))]
     public static class UILobbyComponentSystem
     {
         public static async ETTask EnterMap(this UILobbyComponent self)
         {
-            await EnterMapHelper.EnterMapAsync(self.ZoneScene());
+            int.TryParse(self.inputfield.text, out int roomid);
+            await EnterMapHelper.EnterMapAsync(self.ZoneScene(), roomid);
             await UIHelper.Close(self.ZoneScene(), UIType.UILobby);
         }
     }

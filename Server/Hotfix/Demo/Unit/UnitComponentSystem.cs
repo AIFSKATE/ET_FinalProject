@@ -42,6 +42,10 @@ namespace ET
         public static void Remove(this UnitComponent self, long id)
         {
             Unit unit = self.GetChild<Unit>(id);
+            if (unit.Type == UnitType.Player)
+            {
+                self.playerlist.Remove(unit);
+            }
             unit?.Dispose();
         }
     }

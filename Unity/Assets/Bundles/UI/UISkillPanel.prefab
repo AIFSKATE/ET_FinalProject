@@ -598,8 +598,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2479994646387156460}
   m_HandleRect: {fileID: 4458627536262139088}
   m_Direction: 2
-  m_Value: 1.0000052
-  m_Size: 0.8297567
+  m_Value: 1.0000039
+  m_Size: 0.82975674
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -727,7 +727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000010133, y: -0.0010375977}
+  m_AnchoredPosition: {x: -0.0000010133, y: -0.0007324219}
   m_SizeDelta: {x: 0, y: 186.29}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1906672084359872226
@@ -2979,6 +2979,8 @@ MonoBehaviour:
     gameObject: {fileID: 6928200201610986016}
   - key: Skill7
     gameObject: {fileID: 7739892146719852059}
+  - key: TitleImage
+    gameObject: {fileID: 1828355468012170070}
 --- !u!114 &1391195692364253921
 MonoBehaviour:
   m_ObjectHideFlags: 0
