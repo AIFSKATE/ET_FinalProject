@@ -1,4 +1,5 @@
 ﻿using SharpCompress.Common;
+using System.Collections.Generic;
 using System.ServiceModel.Channels;
 
 namespace ET
@@ -78,6 +79,33 @@ namespace ET
             if (self.enemylist.Count == 0)
             {
                 self.NextLevel();
+            }
+        }
+
+        public static void SubtractPlayer(this LevelComponent self)
+        {
+            self.playernum--;
+            if (self.playernum == 0)
+            {
+                var unitcomponent = self.DomainScene().GetComponent<UnitComponent>();
+                var levelcomponent = self;
+                levelcomponent.Clear();
+
+                int count = unitcomponent.Children.Count;
+                List<long> tidlist = new List<long>();
+                foreach (var item in unitcomponent.Children)
+                {
+                    if ((item.Value as Unit).Type != UnitType.Player)
+                    {
+                        tidlist.Add(item.Key);
+                    }
+                }
+                foreach (var item in tidlist)
+                {
+                    unitcomponent.Remove(item);
+                }
+                tidlist.Clear();
+                tidlist = null;
             }
         }
 

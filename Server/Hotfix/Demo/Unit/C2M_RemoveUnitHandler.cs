@@ -44,13 +44,14 @@ namespace ET
         protected async ETTask RunAsync(Unit unit, C2M_RemoveUnit message)
         {
             await ETTask.CompletedTask;
+            var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
             if (unit.Type == UnitType.Player)
             {
                 var unitcomponent = unit.DomainScene().GetComponent<UnitComponent>();
                 unitcomponent.Remove(message.Id);
+                levelcomponent.SubtractPlayer();
                 return;
             }
-            var levelcomponent = unit.DomainScene().GetComponent<LevelComponent>();
             levelcomponent.RemoveEnemy(message.Id);
             //monsterunit.RemoveComponent<AIComponent>();
             //await TimerComponent.Instance.WaitAsync(5000);
